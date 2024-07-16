@@ -9,7 +9,7 @@ import { Button, DialogTrigger } from 'react-aria-components';
 const HeaderComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <header className='mx-8 pt-3 lg:mx-10 xl:mx-32 2xl:mx-48'>
+    <header className='mx-8 overflow-y-visible pt-3 lg:mx-10 xl:mx-32 2xl:mx-48'>
       <div className={`flex items-center justify-center`}>
         <div className='flex w-40'>
           <LogoChild />
@@ -22,7 +22,6 @@ const HeaderComponent = () => {
             </Button>
             <DialogChild isOpen={isOpen} setIsOpen={setIsOpen} />
           </DialogTrigger>
-
           <LanguageChild />
         </div>
       </div>

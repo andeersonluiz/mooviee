@@ -8,6 +8,10 @@
     ]
   },
   "common": {
-    "search": "Search..."
+    "search": "Search...",
+    "btnMoreInfo": "VIEW MORE INFO",
+    "trendingToday": "TRENDING TODAY:",
+    "trendingWeek": "TRENDING WEEK:",
+    "viewAll": "VIEW ALL"
   }
 }

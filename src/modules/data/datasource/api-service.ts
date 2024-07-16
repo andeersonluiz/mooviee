@@ -12,6 +12,7 @@ import { TrendingSeries } from '../model/trending-series';
 import { SerieList } from '../model/serie-list';
 import { Genre, SerieInfo } from '../model/serie-info';
 import { CollectionInfo } from '../model/collection-info';
+import { TrendingAll } from '../model/trending-all';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export class ApiService {
@@ -251,6 +252,32 @@ export class ApiService {
       const result = await res.json();
       if ('results' in result) {
         return result as TrendingMovies;
+      }
+      return null;
+    } catch (e: any) {
+      console.log('Error', e.stack);
+      return null;
+    }
+  }
+
+  async getTrendingAll(locale: string, type: TrendingType): Promise<TrendingAll | null> {
+    let url = '';
+    switch (type) {
+      case TrendingType.DAY:
+        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.DAY}?language=${locale}&api_key=${API_TMDB_KEY}`;
+        break;
+      case TrendingType.WEEK:
+        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.WEEK}?language=${locale}&api_key=${API_TMDB_KEY}`;
+        break;
+      default:
+        return null;
+    }
+
+    try {
+      const res = await fetch(url);
+      const result = await res.json();
+      if ('results' in result) {
+        return result as TrendingAll;
       }
       return null;
     } catch (e: any) {

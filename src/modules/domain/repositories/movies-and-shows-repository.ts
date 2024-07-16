@@ -8,6 +8,7 @@ import { PersonInfo } from '@/modules/data/model/person-info';
 import { Genre, SerieInfo } from '@/modules/data/model/serie-info';
 
 import { SerieList } from '@/modules/data/model/serie-list';
+import { TrendingAll } from '@/modules/data/model/trending-all';
 import { TrendingMovies } from '@/modules/data/model/trending-movies';
 import { TrendingSeries } from '@/modules/data/model/trending-series';
 import { MovieListType, SerieListType, TrendingType } from '@/utils/enums';
@@ -28,4 +29,5 @@ export interface MoviesAndShowsRepository {
 
   getTrendingMovies(locale: string, type: TrendingType): Promise<TrendingMovies | null>;
   getTrendingSeries(locale: string, type: TrendingType): Promise<TrendingSeries | null>;
+  getTrendingAll(locale: string, type: TrendingType): Promise<TrendingAll | null>;
 }

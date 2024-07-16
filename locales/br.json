@@ -8,6 +8,10 @@
     ]
   },
   "common": {
-    "search": "Buscar..."
+    "search": "Buscar...",
+    "btnMoreInfo": "VER MAIS INFORMAÇÕES",
+    "trendingToday": "EM ALTA HOJE:",
+    "trendingWeek": "EM ALTA ESSA SEMANA:",
+    "viewAll": "VER TUDO"
   }
 }

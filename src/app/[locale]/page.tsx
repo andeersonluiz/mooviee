@@ -15,23 +15,28 @@ import movie from '../../../assets/movie.jpg';
 import HeaderComponentSearch from '@/components/header/header-component-search';
 import { jsonMovieTrendingDay } from '@/test/mockData/api-service-data';
 import { Genre } from '@/modules/data/model/serie-info';
+import { TrendingType } from '@/utils/enums';
+import MainContent from '@/components/main-content/main-content';
+import { heightHomePage, heightHomePageTailwind } from '@/styles/style-values';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Index: React.FC = (props: any) => {
   console.log(`render ${new Date().getMilliseconds()}`);
 
   const t = useTranslations('metadata');
+  const t_common = useTranslations('common');
 
   const context = use(MovieAndTvShowContext)!;
   const [movies, setMovies] = useState<MovieList | null>(null);
   const [genres, setGenres] = useState<Genre[] | null>(null);
-  console.log(languageIndexOptions);
+  console.log('heightHomePageTailwind', heightHomePageTailwind);
   useEffect(() => {
     console.log('fetch api');
     const fetchApi = async () => {
       //await new Promise((r) => setTimeout(r, 2000));
       //const data = await context.getMoviesUseCase.execute(t('language'), MovieListType.POPULAR);
       //const data = await context.getGenreListUseCase.execute(t('language'));
+
       setMovies(null);
       setGenres(null);
     };
@@ -44,42 +49,17 @@ const Index: React.FC = (props: any) => {
   return (
     <>
       <Suspense fallback={<p>Carregando...</p>}>
-        <main className='relative h-[90vh] scroll-auto'>
+        <main className={`relative ${heightHomePageTailwind}`}>
           <HeaderComponent />
-          <div>
-            <div className='absolute inset-0 -z-10 bg-black bg-opacity-50'></div>
-            <div
-              style={{ backgroundImage: `url(${url})` }}
-              className='absolute inset-0 -z-20 bg-cover bg-center'
-            ></div>
-          </div>
-          <div className='absolute top-44 mx-8 block w-[600px] items-start lg:mx-10 xl:mx-32 2xl:mx-48'>
-            <div className='h-16'>
-              <h1 className='auto-a line-clamp-3 p-2 text-6xl font-bold text-white'>
-                {data['title'].toUpperCase()}
-              </h1>
-              <h1 className='p-3 text-base font-semibold text-white'>
-                {` ${new Date(data['release_date']).getFullYear()} | ${data['media_type'][0].toUpperCase()}${data['media_type'].substring(1).toLowerCase()} | ${data[
-                  'genre_ids'
-                ]
-                  .map((item: any) => {
-                    const res = genres?.find((genre) => genre.id == Number(item));
-                    if (res) {
-                      return res.name;
-                    }
-                  })
-                  .join(', ')}`}
-              </h1>
-              <h1 className='line-clamp-5 p-3 text-lg text-white'>{data['overview']}</h1>
-            </div>
-          </div>
+          <MainContent />
         </main>
+
+        <div className={`${heightHomePageTailwind} shadow-3xl bg-neutral-950`}>
+          <p className='p-8 text-xl font-bold text-white transition-opacity duration-300'>
+            {t_common('trendingWeek')}
+          </p>
+        </div>
       </Suspense>
-      <div className='static'>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos facilis harum vero esse
-        officia nihil, et aliquam perspiciatis officiis. Illo qui nobis labore sit facere possimus
-        modi minima aut libero.
-      </div>
     </>
   );
 };
@@ -87,6 +67,24 @@ const Index: React.FC = (props: any) => {
 export default Index;
 
 /*
+ <div
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(0, 0, 0, 0) 0%, gray 10%, gray 90%, rgba(0, 0, 0, 0))',
+          }}
+          className={`h-[${heightHomePage}px] `}
+        >
+          <div className='h-[${heightHomePage}px] relative'>
+            <div className='relative z-20 rounded-md border border-transparent bg-neutral-950 p-16'>
+              <p className='px-8 py-2 text-xl font-bold text-white transition-opacity duration-300'>
+                {' '}
+                {t_common('trendingWeek')}
+              </p>
+            </div>
+            <div className='absolute -inset-1 z-10 rounded-md bg-gradient-to-t from-neutral-800 via-black to-neutral-800 blur-2xl'></div>
+          </div>
+        </div>
+
 
       <div>
             <div className='absolute -z-10 h-full w-full bg-black bg-opacity-50'></div>

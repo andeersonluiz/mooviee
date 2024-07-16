@@ -13,12 +13,14 @@ import { TrendingSeries } from '../model/trending-series';
 import { SerieList } from '../model/serie-list';
 import { Genre, SerieInfo } from '../model/serie-info';
 import { CollectionInfo } from '../model/collection-info';
+import { TrendingAll } from '../model/trending-all';
 
 export class MoviesAndShowsRepositoryImpl implements MoviesAndShowsRepository {
   private readonly apiService: ApiService;
   constructor(apiService: ApiService) {
     this.apiService = apiService;
   }
+
   async getGenreList(locale: string): Promise<Genre[] | null> {
     return await this.apiService.getGenreList(locale);
   }
@@ -57,5 +59,8 @@ export class MoviesAndShowsRepositoryImpl implements MoviesAndShowsRepository {
   }
   async getTrendingSeries(locale: string, type: TrendingType): Promise<TrendingSeries | null> {
     return await this.apiService.getTrendingSeries(locale, type);
+  }
+  async getTrendingAll(locale: string, type: TrendingType): Promise<TrendingAll | null> {
+    return await this.apiService.getTrendingAll(locale, type);
   }
 }
