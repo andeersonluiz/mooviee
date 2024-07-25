@@ -1,3 +1,5 @@
+import { MediaType } from './media-type';
+
 export interface MultiList {
   page: number;
   results: Result[];
@@ -16,10 +18,4 @@ export interface Result {
   vote_count: number;
   title: string;
   known_for_department: string;
-}
-
-export enum MediaType {
-  Movie = 'movie',
-  Tv = 'tv',
-  Person = 'person',
 }

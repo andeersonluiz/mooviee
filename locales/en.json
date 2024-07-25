@@ -3,15 +3,45 @@
     "language": "en-US",
     "name": "English",
     "data_lang": [
-      "English",
-      "Portuguese"
+      [
+        "English",
+        "en"
+      ],
+      [
+        "Portuguese",
+        "br"
+      ]
     ]
+  },
+  "header": {
+    "home": "Home",
+    "movie": "Movies",
+    "serie": "Series"
   },
   "common": {
     "search": "Search...",
     "btnMoreInfo": "VIEW MORE INFO",
     "trendingToday": "TRENDING TODAY:",
     "trendingWeek": "TRENDING WEEK:",
-    "viewAll": "VIEW ALL"
+    "viewAll": "VIEW ALL",
+    "episodesNextWeek": "EPISODE AIR IN NEXT WEEK",
+    "nowPlaying": "IN THE THEATERS",
+    "movie_tag": "Movie",
+    "serie_tag": "Serie"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "mostPopular": "MOST POPULAR",
+    "mostRated": "MOST RATED",
+    "nowPlaying": "NOW PLAYING",
+    "movie_tag": "MOVIE",
+    "serie_tag": "SERIE",
+    "genres": "Genres:",
+    "upcomingDate": "Upcoming Date:"
+  },
+  "footer": {
+    "description": "Movieee. Developed by Anderson Luiz. All rights reserved.",
+    "contact": "Contact: ",
+    "followMe": "Follow-me: "
   }
 }

@@ -3,15 +3,45 @@
     "language": "pt-BR",
     "name": "Português",
     "data_lang": [
-      "Português",
-      "Inglês"
+      [
+        "Português",
+        "br"
+      ],
+      [
+        "Inglês",
+        "en"
+      ]
     ]
+  },
+  "header": {
+    "home": "Início",
+    "movie": "Filmes",
+    "serie": "Séries"
   },
   "common": {
     "search": "Buscar...",
     "btnMoreInfo": "VER MAIS INFORMAÇÕES",
     "trendingToday": "EM ALTA HOJE:",
     "trendingWeek": "EM ALTA ESSA SEMANA:",
-    "viewAll": "VER TUDO"
+    "viewAll": "VER TUDO",
+    "episodesNextWeek": "EPISÓDIOS NESSA SEMANA",
+    "nowPlaying": "NOS CINEMAS",
+    "movie_tag": "Filme",
+    "serie_tag": "Série"
+  },
+  "leaderboard": {
+    "title": "Classificação",
+    "mostPopular": "MAIS POPULARES",
+    "mostRated": "MAIS BEM AVALIADOS",
+    "nowPlaying": "EM CARTAZ",
+    "movie_tag": "FILME",
+    "serie_tag": "SÉRIE",
+    "genres": "Gêneros:",
+    "upcomingDate": "Data de lançamento:"
+  },
+  "footer": {
+    "description": "Movieee. Desenvolvido por Anderson Luiz. Todos os direitos reservados.",
+    "contact": "Contato: ",
+    "followMe": "Siga-me: "
   }
 }

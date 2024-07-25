@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 * {
   padding: 0;
   margin: 0;
@@ -20,6 +21,27 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #334155;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0a0f1b;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #070a13;
+}
+
 @layer components {
   .autofill-text:-webkit-autofill {
     -webkit-text-fill-color: white;

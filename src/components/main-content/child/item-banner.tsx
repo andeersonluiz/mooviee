@@ -1,20 +1,25 @@
 import { Genre } from '@/modules/data/model/serie-info';
-import { MediaType, Result } from '@/modules/data/model/trending-all';
-import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
+import { Result } from '@/modules/data/model/trending-all';
+import {
+  GenreContext,
+  MovieAndTvShowContext,
+} from '@/modules/presentation/provider/movies-tv-show-provider';
+import { formatGenres } from '@/utils/functions';
 import { durationBanner } from '@/utils/transitions-data';
 import { useTranslations } from 'next-intl';
 import { use, useEffect, useRef, useState } from 'react';
+import { MediaType } from '@/modules/data/model/media-type';
 
 const ItemBanner = ({ media }: { media: Result }) => {
   const isMovie = media.media_type === MediaType.Movie;
   const context = use(MovieAndTvShowContext);
   const t = useTranslations('metadata');
-  const [genres, setGenres] = useState<Genre[]>([]);
+  const contextGenre = use(GenreContext)!;
+  const genres = contextGenre.listGenres;
+
   const t_common = useTranslations('common');
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log('render ItemBanner');
   useEffect(() => {
-    console.log('mudei', isLoaded);
     setTimeout(() => {
       setIsLoaded(true);
     }, durationBanner);
@@ -22,14 +27,6 @@ const ItemBanner = ({ media }: { media: Result }) => {
       setIsLoaded(false);
     };
   }, [media]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const genreListData = await context!.getGenreListUseCase.execute(t('language'));
-      setGenres(genreListData!);
-    };
-    fetchData();
-  }, []);
 
   return (
     <div
@@ -40,14 +37,7 @@ const ItemBanner = ({ media }: { media: Result }) => {
           {isMovie ? media.title.toUpperCase() : media.name.toUpperCase()}
         </h1>
         <p className='p-3 text-base font-semibold text-white'>
-          {` ${isMovie ? new Date(media.release_date).getFullYear() : new Date(media.first_air_date).getFullYear()} | ${isMovie ? 'Movie' : 'Serie'} | ${media.genre_ids
-            .map((item: any) => {
-              const res = genres?.find((genre) => genre.id == Number(item));
-              if (res) {
-                return res.name;
-              }
-            })
-            .join(', ')}`}
+          {` ${isMovie ? new Date(media.release_date).getFullYear() : new Date(media.first_air_date).getFullYear()} | ${isMovie ? 'Movie' : 'Serie'} | ${genres == null ? '' : formatGenres(media.genre_ids, genres)}`}
         </p>
         <p className='line-clamp-5 text-ellipsis px-3 pt-2 text-lg text-white'>{media.overview}</p>
         <button className='mx-2 my-8 rounded-lg bg-red-600 px-4 py-5 text-sm font-normal text-white transition hover:bg-red-700 focus:outline-none'>

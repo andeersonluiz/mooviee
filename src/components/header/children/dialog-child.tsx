@@ -19,25 +19,21 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
   const t = useTranslations('common');
   const [isMoved, setIsMoved] = useState(false);
   const timeoutRef = useRef<any | null>(null);
-  console.log('render:', isMoved, 'isOpen:', isOpen);
   const isMounted = useRef(false);
 
   const startTimeout = () => {
     timeoutRef.current = setTimeout(() => {
-      console.log('setTimeout');
       setIsMoved(true);
     }, 10);
   };
 
   const clearTimeoutManually = () => {
-    console.log('clearTimeout');
     clearTimeout(timeoutRef.current);
 
     setIsMoved(false);
   };
 
   if (isOpen && !isMoved) {
-    console.log('startTimeout');
     startTimeout();
   }
 
@@ -48,9 +44,7 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
     };
   }, []);
   const handleClick = async (props: any) => {
-    console.log('handleClick called');
     if (isMounted.current) {
-      console.log('isMounted:', isMounted);
       clearTimeoutManually();
       setIsOpen(false);
       await new Promise((resolve) => setTimeout(resolve, 300));
@@ -69,7 +63,6 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
                 <div className='bg-black'>
                   <HeaderComponentSearch
                     onClick={async () => {
-                      console.log('cleaning timeout');
                       clearTimeoutManually();
                       setIsOpen(false);
                       await new Promise((r) => setTimeout(r, 300));
@@ -92,7 +85,6 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
                   />
                   <a
                     onClick={async () => {
-                      console.log('cleaning timeout');
                       clearTimeoutManually();
                       setIsOpen(false);
                       await new Promise((r) => setTimeout(r, 300));

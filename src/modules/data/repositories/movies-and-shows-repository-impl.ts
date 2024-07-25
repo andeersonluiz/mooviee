@@ -4,7 +4,7 @@ import { MoviesAndShowsRepository } from '@/modules/domain/repositories/movies-a
 import { ApiService } from '../datasource/api-service';
 import { MovieList } from '../model/movie-list';
 import { MovieInfo } from '../model/movie-info';
-import { MovieListType, SerieListType, TrendingType } from '@/utils/enums';
+import { LeaderboardType, MovieListType, SerieListType, TrendingType } from '@/utils/enums';
 import { PersonInfo } from '../model/person-info';
 import { MultiList } from '../model/multi-list';
 import { CollectionList } from '../model/collection-list';
@@ -14,6 +14,8 @@ import { SerieList } from '../model/serie-list';
 import { Genre, SerieInfo } from '../model/serie-info';
 import { CollectionInfo } from '../model/collection-info';
 import { TrendingAll } from '../model/trending-all';
+import { Leaderboarder } from '../model/leaderboard';
+import { MediaType } from '../model/media-type';
 
 export class MoviesAndShowsRepositoryImpl implements MoviesAndShowsRepository {
   private readonly apiService: ApiService;
@@ -62,5 +64,45 @@ export class MoviesAndShowsRepositoryImpl implements MoviesAndShowsRepository {
   }
   async getTrendingAll(locale: string, type: TrendingType): Promise<TrendingAll | null> {
     return await this.apiService.getTrendingAll(locale, type);
+  }
+
+  async getleaderboard(locale: string, type: LeaderboardType): Promise<Leaderboarder[] | null> {
+    let movies: MovieList | null, series: SerieList | null;
+    let promiseMovies: Promise<MovieList | null>, promiseSeries: Promise<SerieList | null>;
+    switch (type) {
+      case LeaderboardType.POPULAR:
+        promiseMovies = this.apiService.getMovies(locale, MovieListType.POPULAR);
+        promiseSeries = this.apiService.getSeries(locale, SerieListType.POPULAR);
+        [movies, series] = await Promise.all([promiseMovies, promiseSeries]);
+        break;
+      case LeaderboardType.TOP_RATED:
+        promiseMovies = this.apiService.getMovies(locale, MovieListType.TOP_RATED);
+        promiseSeries = this.apiService.getSeries(locale, SerieListType.TOP_RATED);
+        [movies, series] = await Promise.all([promiseMovies, promiseSeries]);
+        break;
+      case LeaderboardType.UPCOMING:
+        movies = await this.apiService.getMovies(locale, MovieListType.UPCOMING);
+        series = await this.apiService.getSeries(locale, SerieListType.UPCOMING);
+        break;
+    }
+    if (movies == null || series == null) {
+      return null;
+    }
+    const allData = [...movies?.results!, ...series?.results!] as unknown as Leaderboarder[];
+    if (type == LeaderboardType.TOP_RATED) {
+      allData.sort((a, b) => b.vote_average - a.vote_average);
+    } else {
+      allData.sort((a, b) => b.popularity - a.popularity);
+    }
+
+    const result = allData.slice(0, 20);
+    result.forEach((item) => {
+      if (typeof item.name == 'undefined') {
+        item.media_type = MediaType.Movie;
+      } else {
+        item.media_type = MediaType.Tv;
+      }
+    });
+    return result;
   }
 }

@@ -1,6 +1,9 @@
 'use client';
 
-import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
+import {
+  GenreContext,
+  MovieAndTvShowContext,
+} from '@/modules/presentation/provider/movies-tv-show-provider';
 import Image from 'next/image';
 
 import { useTranslations } from 'next-intl';
@@ -8,7 +11,7 @@ import { Suspense, use, useEffect, useRef, useState } from 'react';
 
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { MovieList } from '@/modules/data/model/movie-list';
-import { languageIndexOptions } from '@/modules/config/settings';
+import { languageIndexOptions } from '@/config/settings';
 import { isTemplateExpression } from 'typescript';
 import HeaderComponent from '@/components/header/header-component';
 import movie from '../../../assets/movie.jpg';
@@ -18,49 +21,62 @@ import { Genre } from '@/modules/data/model/serie-info';
 import { TrendingType } from '@/utils/enums';
 import MainContent from '@/components/main-content/main-content';
 import { heightHomePage, heightHomePageTailwind } from '@/styles/style-values';
+import LeaderboardComponent from '@/components/leaderboard/leaderboardComponent';
+import SecondaryContent from '@/components/secondary-content/secondary-content';
+import FooterContent from '@/components/footer/footer-content';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Index: React.FC = (props: any) => {
-  console.log(`render ${new Date().getMilliseconds()}`);
-
   const t = useTranslations('metadata');
   const t_common = useTranslations('common');
 
   const context = use(MovieAndTvShowContext)!;
   const [movies, setMovies] = useState<MovieList | null>(null);
-  const [genres, setGenres] = useState<Genre[] | null>(null);
-  console.log('heightHomePageTailwind', heightHomePageTailwind);
+  const [listGenres, setListGenres] = useState<Genre[] | null>(null);
+
   useEffect(() => {
-    console.log('fetch api');
+    const fetchApi = async () => {
+      const data = await context!.getGenreListUseCase.execute(t('language'));
+      setListGenres(data);
+    };
+
+    fetchApi();
+  }, []);
+  useEffect(() => {
     const fetchApi = async () => {
       //await new Promise((r) => setTimeout(r, 2000));
       //const data = await context.getMoviesUseCase.execute(t('language'), MovieListType.POPULAR);
-      //const data = await context.getGenreListUseCase.execute(t('language'));
-
-      setMovies(null);
-      setGenres(null);
     };
 
     fetchApi();
   }, []);
   const data = jsonMovieTrendingDay['results'][0];
-  console.log(`fim render ${new Date().getMilliseconds()}`);
   const url = ' https://image.tmdb.org/t/p/original/fqv8v6AycXKsivp1T5yKtLbGXce.jpg';
   return (
-    <>
+    <GenreContext.Provider value={{ listGenres }}>
       <Suspense fallback={<p>Carregando...</p>}>
-        <main className={`relative ${heightHomePageTailwind}`}>
-          <HeaderComponent />
-          <MainContent />
+        <main>
+          <div className={`relative ${heightHomePageTailwind} `}>
+            <HeaderComponent />
+            <MainContent />
+            <div className='absolute -bottom-3 z-30 h-[20px] w-full bg-neutral-950 shadow-2xl blur-sm' />
+          </div>
+          <div className={`flex flex-1 flex-col`}>
+            <div
+              className={`shadow-3xl flex h-fit min-h-[1000px] flex-row items-center bg-neutral-950`}
+            >
+              <div className={`relative w-[70%] overflow-hidden`}>
+                <SecondaryContent />
+              </div>
+              <div className='m-8 flex h-[900px] w-[600px] overflow-y-auto overflow-x-hidden border-4 border-slate-700 border-r-transparent bg-slate-900'>
+                <LeaderboardComponent />
+              </div>
+            </div>
+          </div>
+          <FooterContent />
         </main>
-
-        <div className={`${heightHomePageTailwind} shadow-3xl bg-neutral-950`}>
-          <p className='p-8 text-xl font-bold text-white transition-opacity duration-300'>
-            {t_common('trendingWeek')}
-          </p>
-        </div>
       </Suspense>
-    </>
+    </GenreContext.Provider>
   );
 };
 

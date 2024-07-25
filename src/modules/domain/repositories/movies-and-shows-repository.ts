@@ -1,6 +1,7 @@
 'use client';
 import { CollectionInfo } from '@/modules/data/model/collection-info';
 import { CollectionList } from '@/modules/data/model/collection-list';
+import { Leaderboarder } from '@/modules/data/model/leaderboard';
 import { MovieInfo } from '@/modules/data/model/movie-info';
 import { MovieList } from '@/modules/data/model/movie-list';
 import { MultiList } from '@/modules/data/model/multi-list';
@@ -11,7 +12,7 @@ import { SerieList } from '@/modules/data/model/serie-list';
 import { TrendingAll } from '@/modules/data/model/trending-all';
 import { TrendingMovies } from '@/modules/data/model/trending-movies';
 import { TrendingSeries } from '@/modules/data/model/trending-series';
-import { MovieListType, SerieListType, TrendingType } from '@/utils/enums';
+import { LeaderboardType, MovieListType, SerieListType, TrendingType } from '@/utils/enums';
 
 export interface MoviesAndShowsRepository {
   getMovies(locale: string, type: MovieListType): Promise<MovieList | null>;
@@ -30,4 +31,6 @@ export interface MoviesAndShowsRepository {
   getTrendingMovies(locale: string, type: TrendingType): Promise<TrendingMovies | null>;
   getTrendingSeries(locale: string, type: TrendingType): Promise<TrendingSeries | null>;
   getTrendingAll(locale: string, type: TrendingType): Promise<TrendingAll | null>;
+
+  getleaderboard(locale: string, type: LeaderboardType): Promise<Leaderboarder[] | null>;
 }

@@ -1,3 +1,5 @@
+import { MediaType } from './media-type';
+
 export interface TrendingAll {
   page: number;
   results: Result[];
@@ -18,12 +20,6 @@ export interface Result {
   popularity: number;
   release_date: Date;
   first_air_date: Date;
-
   vote_average: number;
   vote_count: number;
-}
-
-export enum MediaType {
-  Movie = 'movie',
-  Tv = 'tv',
 }

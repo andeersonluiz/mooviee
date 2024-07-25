@@ -8,13 +8,14 @@ import { MovieInfo } from '../model/movie-info';
 import { MovieListType, SerieListType, TrendingType } from '../../../utils/enums';
 import { PersonInfo } from '../model/person-info';
 import { CollectionList } from '../model/collection-list';
-import { MediaType, MultiList } from '../model/multi-list';
+import { MultiList } from '../model/multi-list';
 import { TrendingMovies } from '../model/trending-movies';
 import * as jsonMock from '../../../test/mockData/api-service-data';
 import { TrendingSeries } from '../model/trending-series';
 import { SerieList } from '../model/serie-list';
 import { SerieInfo } from '../model/serie-info';
 import { CollectionInfo } from '../model/collection-info';
+import { MediaType } from '../model/media-type';
 
 const handlers = [
   http.get('https://api.themoviedb.org/3/movie/popular', () => {
@@ -122,7 +123,6 @@ const handlers = [
   }),
   http.get('https://api.themoviedb.org/3/trending/movie/:time_window', (res) => {
     const id_value = res.params['time_window'];
-    console.log('interceptei B');
 
     if (id_value == 'day') {
       return HttpResponse.json(jsonMock.jsonMovieTrendingDay);

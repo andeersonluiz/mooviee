@@ -1,9 +1,10 @@
-import { BASE_IMAGE_URL } from '@/modules/config/settings';
-import { MediaType, Result } from '@/modules/data/model/trending-all';
+import { BASE_IMAGE_URL } from '@/config/settings';
+import { Result } from '@/modules/data/model/trending-all';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Skeleton } from '@mui/material';
 import { widthCatalogTrending, widthCatalogTrendingTailwind } from '@/styles/style-values';
+import { MediaType } from '@/modules/data/model/media-type';
 
 const CatalogTrending = ({ media, onClick }: { media: Result; onClick: () => void }) => {
   const isMovie = media.media_type === MediaType.Movie;

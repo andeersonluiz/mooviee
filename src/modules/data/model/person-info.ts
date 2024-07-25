@@ -1,3 +1,5 @@
+import { MediaType } from './media-type';
+
 export interface PersonInfo {
   adult: boolean;
   also_known_as: string[];
@@ -32,7 +34,7 @@ export interface Cast {
   character?: string;
   credit_id: string;
   order?: number;
-  media_type: string;
+  media_type: MediaType;
   original_name?: string;
   first_air_date?: Date;
   name?: string;

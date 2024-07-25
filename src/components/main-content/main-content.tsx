@@ -1,4 +1,4 @@
-import { MediaType, TrendingAll } from '@/modules/data/model/trending-all';
+import { TrendingAll } from '@/modules/data/model/trending-all';
 import { TrendingMovies } from '@/modules/data/model/trending-movies';
 import { Result } from '@/modules/data/model/trending-all';
 import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Suspense, use, useContext, useEffect, useState, useRef } from 'react';
 import { Genre } from '@/modules/data/model/serie-info';
 import MovieBanner from './child/item-banner';
-import { BASE_IMAGE_URL } from '@/modules/config/settings';
+import { BASE_IMAGE_URL } from '@/config/settings';
 import ItemBanner from './child/item-banner';
 import CatalogTrending from './child/catalog-trending';
 import Image from 'next/image';
@@ -35,7 +35,6 @@ const MainContent = () => {
   const isStart = useRef(true);
   const isEnd = useRef(false);
   const scrollLeft = useRef(0);
-  console.log('render...');
   const [isLoadingTrendingSelected, setLoadingTrendingSelected] = useState(false);
   const isLoading = useRef(false);
 
@@ -48,16 +47,12 @@ const MainContent = () => {
 
       setTrendingList(trendingListData);
       setTrendingSelected(trendingListData?.results[0]!);
-      console.log('aa ', trendingListData?.results[0]!.backdrop_path);
-
-      //backRef.current?.addEventListener('mouseenter', timeoutRef.current);
     };
 
     fetchData();
   }, []);
 
   const handleScrollNext = () => {
-    console.log('moving 200');
     const container = scrollContainerRef.current;
     const moveValue = getMoveValue(document.getElementById('id_trending')?.offsetWidth!);
     const value = container!.scrollLeft + moveValue;
@@ -126,7 +121,6 @@ const MainContent = () => {
     isLoading.current = false;
     setTemp(!temp);
   }, [trendingSelected]);
-  console.log('render with isLoading.current:', isLoading.current);
   return (
     <>
       {trendingSelected != null && trendingList != null ? (
@@ -178,7 +172,6 @@ const MainContent = () => {
               <div
                 ref={nextRef}
                 onClick={() => {
-                  console.log('cliquei');
                   handleScrollNext();
                 }}
                 className={`${!isVisibleNext ? 'hidden' : ''} absolute bottom-28 right-0 h-[150px] w-[50px] cursor-pointer rounded-md bg-transparent px-2 hover:bg-black hover:bg-opacity-55`}

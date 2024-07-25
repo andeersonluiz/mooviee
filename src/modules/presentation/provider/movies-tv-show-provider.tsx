@@ -2,7 +2,7 @@
 
 import { MoviesAndShowsRepository } from '@/modules/domain/repositories/movies-and-shows-repository';
 import { MoviesAndShowsRepositoryImpl } from '@/modules/data/repositories/movies-and-shows-repository-impl';
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ApiService } from '@/modules/data/datasource/api-service';
 import GetCollectionInfoUseCase from '@/modules/domain/useCases/get-collection-info-usecase';
 import GetMovieInfoUseCase from '@/modules/domain/useCases/get-movie-info-usecase';
@@ -16,6 +16,9 @@ import GetTrendingSeriesUseCase from '@/modules/domain/useCases/get-trending-ser
 import GetSeriesUseCase from '@/modules/domain/useCases/get-series-usecase';
 import GetGenreListUseCase from '@/modules/domain/useCases/get-genre-list-usecase';
 import GetTrendingAllUseCase from '@/modules/domain/useCases/get-trending-all-usecase';
+import GetLeaderboardUseCase from '@/modules/domain/useCases/get-leaderboard-usecase';
+import { Genre } from '@/modules/data/model/serie-info';
+import { useTranslations } from 'next-intl';
 
 export interface MoviesAndTvShowProps {
   getCollectionInfoUseCase: GetCollectionInfoUseCase;
@@ -28,11 +31,17 @@ export interface MoviesAndTvShowProps {
   getTrendingSeriesUseCase: GetTrendingSeriesUseCase;
   searchCollectionUseCase: SearchCollectionUseCase;
   searchMultiUseCase: SearchMultiUseCase;
-  getGenreListUseCase: GetGenreListUseCase;
   getTrendingAllUseCase: GetTrendingAllUseCase;
+  getLeaderboardUseCase: GetLeaderboardUseCase;
+  getGenreListUseCase: GetGenreListUseCase;
+}
+
+interface GenreProps {
+  listGenres: Genre[] | null;
 }
 
 export const MovieAndTvShowContext = createContext<MoviesAndTvShowProps | null>(null);
+export const GenreContext = createContext<GenreProps | null>(null);
 
 export const MoviesAndTvShowProvider = ({ children }: { children: React.ReactNode }) => {
   const apiService: ApiService = new ApiService();
@@ -50,8 +59,11 @@ export const MoviesAndTvShowProvider = ({ children }: { children: React.ReactNod
   const getTrendingSeriesUseCase = new GetTrendingSeriesUseCase(moviesAndTvShowRepository);
   const searchCollectionUseCase = new SearchCollectionUseCase(moviesAndTvShowRepository);
   const searchMultiUseCase = new SearchMultiUseCase(moviesAndTvShowRepository);
-  const getGenreListUseCase = new GetGenreListUseCase(moviesAndTvShowRepository);
   const getTrendingAllUseCase = new GetTrendingAllUseCase(moviesAndTvShowRepository);
+  const getLeaderboardUseCase = new GetLeaderboardUseCase(moviesAndTvShowRepository);
+
+  const getGenreListUseCase = new GetGenreListUseCase(moviesAndTvShowRepository);
+
   return (
     <MovieAndTvShowContext.Provider
       value={{
@@ -65,8 +77,9 @@ export const MoviesAndTvShowProvider = ({ children }: { children: React.ReactNod
         getTrendingSeriesUseCase,
         searchCollectionUseCase,
         searchMultiUseCase,
-        getGenreListUseCase,
         getTrendingAllUseCase,
+        getLeaderboardUseCase,
+        getGenreListUseCase,
       }}
     >
       {children}

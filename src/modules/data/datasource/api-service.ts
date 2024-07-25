@@ -1,18 +1,20 @@
 'use client';
 
 import { ItemType, MovieListType, SerieListType, TrendingType } from '../../../utils/enums';
-import { API_TMDB_KEY } from '../../config/keys';
+import { API_TMDB_KEY } from '../../../config/keys';
 import { MovieInfo } from '../model/movie-info';
-import { Movie, MovieList } from '../model/movie-list';
+import { Dates, Movie, MovieList } from '../model/movie-list';
 import { PersonInfo } from '../model/person-info';
 import { CollectionList } from '../model/collection-list';
-import { MediaType, MultiList } from '../model/multi-list';
+import { MultiList } from '../model/multi-list';
 import { TrendingMovies } from '../model/trending-movies';
 import { TrendingSeries } from '../model/trending-series';
 import { SerieList } from '../model/serie-list';
 import { Genre, SerieInfo } from '../model/serie-info';
 import { CollectionInfo } from '../model/collection-info';
 import { TrendingAll } from '../model/trending-all';
+import { getMinMaxDate } from '@/utils/functions';
+import { MediaType } from '../model/media-type';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export class ApiService {
@@ -20,7 +22,7 @@ export class ApiService {
     locale: string,
     type: MovieListType = MovieListType.POPULAR
   ): Promise<MovieList | null> {
-    console.log('call (getMovies) from datasource');
+    console.log('call (getMovies) from datasource', locale);
     await new Promise((res) => setTimeout(res, 2000));
     let url = '';
     switch (type) {
@@ -31,7 +33,11 @@ export class ApiService {
         url = `https://api.themoviedb.org/3/movie/top_rated?language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
         break;
       case MovieListType.UPCOMING:
-        url = `https://api.themoviedb.org/3/movie/upcoming?language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
+        const [minDate, maxDate] = getMinMaxDate();
+        url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_TMDB_KEY}&language=${locale}&sort_by=popularity.desc&primary_release_date.gte=${minDate}&primary_release_date.lte=${maxDate}&page=1`;
+        break;
+      case MovieListType.NOW_PLAYING:
+        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_TMDB_KEY}&language=${locale}&page=1&region=${locale.split('-')[1]}`;
         break;
       default:
         return null;
@@ -42,6 +48,8 @@ export class ApiService {
       const json = await res.json();
       const result = json as MovieList;
       if ('results' in result) {
+        result.media_type = MediaType.Movie;
+
         return result;
       }
       return null;
@@ -65,6 +73,11 @@ export class ApiService {
       case SerieListType.ON_THE_AIR:
         url = `https://api.themoviedb.org/3/tv/on_the_air?language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
         break;
+      case SerieListType.UPCOMING:
+        const [minDate, maxDate] = getMinMaxDate();
+        url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_TMDB_KEY}&language=${locale}S&sort_by=popularity.desc&first_air_date.gte=${minDate}&first_air_date.lte=${maxDate}&page=1`;
+
+        break;
       default:
         return null;
     }
@@ -75,6 +88,8 @@ export class ApiService {
       const result = json as SerieList;
 
       if ('results' in result) {
+        result.media_type = MediaType.Tv;
+
         return result;
       }
       return null;
