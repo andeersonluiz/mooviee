@@ -8,6 +8,7 @@ import ListMedia from './child/list-media-content';
 import { MovieList } from '@/modules/data/model/movie-list';
 import { SerieList } from '@/modules/data/model/serie-list';
 import { CircularProgress } from '@nextui-org/progress';
+import HeaderMediaList from './child/header-media-list';
 
 const SecondaryContent = () => {
   const t_common = useTranslations('common');
@@ -53,11 +54,15 @@ const SecondaryContent = () => {
         </div>
       ) : (
         <>
-          <p className={`px-9 pt-8 text-xl font-bold text-white`}>{t_common('trendingWeek')}</p>
+          <div className='pt-4'>
+            <HeaderMediaList title={t_common('trendingWeek')} viewAll={() => null} />
+          </div>
           <ListMedia data={trendingData} />
-          <p className='px-9 pt-0 text-xl font-bold text-white'>{t_common('episodesNextWeek')}</p>
+
+          <HeaderMediaList title={t_common('episodesNextWeek')} viewAll={() => null} />
           <ListMedia data={episodesNextWeekData} mediaType={episodesNextWeekData?.media_type} />
-          <p className='px-9 pt-0 text-xl font-bold text-white'>{t_common('nowPlaying')}</p>
+
+          <HeaderMediaList title={t_common('nowPlaying')} viewAll={() => null} />
           <ListMedia data={nowPlayingData} mediaType={nowPlayingData?.media_type} />
         </>
       )}

@@ -17,7 +17,10 @@ import { getMoveValue } from '@/utils/functions';
 import {
   gapTrendingContainerTailwind,
   paddingLeftTrendingContainerTailwind,
+  paddingLeftTrendingContainerTailwindMobile,
 } from '@/styles/style-values';
+import { getDeviceType } from '@/utils/ssr_functions';
+import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 
 const MainContent = () => {
   const context = use(MovieAndTvShowContext);
@@ -26,17 +29,15 @@ const MainContent = () => {
   const [isVisibleNext, setIsVisibleNext] = useState(false);
   const [isVisibleBack, setIsVisibleBack] = useState(false);
   const [temp, setTemp] = useState(false);
-
   const t = useTranslations('metadata');
-  const t_common = useTranslations('common');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLDivElement>(null);
   const isStart = useRef(true);
   const isEnd = useRef(false);
   const scrollLeft = useRef(0);
-  const [isLoadingTrendingSelected, setLoadingTrendingSelected] = useState(false);
   const isLoading = useRef(false);
+  const userAgentInfo = useUserAgentData();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,14 +110,19 @@ const MainContent = () => {
   };
 
   useEffect(() => {
-    scrollContainerRef.current?.addEventListener('mouseenter', showArrow);
-    //quando sai do container o evento mouseleva é acionado, entao é necessario adicionar esses eventos
-    nextRef.current?.addEventListener('mouseenter', showArrow);
-    backRef.current?.addEventListener('mouseenter', showArrow);
-    scrollContainerRef.current?.addEventListener('mouseleave', removeArrow);
-    scrollContainerRef.current?.addEventListener('scrollend', updateScrollLeft);
+    const verifyDeviceType = async () => {
+      if (userAgentInfo.isDesktop) {
+        scrollContainerRef.current?.addEventListener('mouseenter', showArrow);
+        //quando sai do container o evento mouseleva é acionado, entao é necessario adicionar esses eventos
+        nextRef.current?.addEventListener('mouseenter', showArrow);
+        backRef.current?.addEventListener('mouseenter', showArrow);
+        scrollContainerRef.current?.addEventListener('mouseleave', removeArrow);
+        scrollContainerRef.current?.addEventListener('scrollend', updateScrollLeft);
+      }
+    };
+    verifyDeviceType();
   }, [trendingList]);
-
+  useEffect(() => {}, []);
   useEffect(() => {
     isLoading.current = false;
     setTemp(!temp);
@@ -134,17 +140,25 @@ const MainContent = () => {
               <div
                 ref={scrollContainerRef}
                 id='id_trending'
-                className={`${paddingLeftTrendingContainerTailwind} no-scrollbar absolute bottom-6 flex h-[300px] w-full flex-row ${gapTrendingContainerTailwind} overflow-hidden pr-7`}
+                className={`${userAgentInfo.isDesktop ? paddingLeftTrendingContainerTailwind : paddingLeftTrendingContainerTailwindMobile} ${userAgentInfo.isDesktop ? 'overflow-hidden' : 'overflow-x-scroll'} no-scrollbar absolute bottom-6 flex h-[300px] w-full flex-row ${gapTrendingContainerTailwind} overflow-hidden pr-7`}
               >
                 {trendingList.results.map((trendingItem) => {
                   return (
                     <CatalogTrending
                       key={trendingItem.id}
                       media={trendingItem}
+                      mediaSelected={trendingSelected}
                       onClick={async () => {
                         isLoading.current = true;
 
                         setTrendingSelected(trendingItem);
+                        const y =
+                          document.getElementById('banner_id')!.getBoundingClientRect().top +
+                          window.scrollY;
+                        window.scroll({
+                          top: y,
+                          behavior: 'smooth',
+                        });
                       }}
                     />
                   );

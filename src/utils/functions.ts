@@ -4,6 +4,7 @@ import {
   widthCatalogTrending,
 } from '@/styles/style-values';
 import { Genre } from '@/modules/data/model/serie-info';
+import { headers } from 'next/headers';
 
 function roundNumber(number: number): number {
   // Se a parte decimal do número for maior que 0.85, arredonde para cima
@@ -76,3 +77,20 @@ export function formatGenres(genre_ids: number[], genres: Genre[]): string {
 export function convertDateToLocal(date: Date, locale: string) {
   return Intl.DateTimeFormat(locale).format(new Date(date));
 }
+
+export const getDeviceType = async () => {
+  const { headers } = await import('next/headers');
+  const userAgent = headers().get('user-agent');
+
+  if (userAgent != null) {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
+    const isTablet = /iPad|Android(?!.*Mobile)/i.test(userAgent);
+    return {
+      isMobile,
+      isTablet,
+      isDesktop: !isMobile && !isTablet,
+    };
+  } else {
+    return { isMobile: false, isTablet: false, isDesktop: false };
+  }
+};

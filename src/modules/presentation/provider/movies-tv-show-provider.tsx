@@ -42,6 +42,7 @@ interface GenreProps {
 
 export const MovieAndTvShowContext = createContext<MoviesAndTvShowProps | null>(null);
 export const GenreContext = createContext<GenreProps | null>(null);
+export const UserAgentContext = createContext<string | null>(null);
 
 export const MoviesAndTvShowProvider = ({ children }: { children: React.ReactNode }) => {
   const apiService: ApiService = new ApiService();

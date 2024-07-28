@@ -21,18 +21,25 @@ import { Genre } from '@/modules/data/model/serie-info';
 import { TrendingType } from '@/utils/enums';
 import MainContent from '@/components/main-content/main-content';
 import { heightHomePage, heightHomePageTailwind } from '@/styles/style-values';
-import LeaderboardComponent from '@/components/leaderboard/leaderboardComponent';
+import LeaderboardComponent from '@/components/leaderboard/leaderboard-component';
 import SecondaryContent from '@/components/secondary-content/secondary-content';
 import FooterContent from '@/components/footer/footer-content';
+import { getDeviceType } from '@/utils/ssr_functions';
+import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
+import LeaderboardMobileComponent from '@/components/leaderboard-mobile/leaderboard-mobile-component';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Index: React.FC = (props: any) => {
+const MainPage: React.FC = (props: any) => {
   const t = useTranslations('metadata');
-  const t_common = useTranslations('common');
-
   const context = use(MovieAndTvShowContext)!;
-  const [movies, setMovies] = useState<MovieList | null>(null);
   const [listGenres, setListGenres] = useState<Genre[] | null>(null);
+  const userAgentInfo = useUserAgentData();
+
+  useEffect(() => {
+    userAgentInfo.isDesktop
+      ? (document.body.style.overflow = 'auto')
+      : (document.body.style.overflow = 'hidden');
+  }, []);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -61,16 +68,27 @@ const Index: React.FC = (props: any) => {
             <MainContent />
             <div className='absolute -bottom-3 z-30 h-[20px] w-full bg-neutral-950 shadow-2xl blur-sm' />
           </div>
-          <div className={`flex flex-1 flex-col`}>
+          <div className={`flex flex-col`}>
             <div
-              className={`shadow-3xl flex h-fit min-h-[1000px] flex-row items-center bg-neutral-950`}
+              className={`shadow-3xl flex h-fit min-h-[1000px] flex-col items-center bg-neutral-950 xl:flex-row`}
             >
-              <div className={`relative w-[70%] overflow-hidden`}>
+              <div className={`relative w-full overflow-hidden xl:w-[60%]`}>
                 <SecondaryContent />
               </div>
-              <div className='m-8 flex h-[900px] w-[600px] overflow-y-auto overflow-x-hidden border-4 border-slate-700 border-r-transparent bg-slate-900'>
-                <LeaderboardComponent />
-              </div>
+              {userAgentInfo.isDesktop ? (
+                <div
+                  id='table_id'
+                  className='!m-8 flex h-[900px] w-[70%] overflow-y-auto overflow-x-hidden border-4 border-slate-700 border-r-transparent bg-slate-900 xl:w-[40%]'
+                >
+                  <LeaderboardComponent
+                    moveToTop={() => document.getElementById('table_id')!.scrollTo(0, 0)}
+                  />
+                </div>
+              ) : (
+                <div className='w-full bg-slate-900'>
+                  <LeaderboardMobileComponent />
+                </div>
+              )}
             </div>
           </div>
           <FooterContent />
@@ -80,7 +98,7 @@ const Index: React.FC = (props: any) => {
   );
 };
 
-export default Index;
+export default MainPage;
 
 /*
  <div

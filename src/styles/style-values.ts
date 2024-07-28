@@ -3,6 +3,7 @@ export const gapTrendingContainerTailwind = 'gap-8';
 
 export const paddingLeftTrendingContainer = gapTrendingContainer;
 export const paddingLeftTrendingContainerTailwind = 'pl-8';
+export const paddingLeftTrendingContainerTailwindMobile = 'pl-4';
 
 export const widthCatalogTrending = 150;
 export const widthCatalogTrendingTailwind = 'w-[150px]';

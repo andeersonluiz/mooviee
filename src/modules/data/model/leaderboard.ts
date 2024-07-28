@@ -1,3 +1,5 @@
+import { MediaType } from './media-type';
+
 export interface Leaderboarder {
   id: number;
   name: string;
@@ -10,9 +12,4 @@ export interface Leaderboarder {
   title: string;
   first_air_date: Date;
   release_date: Date;
-}
-
-export enum MediaType {
-  Movie = 'movie',
-  Tv = 'tv',
 }

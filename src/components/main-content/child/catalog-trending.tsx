@@ -6,14 +6,25 @@ import { Skeleton } from '@mui/material';
 import { widthCatalogTrending, widthCatalogTrendingTailwind } from '@/styles/style-values';
 import { MediaType } from '@/modules/data/model/media-type';
 
-const CatalogTrending = ({ media, onClick }: { media: Result; onClick: () => void }) => {
+const CatalogTrending = ({
+  media,
+  mediaSelected,
+  onClick,
+}: {
+  media: Result;
+  mediaSelected: Result;
+  onClick: () => void;
+}) => {
   const isMovie = media.media_type === MediaType.Movie;
   const [loaded, setLoaded] = useState(false);
 
   return (
     <>
       <div
-        className={`flex ${widthCatalogTrendingTailwind} flex-shrink-0 cursor-pointer flex-col items-center justify-center transition-transform ${loaded ? 'hover:scale-110' : ''}`}
+        className={`flex ${widthCatalogTrendingTailwind} ${mediaSelected.id == media.id ? 'scale-110' : ''} flex-shrink-0 cursor-pointer flex-col items-center justify-center transition-transform ${loaded ? 'hover:scale-110' : ''}`}
+        onFocus={() => {
+          console.log(media.title);
+        }}
         onClick={onClick}
       >
         <Image

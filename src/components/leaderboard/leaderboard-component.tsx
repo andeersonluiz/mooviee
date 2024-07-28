@@ -15,19 +15,24 @@ import { useTranslations } from 'next-intl';
 import { Leaderboarder } from '@/modules/data/model/leaderboard';
 import LeaderboardTile from './child/leaderboard-tile';
 import { CircularProgress } from '@nextui-org/progress';
+import { isNull } from 'util';
+import { getDeviceType } from '@/utils/ssr_functions';
+import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 
-const LeaderboardComponent = () => {
+const LeaderboardComponent = ({ moveToTop }: { moveToTop: () => void }) => {
   const [listLeaderboard, setListLeaderboard] = useState<Leaderboarder[] | null>(null);
   const context = use(MovieAndTvShowContext);
   const t = useTranslations('metadata');
   const leaderboardTranslation = useTranslations('leaderboard');
   const itemSelected = useRef<LeaderboardType>(0);
   const [isLoading, setIsLoading] = useState(true);
-
+  const useAgentData = useUserAgentData();
   const fetchData = async () => {
-    var data = await context!.getLeaderboardUseCase.execute(t('language'), itemSelected.current);
+    const data = await context!.getLeaderboardUseCase.execute(t('language'), itemSelected.current);
+
     setIsLoading(false);
     setListLeaderboard(data);
+    moveToTop();
   };
 
   useEffect(() => {
@@ -52,6 +57,7 @@ const LeaderboardComponent = () => {
                     if (!isLoading) {
                       setIsLoading(true);
                       itemSelected.current = 0;
+
                       fetchData();
                     }
                   }}
@@ -70,7 +76,7 @@ const LeaderboardComponent = () => {
                   }}
                 />
                 <ButtonChild
-                  title={leaderboardTranslation('nowPlaying')}
+                  title={leaderboardTranslation('upcoming')}
                   isSelected={itemSelected.current == 2}
                   disabled={isLoading}
                   onClick={() => {

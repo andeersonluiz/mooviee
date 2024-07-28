@@ -3,13 +3,21 @@ import { TrendingType } from '@/utils/enums';
 import { getMoveValue } from '@/utils/functions';
 import { useTranslations } from 'next-intl';
 import { use, useEffect, useRef, useState } from 'react';
-import MediaTile from './media-tile';
 import { MediaType } from '@/modules/data/model/media-type';
 import { headers } from 'next/headers';
 import { getDeviceType } from '@/utils/ssr_functions';
+import MediaTile from '@/components/secondary-content/child/media-tile';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 
-const ListMedia = ({ data, mediaType = null }: { data: any; mediaType?: MediaType | null }) => {
+const ListMediaLeadboarder = ({
+  data,
+  mediaType = null,
+  isUpcoming = false,
+}: {
+  data: any;
+  mediaType?: MediaType | null;
+  isUpcoming?: boolean;
+}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLDivElement>(null);
@@ -20,6 +28,7 @@ const ListMedia = ({ data, mediaType = null }: { data: any; mediaType?: MediaTyp
   const [isVisibleNext, setIsVisibleNext] = useState(false);
   const [isVisibleBack, setIsVisibleBack] = useState(false);
   const userAgentData = useUserAgentData();
+
   const handleScrollNext = () => {
     const container = scrollContainerRef.current;
     const moveValue = getMoveValue(document.getElementById('id_trending_week')?.offsetWidth!, 12);
@@ -81,9 +90,7 @@ const ListMedia = ({ data, mediaType = null }: { data: any; mediaType?: MediaTyp
   useEffect(() => {
     //const userAgent = headers().get('user-agent');
     const verifyDeviceType = async () => {
-      const deviceType = await getDeviceType();
-      console.log(deviceType);
-      if (isLoaded && deviceType.isDesktop) {
+      if (isLoaded && userAgentData.isDesktop) {
         console.log('entreii');
         scrollContainerRef.current?.addEventListener('mouseenter', showArrow);
         //quando sai do container o evento mouseleva é acionado, entao é necessario adicionar esses eventos
@@ -103,12 +110,13 @@ const ListMedia = ({ data, mediaType = null }: { data: any; mediaType?: MediaTyp
       <div
         ref={scrollContainerRef}
         id='id_trending_week'
-        className={`flex flex-row gap-0 ${userAgentData.isDesktop ? 'overflow-hidden' : 'overflow-x-scroll'} px-2 pb-4 pt-2 align-top scrollbar-hide xl:gap-5`}
+        className={`flex flex-row gap-0 px-2 pb-4 pt-2 align-top scrollbar-hide ${userAgentData.isDesktop ? 'overflow-hidden' : 'overflow-x-scroll'} xl:gap-5`}
       >
-        {data?.results.map((item: any) => (
+        {data?.map((item: any) => (
           <MediaTile
             key={item.id}
             media={item}
+            isUpcoming={isUpcoming}
             onClick={() => null}
             isMovie={
               mediaType == null ? item.media_type == MediaType.Movie : mediaType == MediaType.Movie
@@ -160,4 +168,4 @@ const ListMedia = ({ data, mediaType = null }: { data: any; mediaType?: MediaTyp
   );
 };
 
-export default ListMedia;
+export default ListMediaLeadboarder;
