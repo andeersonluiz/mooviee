@@ -9,6 +9,7 @@ import { durationBanner } from '@/utils/transitions-data';
 import { useTranslations } from 'next-intl';
 import { use, useEffect, useRef, useState } from 'react';
 import { MediaType } from '@/modules/data/model/media-type';
+import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 
 const ItemBanner = ({ media }: { media: Result }) => {
   const isMovie = media.media_type === MediaType.Movie;
@@ -16,7 +17,7 @@ const ItemBanner = ({ media }: { media: Result }) => {
   const genres = contextGenre.listGenres;
   const t_common = useTranslations('common');
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const userAgentInfo = useUserAgentData();
   useEffect(() => {
     setTimeout(() => {
       setIsLoaded(true);
@@ -29,7 +30,7 @@ const ItemBanner = ({ media }: { media: Result }) => {
   return (
     <div
       id='banner_id'
-      className={`${isLoaded ? 'opacity-100' : 'opacity-0'} absolute top-28 mx-8 block w-[90%] max-w-[700px] items-start transition-opacity duration-1000 lg:mx-10 xl:mx-32 2xl:mx-48`}
+      className={`${isLoaded ? 'opacity-100' : 'opacity-0'} ${userAgentInfo.isMobile ? 'left-[50%] right-[50%] -translate-x-1/2' : 'mx-8'} absolute top-28 block w-[90%] max-w-[700px] items-start transition-opacity duration-1000 lg:mx-10 xl:mx-32 2xl:mx-48`}
     >
       <div className=''>
         <h1 className='line-clamp-3 overflow-hidden text-ellipsis p-2 text-3xl font-bold text-white md:text-4xl xl:text-5xl'>

@@ -3,14 +3,18 @@ import { SiGmail } from 'react-icons/si';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { BiLogoGmail } from 'react-icons/bi';
 import { useTranslations } from 'next-intl';
+import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 
 const FooterContent = () => {
   const footerTranslations = useTranslations('footer');
+  const userAgentInfo = useUserAgentData();
   return (
     <>
-      <footer className='h-[70px] w-full content-center bg-neutral-800 py-0 text-white'>
-        <div className='container mx-auto flex items-center justify-between'>
-          <span className='text-sm'>
+      <footer className={`h-fit w-full content-center bg-neutral-800 py-4 text-white`}>
+        <div
+          className={`${userAgentInfo.isMobile ? 'flex-col gap-6' : ''} container mx-auto flex items-center justify-between`}
+        >
+          <span className='text-center text-sm'>
             &copy; {new Date().getFullYear()} {footerTranslations('description')}
           </span>
           <div className='flex items-center space-x-3'>

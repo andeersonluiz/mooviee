@@ -152,11 +152,11 @@ const MainContent = () => {
                         isLoading.current = true;
 
                         setTrendingSelected(trendingItem);
-                        const y =
+                        /* const y =
                           document.getElementById('banner_id')!.getBoundingClientRect().top +
-                          window.scrollY;
+                          window.scrollY;*/
                         window.scroll({
-                          top: y,
+                          top: 0,
                           behavior: 'smooth',
                         });
                       }}

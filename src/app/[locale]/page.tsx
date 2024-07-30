@@ -27,6 +27,7 @@ import FooterContent from '@/components/footer/footer-content';
 import { getDeviceType } from '@/utils/ssr_functions';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 import LeaderboardMobileComponent from '@/components/leaderboard-mobile/leaderboard-mobile-component';
+import HeaderMobileComponent from '@/components/header-mobile/header-mobile-component';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MainPage: React.FC = (props: any) => {
@@ -64,7 +65,7 @@ const MainPage: React.FC = (props: any) => {
       <Suspense fallback={<p>Carregando...</p>}>
         <main>
           <div className={`relative ${heightHomePageTailwind} `}>
-            <HeaderComponent />
+            {userAgentInfo.isMobile ? <HeaderMobileComponent /> : <HeaderComponent />}
             <MainContent />
             <div className='absolute -bottom-3 z-30 h-[20px] w-full bg-neutral-950 shadow-2xl blur-sm' />
           </div>

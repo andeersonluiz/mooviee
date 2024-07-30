@@ -35,7 +35,7 @@ const MediaTile = ({
           height={225}
           src={`${BASE_IMAGE_URL}${media.poster_path}`}
           alt={`${BASE_IMAGE_URL}${media.poster_path}`}
-          className={`${loaded ? 'opacity-100' : 'opacity-0'} flex transition-opacity duration-300`}
+          className={`${loaded ? 'opacity-100' : 'opacity-0'} flex h-[225px] transition-opacity duration-300`}
           onLoad={async () => {
             setLoaded(true);
           }}

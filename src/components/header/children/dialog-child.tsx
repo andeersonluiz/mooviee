@@ -57,7 +57,7 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
         {(props) => {
           return (
             <div
-              className={`fixed left-0 right-0 top-0 flex h-full w-full justify-center overflow-y-scroll bg-black bg-opacity-95 duration-500`}
+              className={`fixed left-0 right-0 top-0 flex h-full w-full justify-center bg-black bg-opacity-95 duration-500`}
             >
               <Heading className={`w-full`}>
                 <div className='bg-black'>
