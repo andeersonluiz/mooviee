@@ -78,19 +78,10 @@ export function convertDateToLocal(date: Date, locale: string) {
   return Intl.DateTimeFormat(locale).format(new Date(date));
 }
 
-export const getDeviceType = async () => {
-  const { headers } = await import('next/headers');
-  const userAgent = headers().get('user-agent');
-
-  if (userAgent != null) {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
-    const isTablet = /iPad|Android(?!.*Mobile)/i.test(userAgent);
-    return {
-      isMobile,
-      isTablet,
-      isDesktop: !isMobile && !isTablet,
-    };
-  } else {
-    return { isMobile: false, isTablet: false, isDesktop: false };
+export function getType(text: any) {
+  if (text.title != null) {
+    return { isMovie: true, isSerie: false, isPerson: false };
+  } else if (text.name != null) {
+    return { isMovie: true, isSerie: false, isPerson: false };
   }
-};
+}

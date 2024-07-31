@@ -21,6 +21,7 @@ import {
 } from '@/styles/style-values';
 import { getDeviceType } from '@/utils/ssr_functions';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
+import { CircularProgress } from '@nextui-org/progress';
 
 const MainContent = () => {
   const context = use(MovieAndTvShowContext);
@@ -207,7 +208,9 @@ const MainContent = () => {
           </div>
         </>
       ) : (
-        <p>Carregando...</p>
+        <div className='flex h-full w-full items-center justify-center pt-8'>
+          <CircularProgress size='lg' color='warning' className='' aria-label='loading...' />
+        </div>
       )}
     </>
   );

@@ -40,6 +40,12 @@
     "genres": "Genres:",
     "upcomingDate": "Upcoming Date:"
   },
+  "search": {
+    "movie_tag": "Movie",
+    "serie_tag": "Serie",
+    "person_tag": "Person",
+    "not_found": "No items found for search: '"
+  },
   "footer": {
     "description": "Movieee. Developed by Anderson Luiz. All rights reserved.",
     "contact": "Contact: ",

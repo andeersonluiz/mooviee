@@ -40,6 +40,12 @@
     "genres": "Gêneros:",
     "upcomingDate": "Data de lançamento:"
   },
+  "search": {
+    "movie_tag": "Filme",
+    "serie_tag": "Série",
+    "person_tag": "Pessoa",
+    "not_found": "Não foram encontrados resultados para pesquisa: '"
+  },
   "footer": {
     "description": "Movieee. Desenvolvido por Anderson Luiz. Todos os direitos reservados.",
     "contact": "Contato: ",
