@@ -2,8 +2,8 @@ export interface SerieInfo {
   adult: boolean;
   backdrop_path: string;
   episode_run_time: number[];
-  first_air_date: Date;
-  last_air_date: Date;
+  first_air_date: string;
+  last_air_date: string;
   genres: Genre[];
   homepage: string;
   id: number;
@@ -66,7 +66,7 @@ export interface TEpisodeToAir {
   overview: string;
   vote_average: number;
   vote_count: number;
-  air_date: Date;
+  air_date: string;
   episode_number: number;
   runtime: number | null;
   season_number: number;

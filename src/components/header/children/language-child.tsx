@@ -8,7 +8,8 @@ const LanguageChild = () => {
   const router = useRouter();
 
   const changeLocale = async (newLocale: string) => {
-    router.push(`/${newLocale}${window.location.search}`);
+    const pathAfterLocale = window.location.href.split(/\/(en|br)/)[2];
+    router.push(`/${newLocale}${pathAfterLocale}`);
   };
   return (
     <Menu>

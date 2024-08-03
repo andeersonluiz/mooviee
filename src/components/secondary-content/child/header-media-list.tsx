@@ -1,3 +1,4 @@
+import ArrowGoIcon from '@/components/icon/arrow-go-icon';
 import { useTranslations } from 'next-intl';
 
 const HeaderMediaList = ({ title, viewAll }: { title: string; viewAll: () => void }) => {
@@ -11,16 +12,7 @@ const HeaderMediaList = ({ title, viewAll }: { title: string; viewAll: () => voi
         onClick={viewAll}
       >
         <p className={`text-base font-semibold text-slate-100`}>{`${t_common('viewAll')}`}</p>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth='1.5'
-          stroke='currentColor'
-          className='size-7 stroke-slate-100'
-        >
-          <path strokeLinecap='round' strokeLinejoin='round' d='m8.25 4.5 7.5 7.5-7.5 7.5' />
-        </svg>
+        <ArrowGoIcon className='size-7 stroke-slate-100' />
       </div>
     </div>
   );

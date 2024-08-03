@@ -37,7 +37,7 @@ const ItemBanner = ({ media }: { media: Result }) => {
           {isMovie ? media.title.toUpperCase() : media.name.toUpperCase()}
         </h1>
         <p className='m-3 line-clamp-3 text-base font-semibold text-white'>
-          {` ${isMovie ? new Date(media.release_date).getFullYear() : new Date(media.first_air_date).getFullYear()} | ${isMovie ? 'Movie' : 'Serie'} | ${genres == null ? '' : formatGenres(media.genre_ids, genres)}`}
+          {` ${isMovie ? new Date(media.release_date).getFullYear() : new Date(media.first_air_date).getFullYear()} | ${isMovie ? 'Movie' : 'Serie'} | ${genres == null ? '' : formatGenres(media.genre_ids, genres).join(', ')}`}
         </p>
         <p className='mx-3 line-clamp-5 overflow-hidden text-ellipsis pt-2 text-lg text-white'>
           {media.overview}

@@ -1,6 +1,7 @@
 {
   "metadata": {
     "language": "pt-BR",
+    "language_split": "br",
     "name": "Português",
     "name_mobile": "BR",
     "data_lang": [
@@ -45,6 +46,17 @@
     "serie_tag": "Série",
     "person_tag": "Pessoa",
     "not_found": "Não foram encontrados resultados para pesquisa: '"
+  },
+  "serieInfo": {
+    "cast": "Elenco",
+    "recommendation": "Recomendações para você",
+    "noOverview": "Esta série não possui sinopse.",
+    "seasons": "Temporadas:",
+    "episodes": "Total de episódios:",
+    "genres": "Gêneros",
+    "status": "Situação",
+    "lastEpisode": "Último episódio a ser exibido",
+    "viewAll": "Ver tudo"
   },
   "footer": {
     "description": "Movieee. Desenvolvido por Anderson Luiz. Todos os direitos reservados.",

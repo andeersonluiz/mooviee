@@ -89,7 +89,8 @@ const LeaderboardTile = ({
                 ? ''
                 : formatGenres(media.genre_ids, genres).length == 0
                   ? '-'
-                  : formatGenres(media.genre_ids, genres)}{' '}
+                  : formatGenres(media.genre_ids, genres).join(', ')}
+              .join(', ')
             </span>
           </p>
           {isUpcoming ? (

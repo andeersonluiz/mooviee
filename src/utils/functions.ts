@@ -16,8 +16,8 @@ function roundNumber(number: number): number {
   }
 }
 
-export function getMoveValue(width: number, padding = 0) {
-  const widthContent = widthCatalogTrending + padding + gapTrendingContainer * 4;
+export function getMoveValue(width: number, childWidth: number, gap: number, padding = 0) {
+  const widthContent = childWidth + padding + gap * 4;
 
   let size = 0;
   let totalSum = 0;
@@ -63,15 +63,16 @@ export function getMinMaxDate() {
   return [minDate, maxDate];
 }
 
-export function formatGenres(genre_ids: number[], genres: Genre[]): string {
-  return genre_ids
+export function formatGenres(genre_ids: number[], genres: Genre[]): string[] {
+  const listGenres = genre_ids
     .map((item: any) => {
       const res = genres?.find((genre) => genre.id == Number(item));
       if (res) {
         return res.name;
       }
     })
-    .join(', ');
+    .filter((name): name is string => name !== undefined);
+  return listGenres;
 }
 
 export function convertDateToLocal(date: Date, locale: string) {
@@ -83,5 +84,15 @@ export function getType(text: any) {
     return { isMovie: true, isSerie: false, isPerson: false };
   } else if (text.name != null) {
     return { isMovie: true, isSerie: false, isPerson: false };
+  }
+}
+
+export function convertRunTime(minutes: number) {
+  if (minutes >= 60) {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}hrs ${remainingMinutes}mins`;
+  } else {
+    return `${minutes}mins`;
   }
 }

@@ -1,6 +1,7 @@
 {
   "metadata": {
     "language": "en-US",
+    "language_split": "en",
     "name": "English",
     "name_mobile": "EN",
     "data_lang": [
@@ -45,6 +46,17 @@
     "serie_tag": "Serie",
     "person_tag": "Person",
     "not_found": "No items found for search: '"
+  },
+  "serieInfo": {
+    "cast": "Cast",
+    "recommendation": "Recommendations for you",
+    "noOverview": "This serie has no synopsis.",
+    "seasons": "Seasons:",
+    "episodes": "Total Episodes:",
+    "genres": "Genres",
+    "status": "Status",
+    "lastEpisode": "Last episode to air",
+    "viewAll": "View all"
   },
   "footer": {
     "description": "Movieee. Developed by Anderson Luiz. All rights reserved.",

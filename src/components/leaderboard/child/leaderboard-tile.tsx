@@ -7,7 +7,9 @@ import {
 } from '@/modules/presentation/provider/movies-tv-show-provider';
 import { convertDateToLocal, formatGenres } from '@/utils/functions';
 import { useTranslations } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 
 const LeaderboardTile = ({
@@ -27,6 +29,7 @@ const LeaderboardTile = ({
   const genres = context.listGenres;
   const numbersSplited = position.toString().split('');
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
@@ -40,7 +43,14 @@ const LeaderboardTile = ({
   return (
     <td>
       <div
-        className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex flex-row transition-opacity duration-300`}
+        onClick={() => {
+          if (!isMovie) {
+            const locale = window.location.href.split(/\/(en|br)/)[1];
+
+            router.push(`/${locale}/serie/${media.id}`);
+          }
+        }}
+        className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex cursor-pointer flex-row transition-opacity duration-300`}
       >
         {numbersSplited.length == 1 ? (
           <p className='pointer-events-none content-center px-4 pr-8 text-center align-middle text-[50px] font-bold text-slate-300'>
@@ -89,7 +99,7 @@ const LeaderboardTile = ({
                 ? ''
                 : formatGenres(media.genre_ids, genres).length == 0
                   ? '-'
-                  : formatGenres(media.genre_ids, genres)}{' '}
+                  : formatGenres(media.genre_ids, genres).join(', ')}
             </span>
           </p>
           {isUpcoming ? (
