@@ -1,3 +1,5 @@
+import { Status } from '@/utils/enums';
+
 export interface SerieInfo {
   adult: boolean;
   backdrop_path: string;
@@ -17,7 +19,7 @@ export interface SerieInfo {
   overview: string;
   popularity: number;
   poster_path: string;
-  status: string; //tá em ingles ate traduzindo...
+  status: Status; //tá em ingles ate traduzindo...
   tagline: string;
   vote_average: number;
   vote_count: number;

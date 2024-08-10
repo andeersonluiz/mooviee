@@ -1,3 +1,6 @@
+import { Status } from '@/utils/enums';
+import { MediaType } from './media-type';
+
 export interface MovieInfo {
   adult: boolean;
   backdrop_path: string;
@@ -9,18 +12,23 @@ export interface MovieInfo {
   overview: string;
   popularity: number;
   poster_path: string;
-  release_date: Date;
+  release_date: string;
   revenue: number;
   runtime: number;
-  status: string;
+  status: Status; //tá em ingles ate traduzindo...
   tagline: string;
   vote_average: number;
   vote_count: number;
   certification_value: string;
   credits: Credits;
   recommendations: Recommendations[];
+  videos: VideosInfo[];
 }
 
+interface VideosInfo {
+  key: string;
+  type: string;
+}
 interface BelongsToCollection {
   id: number;
   name: string;
@@ -28,7 +36,7 @@ interface BelongsToCollection {
   backdrop_path: string;
 }
 
-interface Credits {
+export interface Credits {
   cast: Cast[];
   crew: Cast[];
 }
@@ -51,8 +59,9 @@ interface Genre {
   name: string;
 }
 
-interface Recommendations {
+export interface Recommendations {
   id: number;
   title: string;
   poster_path: string;
+  media_type: MediaType;
 }

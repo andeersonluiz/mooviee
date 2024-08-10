@@ -1,5 +1,7 @@
+import DivTile from '@/components/custom-tags/divTile';
 import { BASE_IMAGE_URL } from '@/config/settings';
-import { Recommendations } from '@/modules/data/model/serie-info';
+import { MediaType } from '@/modules/data/model/media-type';
+import { Recommendations } from '@/modules/data/model/movie-info';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import placeholder from '../../../../assets/placeholder.png';
@@ -16,8 +18,14 @@ const RecommendationTile = ({
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+  const locale = window.location.href.split(/\/(en|br)/)[1];
+  const isMovie =
+    recommendation.media_type == MediaType.Movie;
   return (
-    <div className='cursor-pointer p-4 hover:bg-neutral-800'>
+    <DivTile
+      path={`/${locale}/${isMovie ? 'movie' : 'serie'}/${recommendation.id}`}
+      className='cursor-pointer p-4 hover:bg-neutral-800'
+    >
       <Image
         src={src == '' ? placeholder : src}
         alt={src}
@@ -27,9 +35,9 @@ const RecommendationTile = ({
         className={`${isLoaded ? 'opacity-100 blur-none' : 'opacity-20 blur-2xl'} bg-cover bg-center shadow-none transition-opacity duration-500 ease-linear`}
       />
       <p className='line-clamp-2 w-[120px] pt-2 text-sm font-semibold text-white'>
-        {recommendation.name}
+        {recommendation.title}
       </p>
-    </div>
+    </DivTile>
   );
 };
 

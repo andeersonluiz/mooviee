@@ -1,31 +1,44 @@
-import {
-  Dispatch,
-  SetStateAction,
-  Fragment,
-  useEffect,
-  useState,
-  useRef,
-  useContext,
-  useLayoutEffect,
-} from 'react';
-import SearchIcon from '@/components/icon/search-icon';
-import { useTranslations } from 'next-intl';
 import CloseIcon from '@/components/icon/close-icon';
-import {} from 'react-aria-components';
-import { Modal, Dialog, Heading, Input } from 'react-aria-components';
-import HeaderSearchComponent from '../header-search-component';
-import { MultiList, Result } from '@/modules/data/model/multi-list';
-import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
-import SearchTile from './search-tile';
+import SearchIcon from '@/components/icon/search-icon';
 import useDebouncer from '@/hooks/debouncer';
+import { Result } from '@/modules/data/model/multi-list';
+import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
 import { CircularProgress } from '@nextui-org/progress';
+import { useTranslations } from 'next-intl';
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import {
+  Dialog,
+  Heading,
+  Input,
+  Modal,
+} from 'react-aria-components';
+import HeaderSearchComponent from '../header-search-component';
 import NotFoundSearch from './not-found-search';
+import SearchTile from './search-tile';
 
-const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) => {
+const DialogChild = ({
+  isOpen,
+  setIsOpen,
+  selected,
+  setSelected,
+}: {
+  isOpen: boolean;
+  setIsOpen: any;
+  selected: any;
+  setSelected: any;
+}) => {
   const t = useTranslations('common');
   const tMetadata = useTranslations('metadata');
   const [isMoved, setIsMoved] = useState(false);
-  const [searchData, setSearchData] = useState<Result[]>([]);
+  const [searchData, setSearchData] = useState<Result[]>(
+    []
+  );
   const [isLoading, setIsLoading] = useState(false);
   const context = useContext(MovieAndTvShowContext);
 
@@ -37,11 +50,12 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
   const heightHeaderRef = useRef<any>();
   const heightInputRef = useRef<any>();
   const [dimensions, setDimensions] = useState('');
-  console.log('dimensions', dimensions);
 
   useLayoutEffect(() => {
     if (heightHeaderRef.current && heightInputRef.current) {
-      const value = heightHeaderRef.current.offsetHeight + heightHeaderRef.current.offsetHeight;
+      const value =
+        heightHeaderRef.current.offsetHeight +
+        heightHeaderRef.current.offsetHeight;
       setDimensions('h-[calc(100%-' + value + 'px)]');
     }
   }, []);
@@ -49,8 +63,14 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
   useEffect(() => {
     if (debouncerValue) {
       const fetchData = async () => {
-        document.getElementById('search_content')!.scrollTo(0, 0);
-        const dataSearch = await context!.searchMultiUseCase.execute(query, tMetadata('language'));
+        document
+          .getElementById('search_content')!
+          .scrollTo(0, 0);
+        const dataSearch =
+          await context!.searchMultiUseCase.execute(
+            query,
+            tMetadata('language')
+          );
 
         setSearchData(dataSearch!.results);
         setIsLoading(false);
@@ -96,7 +116,9 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
     if (isMounted.current) {
       clearTimeoutManually();
       setIsOpen(false);
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) =>
+        setTimeout(resolve, 300)
+      );
       props.close();
     }
   };
@@ -108,9 +130,17 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
             <div
               className={`fixed left-0 right-0 top-0 flex h-full w-full justify-center bg-black bg-opacity-95 duration-500`}
             >
-              <Heading id='header_search' className={`w-full`}>
-                <div ref={heightHeaderRef} className='bg-black'>
+              <Heading
+                id='header_search'
+                className={`w-full`}
+              >
+                <div
+                  ref={heightHeaderRef}
+                  className='bg-black'
+                >
                   <HeaderSearchComponent
+                    selected={selected}
+                    setSelected={setSelected}
                     onClick={async () => {
                       clearTimeoutManually();
                       setIsOpen(false);
@@ -118,7 +148,9 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
                       setIsLoading(false);
                       setQuery('');
 
-                      await new Promise((r) => setTimeout(r, 300));
+                      await new Promise((r) =>
+                        setTimeout(r, 300)
+                      );
                       props.close();
                     }}
                   />
@@ -134,7 +166,9 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
                     className='text-input m-2 flex h-10 w-full bg-black p-2 text-white outline-none'
                     name='full_name'
                     placeholder={t('search')}
-                    onChange={(text) => setQuery(text.target.value)}
+                    onChange={(text) =>
+                      setQuery(text.target.value)
+                    }
                     type='text'
                   />
                   <a
@@ -144,7 +178,9 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
                       setSearchData([]);
                       setIsLoading(false);
                       setQuery('');
-                      await new Promise((r) => setTimeout(r, 300));
+                      await new Promise((r) =>
+                        setTimeout(r, 300)
+                      );
                       props.close();
                     }}
                   >
@@ -165,13 +201,19 @@ const DialogChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any })
                           aria-label='loading...'
                         />
                       </div>
-                    ) : searchData.length == 0 && query != '' ? (
+                    ) : searchData.length == 0 &&
+                      query != '' ? (
                       <div className='flex w-full bg-black px-4 py-5'>
                         <NotFoundSearch query={query} />
                       </div>
                     ) : (
                       <div className='w-full flex-col gap-4 py-6'>
-                        {searchData?.map((item) => <SearchTile key={item.id} media={item} />)}
+                        {searchData?.map((item) => (
+                          <SearchTile
+                            key={item.id}
+                            media={item}
+                          />
+                        ))}
                         <div className='pb-8'></div>
                       </div>
                     )

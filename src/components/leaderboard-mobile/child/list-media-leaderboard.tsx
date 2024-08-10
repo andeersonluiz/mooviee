@@ -1,13 +1,7 @@
-import { TrendingAll } from '@/modules/data/model/trending-all';
-import { TrendingType } from '@/utils/enums';
-import { getMoveValue } from '@/utils/functions';
-import { useTranslations } from 'next-intl';
-import { use, useEffect, useRef, useState } from 'react';
-import { MediaType } from '@/modules/data/model/media-type';
-import { headers } from 'next/headers';
-import { getDeviceType } from '@/utils/ssr_functions';
 import MediaTile from '@/components/secondary-content/child/media-tile';
+import { MediaType } from '@/modules/data/model/media-type';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
+import { useEffect, useRef, useState } from 'react';
 
 const ListMediaLeadboarder = ({
   data,
@@ -41,9 +35,10 @@ const ListMediaLeadboarder = ({
             key={item.id}
             media={item}
             isUpcoming={isUpcoming}
-            onClick={() => null}
             isMovie={
-              mediaType == null ? item.media_type == MediaType.Movie : mediaType == MediaType.Movie
+              mediaType == null
+                ? item.media_type == MediaType.Movie
+                : mediaType == MediaType.Movie
             }
           />
         ))}

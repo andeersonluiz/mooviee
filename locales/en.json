@@ -58,9 +58,28 @@
     "lastEpisode": "Last episode to air",
     "viewAll": "View all"
   },
+  "movieInfo": {
+    "cast": "Cast",
+    "recommendation": "Recommendations for you",
+    "noOverview": "This movie has no synopsis.",
+    "genres": "Genres",
+    "status": "Status",
+    "budget": "Budget",
+    "viewAll": "View all"
+  },
   "footer": {
     "description": "Movieee. Developed by Anderson Luiz. All rights reserved.",
     "contact": "Contact: ",
     "followMe": "Follow-me: "
+  },
+  "status": {
+    "ReturningSeries": "Returning Series",
+    "Planned": "Planned",
+    "InProduction": "In Production",
+    "Ended": "Ended",
+    "Canceled": "Canceled",
+    "Pilot": "Pilot",
+    "Rumored": "Rumored",
+    "Released": "Released"
   }
 }

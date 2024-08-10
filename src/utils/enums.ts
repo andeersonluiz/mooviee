@@ -1,7 +1,8 @@
 export enum MovieListType {
   POPULAR,
   TOP_RATED,
-  UPCOMING,NOW_PLAYING,
+  UPCOMING,
+  NOW_PLAYING,
 }
 
 export enum SerieListType {
@@ -26,3 +27,15 @@ export enum ItemType {
   MOVIE,
   SERIE,
 }
+
+export enum Status {
+  ReturningSeries = 'Returning Series',
+  Planned = 'Planned',
+  InProduction = 'In Production',
+  Ended = 'Ended',
+  Canceled = 'Canceled',
+  Pilot = 'Pilot',
+  Rumored = 'Rumored',
+  Released = 'Released',
+}
+

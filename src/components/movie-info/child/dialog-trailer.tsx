@@ -12,7 +12,6 @@ const DialogTrailer = ({
 }) => {
   const url = `https://www.youtube.com/embed/${keyVideo}`;
   const [isLoading, setIsLoading] = useState(true);
-  console.log(keyVideo);
   useEffect(() => {
     return () => {
       setIsLoading(true);

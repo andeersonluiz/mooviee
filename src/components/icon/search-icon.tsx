@@ -1,6 +1,8 @@
-import React from 'react';
-
-const SearchIcon = ({ pointer = true }: { pointer?: boolean }) => {
+const SearchIcon = ({
+  pointer = true,
+}: {
+  pointer?: boolean;
+}) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

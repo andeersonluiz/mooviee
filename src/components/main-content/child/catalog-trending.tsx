@@ -1,10 +1,12 @@
 import { BASE_IMAGE_URL } from '@/config/settings';
-import { Result } from '@/modules/data/model/trending-all';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { Skeleton } from '@mui/material';
-import { widthCatalogTrending, widthCatalogTrendingTailwind } from '@/styles/style-values';
 import { MediaType } from '@/modules/data/model/media-type';
+import { Result } from '@/modules/data/model/trending-all';
+import {
+  widthCatalogTrending,
+  widthCatalogTrendingTailwind,
+} from '@/styles/style-values';
+import Image from 'next/image';
+import { useState } from 'react';
 
 const CatalogTrending = ({
   media,
@@ -49,24 +51,3 @@ const CatalogTrending = ({
 };
 
 export default CatalogTrending;
-
-/*  {!loaded && (
-          <>
-            <Skeleton
-              sx={{ bgcolor: 'grey.800' }}
-              variant='rectangular'
-              width={150}
-              height={225}
-              className='absolute top-5'
-            />
-            <Skeleton
-              sx={{ bgcolor: 'grey.800' }}
-              height={25}
-              width={150}
-              className='absolute bottom-5'
-              variant='rectangular'
-            />
-          </>
-        )}
-       
-         */

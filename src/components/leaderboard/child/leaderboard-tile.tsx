@@ -1,13 +1,13 @@
+import DivTile from '@/components/custom-tags/divTile';
 import { BASE_IMAGE_URL } from '@/config/settings';
 import { Leaderboarder } from '@/modules/data/model/leaderboard';
 import { MediaType } from '@/modules/data/model/media-type';
+import { GenreContext } from '@/modules/presentation/provider/movies-tv-show-provider';
 import {
-  GenreContext,
-  MovieAndTvShowContext,
-} from '@/modules/presentation/provider/movies-tv-show-provider';
-import { convertDateToLocal, formatGenres } from '@/utils/functions';
+  convertDateToLocal,
+  formatGenres,
+} from '@/utils/functions';
 import { useTranslations } from 'next-intl';
-import { getLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
@@ -24,7 +24,8 @@ const LeaderboardTile = ({
   const isMovie = media.media_type == MediaType.Movie;
   const context = use(GenreContext)!;
   const t = useTranslations('metadata');
-  const leaderboardTranslation = useTranslations('leaderboard');
+  const leaderboardTranslation =
+    useTranslations('leaderboard');
 
   const genres = context.listGenres;
   const numbersSplited = position.toString().split('');
@@ -40,16 +41,12 @@ const LeaderboardTile = ({
       setIsLoading(true);
     };
   }, [media]);
+  const locale = window.location.href.split(/\/(en|br)/)[1];
+
   return (
     <td>
-      <div
-        onClick={() => {
-          if (!isMovie) {
-            const locale = window.location.href.split(/\/(en|br)/)[1];
-
-            router.push(`/${locale}/serie/${media.id}`);
-          }
-        }}
+      <DivTile
+        path={`/${locale}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
         className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex cursor-pointer flex-row transition-opacity duration-300`}
       >
         {numbersSplited.length == 1 ? (
@@ -93,21 +90,31 @@ const LeaderboardTile = ({
             </div>
           </div>
           <p className='mt-[10px] line-clamp-1 w-full overflow-hidden text-ellipsis px-4 text-start !align-middle text-xs font-light text-slate-200'>
-            <span className='content-center font-bold'>{leaderboardTranslation('genres')} </span>
+            <span className='content-center font-bold'>
+              {leaderboardTranslation('genres')}{' '}
+            </span>
             <span className='content-center'>
               {genres == null
                 ? ''
-                : formatGenres(media.genre_ids, genres).length == 0
+                : formatGenres(media.genre_ids, genres)
+                      .length == 0
                   ? '-'
-                  : formatGenres(media.genre_ids, genres).join(', ')}
+                  : formatGenres(
+                      media.genre_ids,
+                      genres
+                    ).join(', ')}
             </span>
           </p>
           {isUpcoming ? (
             <div className='mb-1 flex w-fit flex-1 items-end overflow-hidden text-ellipsis whitespace-nowrap pl-4 text-end !align-middle text-sm font-light text-slate-200'>
-              <span className=''>{leaderboardTranslation('upcomingDate')}</span>
+              <span className=''>
+                {leaderboardTranslation('upcomingDate')}
+              </span>
               <span className='px-1 font-semibold'>
                 {convertDateToLocal(
-                  isMovie ? media.release_date : media.first_air_date,
+                  isMovie
+                    ? media.release_date
+                    : media.first_air_date,
                   t('language')
                 )}
               </span>
@@ -133,7 +140,7 @@ const LeaderboardTile = ({
             </div>
           )}
         </div>
-      </div>
+      </DivTile>
     </td>
   );
 };

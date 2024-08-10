@@ -1,25 +1,46 @@
-import { Dispatch, SetStateAction, Fragment, useEffect, useState, useRef, useContext } from 'react';
-import SearchIcon from '@/components/icon/search-icon';
-import { useTranslations } from 'next-intl';
-import CloseIcon from '@/components/icon/close-icon';
-import {} from 'react-aria-components';
-import { Modal, Dialog, Heading, Input } from 'react-aria-components';
-import HeaderMobileSearchComponent from '../header-mobile-search-component';
-import useDebouncer from '@/hooks/debouncer';
-import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
-import { Result } from '@/modules/data/model/multi-list';
-import { CircularProgress } from '@nextui-org/progress';
 import NotFoundSearch from '@/components/header/children/not-found-search';
 import SearchTile from '@/components/header/children/search-tile';
+import CloseIcon from '@/components/icon/close-icon';
+import SearchIcon from '@/components/icon/search-icon';
+import useDebouncer from '@/hooks/debouncer';
+import { Result } from '@/modules/data/model/multi-list';
+import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
+import { CircularProgress } from '@nextui-org/progress';
+import { useTranslations } from 'next-intl';
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import {
+  Dialog,
+  Heading,
+  Input,
+  Modal,
+} from 'react-aria-components';
+import HeaderMobileSearchComponent from '../header-mobile-search-component';
 
-const DialogMobileChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) => {
+const DialogMobileChild = ({
+  isOpen,
+  setIsOpen,
+  selected,
+  setSelected,
+}: {
+  isOpen: boolean;
+  setIsOpen: any;
+  selected: any;
+  setSelected: any;
+}) => {
   const t = useTranslations('common');
   const tMetadata = useTranslations('metadata');
 
   const [isMoved, setIsMoved] = useState(false);
   const timeoutRef = useRef<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchData, setSearchData] = useState<Result[]>([]);
+  const [searchData, setSearchData] = useState<Result[]>(
+    []
+  );
   const [query, setQuery] = useState('');
 
   const isMounted = useRef(false);
@@ -29,8 +50,14 @@ const DialogMobileChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
   useEffect(() => {
     if (debouncerValue) {
       const fetchData = async () => {
-        document.getElementById('search_content')!.scrollTo(0, 0);
-        const dataSearch = await context!.searchMultiUseCase.execute(query, tMetadata('language'));
+        document
+          .getElementById('search_content')!
+          .scrollTo(0, 0);
+        const dataSearch =
+          await context!.searchMultiUseCase.execute(
+            query,
+            tMetadata('language')
+          );
         setSearchData(dataSearch!.results);
         setIsLoading(false);
       };
@@ -74,7 +101,9 @@ const DialogMobileChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
     if (isMounted.current) {
       clearTimeoutManually();
       setIsOpen(false);
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) =>
+        setTimeout(resolve, 300)
+      );
       props.close();
     }
   };
@@ -86,16 +115,20 @@ const DialogMobileChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
             <div
               className={`fixed left-0 right-0 top-0 flex h-full w-full justify-center bg-black bg-opacity-95 duration-500`}
             >
-              <Heading className={`w-full`}>
+              <Heading className={`h-full w-full`}>
                 <div className='bg-black'>
                   <HeaderMobileSearchComponent
+                    selected={selected}
+                    setSelected={setSelected}
                     onClick={async () => {
                       clearTimeoutManually();
                       setIsOpen(false);
                       setSearchData([]);
                       setIsLoading(false);
                       setQuery('');
-                      await new Promise((r) => setTimeout(r, 300));
+                      await new Promise((r) =>
+                        setTimeout(r, 300)
+                      );
                       props.close();
                     }}
                   />
@@ -110,7 +143,9 @@ const DialogMobileChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
                     className='text-input m-2 flex h-10 w-full bg-black p-2 text-white outline-none'
                     name='full_name'
                     placeholder={t('search')}
-                    onChange={(text) => setQuery(text.target.value)}
+                    onChange={(text) =>
+                      setQuery(text.target.value)
+                    }
                     type='text'
                   />
                   <a
@@ -120,7 +155,9 @@ const DialogMobileChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
                       setSearchData([]);
                       setIsLoading(false);
                       setQuery('');
-                      await new Promise((r) => setTimeout(r, 300));
+                      await new Promise((r) =>
+                        setTimeout(r, 300)
+                      );
                       props.close();
                     }}
                   >
@@ -141,13 +178,19 @@ const DialogMobileChild = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
                           aria-label='loading...'
                         />
                       </div>
-                    ) : searchData.length == 0 && query != '' ? (
+                    ) : searchData.length == 0 &&
+                      query != '' ? (
                       <div className='flex bg-black px-4 py-5'>
                         <NotFoundSearch query={query} />
                       </div>
                     ) : (
                       <div className='w-full flex-col gap-4 pt-6'>
-                        {searchData?.map((item) => <SearchTile key={item.id} media={item} />)}
+                        {searchData?.map((item) => (
+                          <SearchTile
+                            key={item.id}
+                            media={item}
+                          />
+                        ))}
                         <div className='pt-7'></div>
                       </div>
                     )

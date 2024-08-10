@@ -1,23 +1,28 @@
-import { TrendingAll } from '@/modules/data/model/trending-all';
-import { TrendingType } from '@/utils/enums';
-import { getMoveValue } from '@/utils/functions';
-import { useTranslations } from 'next-intl';
-import { use, useEffect, useRef, useState } from 'react';
-import MediaTile from './media-tile';
-import { MediaType } from '@/modules/data/model/media-type';
-import { headers } from 'next/headers';
-import { getDeviceType } from '@/utils/ssr_functions';
-import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
-import useScroll from '@/hooks/scroll';
-import ArrowNextIcon from '@/components/icon/arrow-next-icon';
 import ArrowBackIcon from '@/components/icon/arrow-back-icon';
+import ArrowNextIcon from '@/components/icon/arrow-next-icon';
+import useScroll from '@/hooks/scroll';
+import { MediaType } from '@/modules/data/model/media-type';
+import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
+import { useEffect, useRef, useState } from 'react';
+import MediaTile from './media-tile';
 
-const ListMedia = ({ data, mediaType = null }: { data: any; mediaType?: MediaType | null }) => {
+const ListMedia = ({
+  data,
+  mediaType = null,
+}: {
+  data: any;
+  mediaType?: MediaType | null;
+}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVisibleNext, setIsVisibleNext] = useState(false);
   const [isVisibleBack, setIsVisibleBack] = useState(false);
-  const scrollHook = useScroll(scrollContainerRef, setIsVisibleNext, setIsVisibleBack, 5);
+  const scrollHook = useScroll(
+    scrollContainerRef,
+    setIsVisibleNext,
+    setIsVisibleBack,
+    5
+  );
   const userAgentData = useUserAgentData();
 
   useEffect(() => {
@@ -39,9 +44,10 @@ const ListMedia = ({ data, mediaType = null }: { data: any; mediaType?: MediaTyp
           <MediaTile
             key={item.id}
             media={item}
-            onClick={() => null}
             isMovie={
-              mediaType == null ? item.media_type == MediaType.Movie : mediaType == MediaType.Movie
+              mediaType == null
+                ? item.media_type == MediaType.Movie
+                : mediaType == MediaType.Movie
             }
           />
         ))}

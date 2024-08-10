@@ -16,7 +16,12 @@ function roundNumber(number: number): number {
   }
 }
 
-export function getMoveValue(width: number, childWidth: number, gap: number, padding = 0) {
+export function getMoveValue(
+  width: number,
+  childWidth: number,
+  gap: number,
+  padding = 0
+) {
   const widthContent = childWidth + padding + gap * 4;
 
   let size = 0;
@@ -27,7 +32,8 @@ export function getMoveValue(width: number, childWidth: number, gap: number, pad
   }
   let restSize = 1;
   if (totalSum - width > 0) {
-    restSize = (widthContent - (totalSum - width)) / widthContent;
+    restSize =
+      (widthContent - (totalSum - width)) / widthContent;
   }
   /*console.log('totalSum', totalSum);
   console.log(width, width);
@@ -47,7 +53,10 @@ export function getMoveValue(width: number, childWidth: number, gap: number, pad
 export function getMinMaxDate() {
   var date = new Date();
   const dayMin = String(date.getDate()).padStart(2, '0');
-  const monthMin = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa do 0 em JavaScript
+  const monthMin = String(date.getMonth() + 1).padStart(
+    2,
+    '0'
+  ); // Mês começa do 0 em JavaScript
   const yearMin = date.getFullYear();
 
   const minDate = `${yearMin}-${monthMin}-${dayMin}`;
@@ -55,7 +64,10 @@ export function getMinMaxDate() {
   date.setDate(date.getDate() + 31);
 
   const dayMax = String(date.getDate()).padStart(2, '0');
-  const monthMax = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa do 0 em JavaScript
+  const monthMax = String(date.getMonth() + 1).padStart(
+    2,
+    '0'
+  ); // Mês começa do 0 em JavaScript
   const yearMax = date.getFullYear();
 
   const maxDate = `${yearMax}-${monthMax}-${dayMax}`;
@@ -63,10 +75,15 @@ export function getMinMaxDate() {
   return [minDate, maxDate];
 }
 
-export function formatGenres(genre_ids: number[], genres: Genre[]): string[] {
+export function formatGenres(
+  genre_ids: number[],
+  genres: Genre[]
+): string[] {
   const listGenres = genre_ids
     .map((item: any) => {
-      const res = genres?.find((genre) => genre.id == Number(item));
+      const res = genres?.find(
+        (genre) => genre.id == Number(item)
+      );
       if (res) {
         return res.name;
       }
@@ -75,15 +92,26 @@ export function formatGenres(genre_ids: number[], genres: Genre[]): string[] {
   return listGenres;
 }
 
-export function convertDateToLocal(date: Date, locale: string) {
+export function convertDateToLocal(
+  date: Date,
+  locale: string
+) {
   return Intl.DateTimeFormat(locale).format(new Date(date));
 }
 
 export function getType(text: any) {
   if (text.title != null) {
-    return { isMovie: true, isSerie: false, isPerson: false };
+    return {
+      isMovie: true,
+      isSerie: false,
+      isPerson: false,
+    };
   } else if (text.name != null) {
-    return { isMovie: true, isSerie: false, isPerson: false };
+    return {
+      isMovie: true,
+      isSerie: false,
+      isPerson: false,
+    };
   }
 }
 
@@ -95,4 +123,13 @@ export function convertRunTime(minutes: number) {
   } else {
     return `${minutes}mins`;
   }
+}
+
+export function getEnumKeyByValue(
+  enumObj: any,
+  value: string
+): string | undefined {
+  return Object.keys(enumObj).find(
+    (key) => enumObj[key] === value
+  );
 }

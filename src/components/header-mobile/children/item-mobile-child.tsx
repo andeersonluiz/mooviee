@@ -1,6 +1,17 @@
-const ItemMobileChild = ({ title, color }: { title: string; color: string }) => {
+const ItemMobileChild = ({
+  title,
+  color,
+  onClick,
+}: {
+  title: string;
+  color: string;
+  onClick: () => void;
+}) => {
   return (
-    <a className={`cursor-pointer text-xl ${color} rounded-lg bg-opacity-70 p-2 text-gray-200`}>
+    <a
+      onClick={onClick}
+      className={`cursor-pointer text-xl ${color} rounded-lg bg-opacity-70 p-2 text-gray-200`}
+    >
       {title}
     </a>
   );

@@ -1,21 +1,27 @@
-import useScroll from '@/hooks/scroll';
-import { Recommendations, SerieInfo } from '@/modules/data/model/serie-info';
-import { convertRunTime } from '@/utils/functions';
-import { useTranslations } from 'next-intl';
-import { useRef, useState } from 'react';
-import CastTile from './cast-tile';
 import ArrowBackIcon from '@/components/icon/arrow-back-icon';
 import ArrowNextIcon from '@/components/icon/arrow-next-icon';
-import ArrowGoIcon from '@/components/icon/arrow-go-icon';
+import useScroll from '@/hooks/scroll';
+import { Recommendations } from '@/modules/data/model/serie-info';
+import { useTranslations } from 'next-intl';
+import { useRef, useState } from 'react';
 import RecommendationTile from './recommendation-tile';
 
-const RecommendationList = ({ recommendations }: { recommendations: Recommendations[] }) => {
+const RecommendationList = ({
+  recommendations,
+}: {
+  recommendations: Recommendations[];
+}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tSerieInfo = useTranslations('serieInfo');
 
   const [isVisibleNext, setIsVisibleNext] = useState(false);
   const [isVisibleBack, setIsVisibleBack] = useState(false);
-  const scrollHook = useScroll(scrollContainerRef, setIsVisibleNext, setIsVisibleBack, 4);
+  const scrollHook = useScroll(
+    scrollContainerRef,
+    setIsVisibleNext,
+    setIsVisibleBack,
+    4
+  );
 
   return (
     <>
@@ -33,7 +39,10 @@ const RecommendationList = ({ recommendations }: { recommendations: Recommendati
               className='no-scrollbar flex flex-row gap-4 overflow-x-scroll'
             >
               {recommendations.map((item) => (
-                <RecommendationTile key={item.id} recommendation={item} />
+                <RecommendationTile
+                  key={item.id}
+                  recommendation={item}
+                />
               ))}
             </div>
 

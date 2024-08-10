@@ -1,17 +1,21 @@
-import { languageIndexOptions } from '@/config/settings';
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
 import { Button, Drawer } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ItemMobileChild from './item-mobile-child';
 
-const SidenavItemsChild = () => {
+const SidenavItemsChild = ({
+  selected,
+  setSelected,
+}: {
+  selected: any;
+  setSelected: any;
+}) => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const headerTranslation = useTranslations('header');
-
+  const router = useRouter();
   return (
-    <div className='flex w-[20%] justify-start rounded-lg'>
+    <div className='flex h-full w-[20%] justify-start rounded-lg'>
       <Button
         onClick={() => setIsOpenDrawer(true)}
         className='rounded-lg p-2 text-sm text-gray-500 focus:outline-none sm:hidden'
@@ -31,7 +35,10 @@ const SidenavItemsChild = () => {
           ></path>
         </svg>
       </Button>
-      <Drawer open={isOpenDrawer} onClose={() => setIsOpenDrawer(false)}>
+      <Drawer
+        open={isOpenDrawer}
+        onClose={() => setIsOpenDrawer(false)}
+      >
         <div className='h-full w-[70vw] border-none bg-neutral-950'>
           <div className='p-6'>
             <button onClick={() => setIsOpenDrawer(false)}>
@@ -44,17 +51,39 @@ const SidenavItemsChild = () => {
                 stroke='white'
                 className='size-7'
               >
-                <path strokeLinecap='round' strokeLinejoin='round' d='M6 18 18 6M6 6l12 12' />
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M6 18 18 6M6 6l12 12'
+                />
               </svg>
             </button>
           </div>
           <div className='flex flex-col gap-4 px-6'>
             <ItemMobileChild
               title={headerTranslation('home')}
-              color='bg-neutral-500 font-semibold'
+              onClick={() => {
+                setSelected(0);
+                router.push('/');
+              }}
+              color={`${selected == 0 ? 'bg-neutral-500 font-semibold' : ''}`}
             />
-            <ItemMobileChild title={headerTranslation('movie')} color='bg-transparent' />
-            <ItemMobileChild title={headerTranslation('serie')} color='bg-transparent' />
+            <ItemMobileChild
+              title={headerTranslation('movie')}
+              onClick={() => {
+                setSelected(1);
+                router.push('/');
+              }}
+              color={`${selected == 1 ? 'bg-neutral-500 font-semibold' : ''}`}
+            />
+            <ItemMobileChild
+              title={headerTranslation('serie')}
+              onClick={() => {
+                setSelected(2);
+                router.push('/');
+              }}
+              color={`${selected == 2 ? 'bg-neutral-500 font-semibold ' : ''}`}
+            />
           </div>
         </div>
       </Drawer>

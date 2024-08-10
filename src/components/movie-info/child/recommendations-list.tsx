@@ -1,17 +1,15 @@
 import ArrowBackIcon from '@/components/icon/arrow-back-icon';
-import ArrowGoIcon from '@/components/icon/arrow-go-icon';
 import ArrowNextIcon from '@/components/icon/arrow-next-icon';
 import useScroll from '@/hooks/scroll';
-import { AggregateCredits } from '@/modules/data/model/serie-info';
-import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
+import { Recommendations } from '@/modules/data/model/movie-info';
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
-import CastTile from './cast-tile';
+import RecommendationTile from './recommendation-tile';
 
-const CastList = ({
-  credits,
+const RecommendationList = ({
+  recommendations,
 }: {
-  credits: AggregateCredits;
+  recommendations: Recommendations[];
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tSerieInfo = useTranslations('serieInfo');
@@ -24,29 +22,14 @@ const CastList = ({
     setIsVisibleBack,
     4
   );
-  const userAgentInfo = useUserAgentData();
 
   return (
     <>
-      {credits.cast.length != 0 && (
-        <div className='flex w-full flex-col pr-4'>
-          <div
-            className={`${userAgentInfo.isMobile ? 'pt-8' : 'pt-16'} flex flex-row items-center pb-4 pl-6`}
-          >
-            <p className='pr-4 text-2xl font-bold text-white'>
-              {tSerieInfo('cast')}
-            </p>
-
-            <div
-              className='flex cursor-pointer flex-row items-center'
-              onClick={() => null}
-            >
-              <p
-                className={`text-lg text-slate-100`}
-              >{`${tSerieInfo('viewAll')}`}</p>
-              <ArrowGoIcon className='size-7 stroke-slate-100' />
-            </div>
-          </div>
+      {recommendations.length != 0 && (
+        <div className='flex w-full flex-col p-0 pb-8 pr-4'>
+          <p className='font-base w-full p-8 text-center text-2xl text-white'>
+            {tSerieInfo('recommendation')}
+          </p>
           <div className='relative'>
             <div
               ref={scrollContainerRef}
@@ -55,8 +38,11 @@ const CastList = ({
               onScroll={() => scrollHook.updateScrollLeft()}
               className='no-scrollbar flex flex-row gap-4 overflow-x-scroll'
             >
-              {credits.cast.map((item) => (
-                <CastTile key={item.id} cast={item} />
+              {recommendations.map((item) => (
+                <RecommendationTile
+                  key={item.id}
+                  recommendation={item}
+                />
               ))}
             </div>
 
@@ -81,4 +67,4 @@ const CastList = ({
   );
 };
 
-export default CastList;
+export default RecommendationList;

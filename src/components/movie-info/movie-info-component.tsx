@@ -1,14 +1,14 @@
-import { SerieInfo } from '@/modules/data/model/serie-info';
+import { MovieInfo } from '@/modules/data/model/movie-info';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 import CastList from './child/cast-list';
-import DescriptionSerie from './child/description';
-import InfosSerie from './child/infos';
+import DescriptionMovie from './child/description';
+import InfosMovie from './child/infos';
 import RecommendationList from './child/recommendations-list';
 
-const SerieInfoComponent = ({
-  serie,
+const MovieInfoComponent = ({
+  movie,
 }: {
-  serie: SerieInfo;
+  movie: MovieInfo;
 }) => {
   const userAgentInfo = useUserAgentData();
 
@@ -20,20 +20,20 @@ const SerieInfoComponent = ({
         <div
           className={`${userAgentInfo.isMobile ? 'w-full' : 'w-[70%]'} flex flex-col`}
         >
-          <DescriptionSerie serie={serie!} />
+          <DescriptionMovie movie={movie!} />
         </div>
         <div
           className={`${userAgentInfo.isMobile ? 'w-full' : 'w-[30%] !pt-8'} flex flex-col gap-6 px-8`}
         >
-          <InfosSerie serie={serie!} />
+          <InfosMovie movie={movie!} />
         </div>
       </div>
-      <CastList credits={serie!.aggregate_credits} />
+      <CastList credits={movie!.credits} />
       <RecommendationList
-        recommendations={serie!.recommendations}
+        recommendations={movie!.recommendations}
       />
     </main>
   );
 };
 
-export default SerieInfoComponent;
+export default MovieInfoComponent;

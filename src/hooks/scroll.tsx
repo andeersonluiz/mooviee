@@ -1,8 +1,6 @@
-import { UserAgentContext } from '@/modules/presentation/provider/movies-tv-show-provider';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 import { getMoveValue } from '@/utils/functions';
-import React, { RefObject, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { clearTimeout } from 'timers';
+import { RefObject, useRef } from 'react';
 
 export default function useScroll(
   scrollContainerRef: RefObject<HTMLDivElement>,
@@ -51,7 +49,10 @@ export default function useScroll(
       scrollLeft.current = container.scrollLeft;
       const moveValue = window.innerWidth;
 
-      if (scrollLeft.current + moveValue >= container.scrollWidth) {
+      if (
+        scrollLeft.current + moveValue >=
+        container.scrollWidth
+      ) {
         setIsVisibleNext(false);
         isEnd.current = true;
       } else {

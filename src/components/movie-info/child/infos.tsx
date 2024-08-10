@@ -1,26 +1,23 @@
-import { SerieInfo } from '@/modules/data/model/serie-info';
+import { MovieInfo } from '@/modules/data/model/movie-info';
 import { Status } from '@/utils/enums';
-import {
-  convertDateToLocal,
-  getEnumKeyByValue,
-} from '@/utils/functions';
+import { getEnumKeyByValue } from '@/utils/functions';
 import { useTranslations } from 'next-intl';
 
-const InfosSerie = ({ serie }: { serie: SerieInfo }) => {
-  const tSerieInfo = useTranslations('serieInfo');
+const InfosMovie = ({ movie }: { movie: MovieInfo }) => {
+  const tMovieInfo = useTranslations('movieInfo');
   const tStatus = useTranslations('status');
 
   const t = useTranslations('metadata');
 
   return (
     <>
-      {serie.genres.length != 0 && (
+      {movie.genres.length != 0 && (
         <div className='flex flex-col gap-3'>
           <p className='pb-2 text-xl font-semibold text-white'>
-            {tSerieInfo('genres')}
+            {tMovieInfo('genres')}
           </p>
           <div className='flex flex-wrap gap-4'>
-            {serie.genres!.map((item) => (
+            {movie.genres!.map((item) => (
               <div
                 key={item.name}
                 className='h-fit w-fit cursor-pointer rounded-lg border-1 border-slate-200 p-[6px] text-sm text-slate-200 hover:border-gray-400 hover:bg-gray-600'
@@ -31,30 +28,34 @@ const InfosSerie = ({ serie }: { serie: SerieInfo }) => {
           </div>
         </div>
       )}
-      {serie.status && (
+      {movie.status && (
         <div className='flex flex-col gap-3'>
           <p className='text-xl font-semibold text-white'>
             {' '}
-            {tSerieInfo('status')}{' '}
+            {tMovieInfo('status')}
           </p>
           <p className='text-slate-200'>
             {tStatus(
-              getEnumKeyByValue(Status, serie.status)
+              getEnumKeyByValue(Status, movie.status)
             )}
           </p>
         </div>
       )}
-      {serie.next_episode_to_air && (
+      {movie.budget != 0 && (
         <div className='flex flex-col gap-3'>
           <p className='text-xl font-semibold text-white'>
-            {' '}
-            {tSerieInfo('lastEpisode')}
+            {tMovieInfo('budget')}
           </p>
-          <p className='text-slate-200'>{`${serie.next_episode_to_air.season_number}x${serie.next_episode_to_air.episode_number} (${convertDateToLocal(new Date(serie.next_episode_to_air.air_date), t('language'))})`}</p>
+          <p className='text-slate-200'>
+            {movie.budget.toLocaleString(t('language'), {
+              style: 'currency',
+              currency: 'USD',
+            })}
+          </p>
         </div>
       )}
     </>
   );
 };
 
-export default InfosSerie;
+export default InfosMovie;

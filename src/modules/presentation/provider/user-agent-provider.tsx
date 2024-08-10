@@ -1,5 +1,5 @@
 'use client';
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 
 interface UserAgentProps {
   isMobile: boolean;
@@ -20,7 +20,11 @@ export const UserAgentProvider = ({
   children: any;
   value: UserAgentProps;
 }) => {
-  return <UserAgentContext.Provider value={value}>{children}</UserAgentContext.Provider>;
+  return (
+    <UserAgentContext.Provider value={value}>
+      {children}
+    </UserAgentContext.Provider>
+  );
 };
 
 export const useUserAgentData = () => {

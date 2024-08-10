@@ -58,9 +58,28 @@
     "lastEpisode": "Último episódio a ser exibido",
     "viewAll": "Ver tudo"
   },
+  "movieInfo": {
+    "cast": "Elenco",
+    "recommendation": "Recomendações para você",
+    "noOverview": "Este filme não possui sinopse.",
+    "genres": "Gêneros",
+    "status": "Situação",
+    "budget": "Orçamento",
+    "viewAll": "Ver tudo"
+  },
   "footer": {
     "description": "Movieee. Desenvolvido por Anderson Luiz. Todos os direitos reservados.",
     "contact": "Contato: ",
     "followMe": "Siga-me: "
+  },
+  "status": {
+    "ReturningSeries": "Retornando",
+    "Planned": "Planejado",
+    "InProduction": "Em Produção",
+    "Ended": "Finzalizado",
+    "Canceled": "Cancelado",
+    "Pilot": "Piloto",
+    "Rumored": "Rumor",
+    "Released": "Lançado"
   }
 }

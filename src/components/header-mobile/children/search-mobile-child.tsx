@@ -1,9 +1,15 @@
-import SearchIcon from '@/components/icon/search-icon';
-
-const SearchMobileChild = ({ onClick }: { onClick: () => void }) => {
+const SearchMobileChild = ({
+  onClick,
+}: {
+  onClick: () => void;
+}) => {
   return (
-    <div className='flex w-[15%] justify-center'>
-      <a onMouseUp={onClick} onTouchEnd={onClick} className=''>
+    <div className=''>
+      <a
+        onMouseUp={onClick}
+        onTouchEnd={onClick}
+        className=''
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'

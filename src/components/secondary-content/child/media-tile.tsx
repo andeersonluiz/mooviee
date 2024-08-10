@@ -1,34 +1,38 @@
+import DivTile from '@/components/custom-tags/divTile';
 import { BASE_IMAGE_URL } from '@/config/settings';
-import { widthCatalogTrending, widthCatalogTrendingTailwind } from '@/styles/style-values';
-import { durationBanner } from '@/utils/transitions-data';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { MediaType } from '@/modules/data/model/media-type';
-import { useTranslations } from 'next-intl';
+import {
+  widthCatalogTrending,
+  widthCatalogTrendingTailwind,
+} from '@/styles/style-values';
 import { convertDateToLocal } from '@/utils/functions';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useState } from 'react';
 
 const MediaTile = ({
   media,
-  onClick,
   isMovie,
   isUpcoming = false,
 }: {
   media: any;
-  onClick: () => void;
   isMovie: boolean;
   isUpcoming?: boolean;
 }) => {
   const [loaded, setLoaded] = useState(false);
   const common = useTranslations('common');
   const t = useTranslations('metadata');
-  const date = isMovie ? new Date(media.release_date) : new Date(media.first_air_date);
+  const date = isMovie
+    ? new Date(media.release_date)
+    : new Date(media.first_air_date);
+  const locale = window.location.href.split(/\/(en|br)/)[1];
+
   return (
-    <div
+    <DivTile
+      path={`/${locale}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
       className={`flex flex-col rounded-md p-3 ${loaded ? 'hover:bg-neutral-800' : ''} cursor-pointer transition-all duration-300`}
     >
       <div
         className={`flex ${widthCatalogTrendingTailwind} flex-shrink-0 flex-col items-center justify-start`}
-        onClick={onClick}
       >
         <Image
           width={widthCatalogTrending}
@@ -54,8 +58,12 @@ const MediaTile = ({
             <p className='line-clamp-1 flex flex-1'>
               {`${isMovie ? common('movie_tag') : common('serie_tag')}`}
             </p>
-            <span className={`flex ${isUpcoming ? 'font-semibold' : ''}`}>
-              {isUpcoming ? convertDateToLocal(date, t('language')) : date.getFullYear()}
+            <span
+              className={`flex ${isUpcoming ? 'font-semibold' : ''}`}
+            >
+              {isUpcoming
+                ? convertDateToLocal(date, t('language'))
+                : date.getFullYear()}
             </span>
           </div>
         ) : (
@@ -66,7 +74,9 @@ const MediaTile = ({
 
         {!isUpcoming && (
           <>
-            <span className='pr-[2px] font-semibold'>{media.vote_average.toFixed(2)}</span>
+            <span className='pr-[2px] font-semibold'>
+              {media.vote_average.toFixed(2)}
+            </span>
 
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -84,13 +94,8 @@ const MediaTile = ({
           </>
         )}
       </div>
-    </div>
+    </DivTile>
   );
 };
 
 export default MediaTile;
-/*<div  className='flex h-[300px] w-[150px] flex-shrink-0 bg-slate-900'>
-            <p className='w-full content-center text-center text-xl text-white'>
-              {item.media_type == MediaType.Movie ? item.title : item.name}
-            </p>
-          </div>*/

@@ -1,5 +1,10 @@
 import { languageIndexOptions } from '@/config/settings';
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from '@headlessui/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 
@@ -8,7 +13,8 @@ const LanguageChild = () => {
   const router = useRouter();
 
   const changeLocale = async (newLocale: string) => {
-    const pathAfterLocale = window.location.href.split(/\/(en|br)/)[2];
+    const pathAfterLocale =
+      window.location.href.split(/\/(en|br)/)[2];
     router.push(`/${newLocale}${pathAfterLocale}`);
   };
   return (
@@ -24,15 +30,26 @@ const LanguageChild = () => {
         {languageIndexOptions.map((item) => (
           <MenuItem key={item} data-autofocus>
             <div
-              onClick={() => changeLocale(t(`data_lang.${item}.1`))}
+              onClick={() =>
+                changeLocale(t(`data_lang.${item}.1`))
+              }
               className='items-center rounded-xl bg-neutral-900 px-4 py-2 text-left transition-all focus:bg-neutral-700 data-[focus]:bg-neutral-700'
             >
-              <p className={`flex flex-1 cursor-pointer items-center justify-between`}>
-                <span className='pr-4'> {t(`data_lang.${item}.0`)}</span>
+              <p
+                className={`flex flex-1 cursor-pointer items-center justify-between`}
+              >
+                <span className='pr-4'>
+                  {' '}
+                  {t(`data_lang.${item}.0`)}
+                </span>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
-                  fill={item == 0 ? 'currentColor' : 'transparent'}
+                  fill={
+                    item == 0
+                      ? 'currentColor'
+                      : 'transparent'
+                  }
                   className='inline size-5'
                 >
                   <path

@@ -1,41 +1,29 @@
-import { SerieInfo } from '@/modules/data/model/serie-info';
+import { MovieInfo } from '@/modules/data/model/movie-info';
 import { convertRunTime } from '@/utils/functions';
 import { useTranslations } from 'next-intl';
 
-const DescriptionSerie = ({
-  serie,
+const DescriptionMovie = ({
+  movie,
 }: {
-  serie: SerieInfo;
+  movie: MovieInfo;
 }) => {
-  const tSerieInfo = useTranslations('serieInfo');
-  console.log(serie.episode_run_time);
+  const tMovieInfo = useTranslations('movieInfo');
   return (
     <div className=''>
-      <p className='px-8 pb-4 pt-8 text-3xl font-bold text-white'>{`${serie.name}${serie.first_air_date != '' ? ` (${new Date(serie.first_air_date).getFullYear()})` : ''} `}</p>
+      <p className='px-8 pb-4 pt-8 text-3xl font-bold text-white'>{`${movie.title}${movie.release_date != '' ? ` (${new Date(movie.release_date).getFullYear()})` : ''} `}</p>
       <div className='flex flex-wrap items-center gap-4 px-8'>
-        {serie.certification_value && (
+        {movie.certification_value && (
           <div className='w-fit rounded-lg border-1 border-slate-200 p-1 text-center text-sm text-slate-200'>
-            {serie.certification_value}
+            {movie.certification_value}
           </div>
         )}
-        {serie.episode_run_time.length != 0 && (
+        {movie.runtime != 0 && (
           <p className='text-sm text-slate-200'>
-            {convertRunTime(serie.episode_run_time[0])}
+            {convertRunTime(movie.runtime)}
           </p>
         )}
-        {serie.number_of_seasons && (
-          <p className='text-sm text-slate-200'>
-            {tSerieInfo('seasons')}{' '}
-            {serie.number_of_seasons}
-          </p>
-        )}
-        {serie.number_of_episodes && (
-          <p className='text-sm text-slate-200'>
-            {tSerieInfo('episodes')}{' '}
-            {serie.number_of_episodes}
-          </p>
-        )}
-        {serie.vote_average && (
+
+        {movie.vote_average && (
           <div className='flex flex-row gap-1'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -51,20 +39,20 @@ const DescriptionSerie = ({
               />
             </svg>
             <p className='text-sm text-slate-200'>
-              {serie.vote_average.toFixed(2)}
+              {movie.vote_average.toFixed(2)}
             </p>
           </div>
         )}
       </div>
       <div className='p-8'>
         <p className='text-slate-200'>
-          {serie.overview == ''
-            ? tSerieInfo('noOverview')
-            : serie.overview}
+          {movie.overview == ''
+            ? tMovieInfo('noOverview')
+            : movie.overview}
         </p>
       </div>
     </div>
   );
 };
 
-export default DescriptionSerie;
+export default DescriptionMovie;

@@ -1,39 +1,41 @@
-import { TrendingAll } from '@/modules/data/model/trending-all';
-import { TrendingMovies } from '@/modules/data/model/trending-movies';
-import { Result } from '@/modules/data/model/trending-all';
+import useScroll from '@/hooks/scroll';
+import {
+  Result,
+  TrendingAll,
+} from '@/modules/data/model/trending-all';
 import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
-import { TrendingType } from '@/utils/enums';
-import { useTranslations } from 'next-intl';
-import { Suspense, use, useContext, useEffect, useState, useRef } from 'react';
-import { Genre } from '@/modules/data/model/serie-info';
-import MovieBanner from './child/item-banner';
-import { BASE_IMAGE_URL } from '@/config/settings';
-import ItemBanner from './child/item-banner';
-import CatalogTrending from './child/catalog-trending';
-import Image from 'next/image';
-import TrendingLabel from './child/trending-label';
-import BackgroundImage from './child/background-image';
-import { getMoveValue } from '@/utils/functions';
+import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 import {
   gapTrendingContainerTailwind,
   paddingLeftTrendingContainerTailwind,
   paddingLeftTrendingContainerTailwindMobile,
 } from '@/styles/style-values';
-import { getDeviceType } from '@/utils/ssr_functions';
-import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
+import { TrendingType } from '@/utils/enums';
 import { CircularProgress } from '@nextui-org/progress';
-import useScroll from '@/hooks/scroll';
-import ArrowNextIcon from '../icon/arrow-next-icon';
+import { useTranslations } from 'next-intl';
+import { use, useEffect, useRef, useState } from 'react';
 import ArrowBackIcon from '../icon/arrow-back-icon';
+import ArrowNextIcon from '../icon/arrow-next-icon';
+import BackgroundImage from './child/background-image';
+import CatalogTrending from './child/catalog-trending';
+import ItemBanner from './child/item-banner';
+import TrendingLabel from './child/trending-label';
 
 const MainContent = () => {
   const context = use(MovieAndTvShowContext);
-  const [trendingList, setTrendingList] = useState<TrendingAll | null>(null);
-  const [trendingSelected, setTrendingSelected] = useState<Result | null>(null);
+  const [trendingList, setTrendingList] =
+    useState<TrendingAll | null>(null);
+  const [trendingSelected, setTrendingSelected] =
+    useState<Result | null>(null);
   const [isVisibleNext, setIsVisibleNext] = useState(false);
   const [isVisibleBack, setIsVisibleBack] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const scrollHook = useScroll(scrollContainerRef, setIsVisibleNext, setIsVisibleBack, 8);
+  const scrollHook = useScroll(
+    scrollContainerRef,
+    setIsVisibleNext,
+    setIsVisibleBack,
+    8
+  );
   const [temp, setTemp] = useState(false);
   const t = useTranslations('metadata');
   const isLoading = useRef(false);
@@ -41,10 +43,11 @@ const MainContent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const trendingListData = await context!.getTrendingAllUseCase.execute(
-        t('language'),
-        TrendingType.DAY
-      );
+      const trendingListData =
+        await context!.getTrendingAllUseCase.execute(
+          t('language'),
+          TrendingType.DAY
+        );
 
       setTrendingList(trendingListData);
       setTrendingSelected(trendingListData?.results[0]!);
@@ -63,38 +66,54 @@ const MainContent = () => {
         <>
           <div className='shadow-2xl shadow-neutral-800'>
             <div className='absolute inset-0 -z-10 bg-black bg-opacity-50'></div>
-            {!isLoading.current && <BackgroundImage media={trendingSelected} />}
-            <div>{!isLoading.current && <ItemBanner media={trendingSelected} />}</div>
+            {!isLoading.current && (
+              <BackgroundImage media={trendingSelected} />
+            )}
+            <div>
+              {!isLoading.current && (
+                <ItemBanner media={trendingSelected} />
+              )}
+            </div>
             <TrendingLabel />
             <div>
               <div
                 ref={scrollContainerRef}
                 onMouseEnter={() => scrollHook.showArrow()}
-                onMouseLeave={() => scrollHook.removeArrow()}
-                onScroll={() => scrollHook.updateScrollLeft()}
+                onMouseLeave={() =>
+                  scrollHook.removeArrow()
+                }
+                onScroll={() =>
+                  scrollHook.updateScrollLeft()
+                }
                 className={`${userAgentInfo.isDesktop ? paddingLeftTrendingContainerTailwind : paddingLeftTrendingContainerTailwindMobile} ${userAgentInfo.isDesktop ? 'overflow-hidden' : 'overflow-x-scroll'} no-scrollbar absolute bottom-6 flex h-[300px] w-full flex-row ${gapTrendingContainerTailwind} overflow-hidden pr-7`}
               >
-                {trendingList.results.map((trendingItem) => {
-                  return (
-                    <CatalogTrending
-                      key={trendingItem.id}
-                      media={trendingItem}
-                      mediaSelected={trendingSelected}
-                      onClick={async () => {
-                        isLoading.current = true;
+                {trendingList.results.map(
+                  (trendingItem) => {
+                    return (
+                      <CatalogTrending
+                        key={trendingItem.id}
+                        media={trendingItem}
+                        mediaSelected={trendingSelected}
+                        onClick={async () => {
+                          if (
+                            trendingSelected != trendingItem
+                          ) {
+                            isLoading.current = true;
 
-                        setTrendingSelected(trendingItem);
-                        /* const y =
-                          document.getElementById('banner_id')!.getBoundingClientRect().top +
-                          window.scrollY;*/
-                        window.scroll({
-                          top: 0,
-                          behavior: 'smooth',
-                        });
-                      }}
-                    />
-                  );
-                })}
+                            setTrendingSelected(
+                              trendingItem
+                            );
+
+                            window.scroll({
+                              top: 0,
+                              behavior: 'smooth',
+                            });
+                          }
+                        }}
+                      />
+                    );
+                  }
+                )}
               </div>
               <div
                 onMouseEnter={scrollHook.showArrow}
@@ -116,7 +135,12 @@ const MainContent = () => {
         </>
       ) : (
         <div className='flex h-full w-full items-center justify-center pt-8'>
-          <CircularProgress size='lg' color='warning' className='' aria-label='loading...' />
+          <CircularProgress
+            size='lg'
+            color='warning'
+            className=''
+            aria-label='loading...'
+          />
         </div>
       )}
     </>

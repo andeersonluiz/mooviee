@@ -1,7 +1,9 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { clearTimeout } from 'timers';
+import { useEffect, useState } from 'react';
 
-export default function useDebouncer(value: any, delay = 1000) {
+export default function useDebouncer(
+  value: any,
+  delay = 1000
+) {
   const [debouncer, setDebouncer] = useState(value);
 
   useEffect(() => {

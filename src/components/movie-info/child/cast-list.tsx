@@ -2,17 +2,13 @@ import ArrowBackIcon from '@/components/icon/arrow-back-icon';
 import ArrowGoIcon from '@/components/icon/arrow-go-icon';
 import ArrowNextIcon from '@/components/icon/arrow-next-icon';
 import useScroll from '@/hooks/scroll';
-import { AggregateCredits } from '@/modules/data/model/serie-info';
+import { Credits } from '@/modules/data/model/movie-info';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 import CastTile from './cast-tile';
 
-const CastList = ({
-  credits,
-}: {
-  credits: AggregateCredits;
-}) => {
+const CastList = ({ credits }: { credits: Credits }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tSerieInfo = useTranslations('serieInfo');
 

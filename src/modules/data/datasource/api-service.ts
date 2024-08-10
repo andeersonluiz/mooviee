@@ -1,9 +1,18 @@
 'use client';
 
-import { ItemType, MovieListType, SerieListType, TrendingType } from '../../../utils/enums';
+import {
+  ItemType,
+  MovieListType,
+  SerieListType,
+  TrendingType,
+} from '../../../utils/enums';
 import { API_TMDB_KEY } from '../../../config/keys';
 import { MovieInfo } from '../model/movie-info';
-import { Dates, Movie, MovieList } from '../model/movie-list';
+import {
+  Dates,
+  Movie,
+  MovieList,
+} from '../model/movie-list';
 import { PersonInfo } from '../model/person-info';
 import { CollectionList } from '../model/collection-list';
 import { MultiList } from '../model/multi-list';
@@ -100,20 +109,28 @@ export class ApiService {
     }
   }
 
-  async getMovieInfo(id: number, locale: string): Promise<MovieInfo | null> {
-    const url = `https://api.themoviedb.org/3/movie/${id}?append_to_response=release_dates%2Ccredits%2Crecommendations%2Cproviders&language=${locale}&api_key=${API_TMDB_KEY}`;
+  async getMovieInfo(
+    id: number,
+    locale: string
+  ): Promise<MovieInfo | null> {
+    const url = `https://api.themoviedb.org/3/movie/${id}?append_to_response=release_dates%2Ccredits%2Crecommendations%2Cproviders%2Cvideos&language=${locale}&api_key=${API_TMDB_KEY}`;
 
     try {
       const res = await fetch(url);
       const json_value = await res.json();
       const code_country = locale.split('-')[1];
-      json_value['certification_value'] = this.getCertificationValue(
-        json_value,
-        code_country,
-        ItemType.MOVIE
-      );
+      json_value['certification_value'] =
+        this.getCertificationValue(
+          json_value,
+          code_country,
+          ItemType.MOVIE
+        );
 
-      json_value['recommendations'] = json_value['recommendations']['results'];
+      json_value['recommendations'] =
+        json_value['recommendations']['results'];
+      console.log(json_value['videos']);
+      json_value['videos'] =
+        json_value['videos']['results'];
 
       const result = json_value as MovieInfo;
       return result;
@@ -123,20 +140,25 @@ export class ApiService {
     }
   }
 
-  async getSerieInfo(id: number, locale: string): Promise<SerieInfo | null> {
+  async getSerieInfo(
+    id: number,
+    locale: string
+  ): Promise<SerieInfo | null> {
     const url = `https://api.themoviedb.org/3/tv/${id}?append_to_response=content_ratings%2Caggregate_credits%2Ckeywords%2Crecommendations&language=${locale}&api_key=${API_TMDB_KEY}`;
 
     try {
       const res = await fetch(url);
       const json_value = await res.json();
       const code_country = locale.split('-')[1];
-      json_value['certification_value'] = this.getCertificationValue(
-        json_value,
-        code_country,
-        ItemType.SERIE
-      );
+      json_value['certification_value'] =
+        this.getCertificationValue(
+          json_value,
+          code_country,
+          ItemType.SERIE
+        );
 
-      json_value['recommendations'] = json_value['recommendations']['results'];
+      json_value['recommendations'] =
+        json_value['recommendations']['results'];
 
       const result = json_value as SerieInfo;
       return result;
@@ -146,7 +168,10 @@ export class ApiService {
     }
   }
 
-  async getPersonInfo(id: number, locale: string): Promise<PersonInfo | null> {
+  async getPersonInfo(
+    id: number,
+    locale: string
+  ): Promise<PersonInfo | null> {
     const url = `https://api.themoviedb.org/3/person/${id}?language=${locale}&api_key=${API_TMDB_KEY}`;
     try {
       const res = await fetch(url);
@@ -161,7 +186,10 @@ export class ApiService {
     }
   }
 
-  async getCollectionInfo(id: number, locale: string): Promise<CollectionInfo | null> {
+  async getCollectionInfo(
+    id: number,
+    locale: string
+  ): Promise<CollectionInfo | null> {
     const url = `https://api.themoviedb.org/3/collection/${id}?language=${locale}&api_key=${API_TMDB_KEY}`;
     try {
       const res = await fetch(url);
@@ -176,7 +204,10 @@ export class ApiService {
     }
   }
 
-  async searchCollections(query: string, locale: string): Promise<CollectionList | null> {
+  async searchCollections(
+    query: string,
+    locale: string
+  ): Promise<CollectionList | null> {
     const url = `https://api.themoviedb.org/3/search/collection?query=${query}&include_adult=false&language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
     try {
       const res = await fetch(url);
@@ -191,7 +222,10 @@ export class ApiService {
     }
   }
 
-  async searchMulti(query: string, locale: string): Promise<MultiList | null> {
+  async searchMulti(
+    query: string,
+    locale: string
+  ): Promise<MultiList | null> {
     const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
     try {
       const res = await fetch(url);
@@ -223,7 +257,10 @@ export class ApiService {
     }
   }
 
-  async getTrendingSeries(locale: string, type: TrendingType): Promise<TrendingSeries | null> {
+  async getTrendingSeries(
+    locale: string,
+    type: TrendingType
+  ): Promise<TrendingSeries | null> {
     let url = '';
     switch (type) {
       case TrendingType.DAY:
@@ -249,7 +286,10 @@ export class ApiService {
     }
   }
 
-  async getTrendingMovies(locale: string, type: TrendingType): Promise<TrendingMovies | null> {
+  async getTrendingMovies(
+    locale: string,
+    type: TrendingType
+  ): Promise<TrendingMovies | null> {
     let url = '';
     switch (type) {
       case TrendingType.DAY:
@@ -275,7 +315,10 @@ export class ApiService {
     }
   }
 
-  async getTrendingAll(locale: string, type: TrendingType): Promise<TrendingAll | null> {
+  async getTrendingAll(
+    locale: string,
+    type: TrendingType
+  ): Promise<TrendingAll | null> {
     let url = '';
     switch (type) {
       case TrendingType.DAY:
@@ -301,23 +344,36 @@ export class ApiService {
     }
   }
 
-  async getGenreList(locale: string): Promise<Genre[] | null> {
+  async getGenreList(
+    locale: string
+  ): Promise<Genre[] | null> {
     const urlMovie = `https://api.themoviedb.org/3/genre/movie/list?language=${locale}&api_key=${API_TMDB_KEY}`;
     const urlTv = `https://api.themoviedb.org/3/genre/tv/list?language=${locale}&api_key=${API_TMDB_KEY}`;
 
     try {
-      const [resMovie, resTv] = await Promise.all([fetch(urlMovie), fetch(urlTv)]);
+      const [resMovie, resTv] = await Promise.all([
+        fetch(urlMovie),
+        fetch(urlTv),
+      ]);
       const resultMovie = await resMovie.json();
       const resultTv = await resTv.json();
       if ('genres' in resultMovie && 'genres' in resultTv) {
-        const resultTemp = [...resultMovie['genres'], ...resultTv['genres']];
-        const result = resultTemp.reduce((acumulator, current) => {
-          const duplicate = acumulator.find((item: any) => item['id'] === current['id']);
-          if (!duplicate) {
-            acumulator.push(current);
-          }
-          return acumulator;
-        }, []);
+        const resultTemp = [
+          ...resultMovie['genres'],
+          ...resultTv['genres'],
+        ];
+        const result = resultTemp.reduce(
+          (acumulator, current) => {
+            const duplicate = acumulator.find(
+              (item: any) => item['id'] === current['id']
+            );
+            if (!duplicate) {
+              acumulator.push(current);
+            }
+            return acumulator;
+          },
+          []
+        );
 
         return result as Genre[];
       }
@@ -328,23 +384,32 @@ export class ApiService {
     }
   }
 
-  private getCertificationValue(json: any, code_country: string, type: ItemType): string {
+  private getCertificationValue(
+    json: any,
+    code_country: string,
+    type: ItemType
+  ): string {
     switch (type) {
       case ItemType.MOVIE: {
-        const found_value_certification = json['release_dates']['results'].find((value: any) => {
+        const found_value_certification = json[
+          'release_dates'
+        ]['results'].find((value: any) => {
           return value['iso_3166_1'] == code_country;
         });
         if (!found_value_certification) {
           return '';
         } else {
-          const certification_value = found_value_certification['release_dates'].map(
-            (item: any) => item['certification']
-          );
+          const certification_value =
+            found_value_certification['release_dates'].map(
+              (item: any) => item['certification']
+            );
           return certification_value.toString();
         }
       }
       case ItemType.SERIE: {
-        const found_value_certification = json['content_ratings']['results'].find((value: any) => {
+        const found_value_certification = json[
+          'content_ratings'
+        ]['results'].find((value: any) => {
           return value['iso_3166_1'] == code_country;
         });
         if (!found_value_certification) {

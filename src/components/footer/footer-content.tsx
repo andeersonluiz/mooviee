@@ -1,21 +1,25 @@
-import { FaGithub } from 'react-icons/fa';
-import { SiGmail } from 'react-icons/si';
-import { FaSquareXTwitter } from 'react-icons/fa6';
-import { BiLogoGmail } from 'react-icons/bi';
-import { useTranslations } from 'next-intl';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
+import { useTranslations } from 'next-intl';
+import { BiLogoGmail } from 'react-icons/bi';
+import { FaGithub } from 'react-icons/fa';
+import { FaSquareXTwitter } from 'react-icons/fa6';
 
 const FooterContent = () => {
   const footerTranslations = useTranslations('footer');
   const userAgentInfo = useUserAgentData();
   return (
     <>
-      <footer className={`h-fit w-full content-center bg-neutral-800 py-4 text-white`}>
+      <footer
+        className={`h-fit w-full content-center bg-neutral-800 py-4 text-white`}
+      >
         <div
           className={`${userAgentInfo.isMobile ? 'flex-col gap-6' : ''} container mx-auto flex items-center justify-between`}
         >
-          <span className='text-center text-sm'>
-            &copy; {new Date().getFullYear()} {footerTranslations('description')}
+          <span
+            className={`${userAgentInfo.isMobile ? 'text-center' : 'text-left'} text-sm`}
+          >
+            &copy; {new Date().getFullYear()}{' '}
+            {footerTranslations('description')}
           </span>
           <div className='flex items-center space-x-3'>
             <span>{footerTranslations('contact')}</span>
@@ -31,7 +35,9 @@ const FooterContent = () => {
             </a>
             <div className='h-[35px] w-[1px] content-center bg-white'></div>
 
-            <span className='pl-1'>{footerTranslations('followMe')} </span>
+            <span className='pl-1'>
+              {footerTranslations('followMe')}{' '}
+            </span>
             <a
               href='https://github.com/andeersonluiz'
               target='_blank'
