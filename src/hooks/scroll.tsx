@@ -70,7 +70,11 @@ export default function useScroll(
     }
   };
   const showArrow = () => {
-    if (userAgentData.isDesktop) {
+    const container = scrollContainerRef.current!;
+    if (
+      userAgentData.isDesktop &&
+      container.scrollWidth > window.innerWidth
+    ) {
       if (!isEnd.current) {
         setIsVisibleNext(true);
       }

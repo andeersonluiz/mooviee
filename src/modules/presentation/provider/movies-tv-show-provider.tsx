@@ -8,7 +8,9 @@ import GetCollectionInfoUseCase from '@/modules/domain/useCases/get-collection-i
 import GetGenreListUseCase from '@/modules/domain/useCases/get-genre-list-usecase';
 import GetLeaderboardUseCase from '@/modules/domain/useCases/get-leaderboard-usecase';
 import GetMovieInfoUseCase from '@/modules/domain/useCases/get-movie-info-usecase';
+import GetMoviesAllUseCase from '@/modules/domain/useCases/get-movies-all-usecase';
 import GetMoviesUseCase from '@/modules/domain/useCases/get-movies-usecase';
+import GetSeriesAllUseCase from '@/modules/domain/useCases/get-series-all-usecase';
 import GetSeriesInfoUseCase from '@/modules/domain/useCases/get-series-info-usecase';
 import {
   default as GetPersonInfoUseCase,
@@ -25,9 +27,11 @@ export interface MoviesAndTvShowProps {
   getCollectionInfoUseCase: GetCollectionInfoUseCase;
   getMovieInfoUseCase: GetMovieInfoUseCase;
   getMoviesUseCase: GetMoviesUseCase;
+  getMoviesAllUseCase: GetMoviesAllUseCase;
   getPersonInfoUseCase: GetPersonInfoUseCase;
   getSeriesInfoUseCase: GetSeriesInfoUseCase;
   getSeriesUseCase: GetSeriesUseCase;
+  getSeriesAllUseCase: GetSeriesAllUseCase;
   getTrendingMoviesUseCase: GetTrendingMoviesUseCase;
   getTrendingSeriesUseCase: GetTrendingSeriesUseCase;
   searchCollectionUseCase: SearchCollectionUseCase;
@@ -61,6 +65,10 @@ export const MoviesAndTvShowProvider = ({
   const getMoviesUseCase = new GetMoviesUseCase(
     moviesAndTvShowRepository
   );
+  const getMoviesAllUseCase = new GetMoviesAllUseCase(
+    moviesAndTvShowRepository
+  );
+
   const getCollectionInfoUseCase =
     new GetCollectionInfoUseCase(moviesAndTvShowRepository);
   const getMovieInfoUseCase = new GetMovieInfoUseCase(
@@ -75,6 +83,10 @@ export const MoviesAndTvShowProvider = ({
   const getSeriesUseCase = new GetSeriesUseCase(
     moviesAndTvShowRepository
   );
+  const getSeriesAllUseCase = new GetSeriesAllUseCase(
+    moviesAndTvShowRepository
+  );
+
   const getTrendingMoviesUseCase =
     new GetTrendingMoviesUseCase(moviesAndTvShowRepository);
   const getTrendingSeriesUseCase =
@@ -101,9 +113,11 @@ export const MoviesAndTvShowProvider = ({
         getCollectionInfoUseCase,
         getMovieInfoUseCase,
         getMoviesUseCase,
+        getMoviesAllUseCase,
         getPersonInfoUseCase,
         getSeriesInfoUseCase,
         getSeriesUseCase,
+        getSeriesAllUseCase,
         getTrendingMoviesUseCase,
         getTrendingSeriesUseCase,
         searchCollectionUseCase,

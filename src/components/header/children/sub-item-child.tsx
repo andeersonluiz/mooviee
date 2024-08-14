@@ -10,7 +10,7 @@ const SubItemChild = ({
   return (
     <a
       onClick={onClick}
-      className={`cursor-pointer text-2xl font-semibold ${color} `}
+      className={`cursor-pointer select-none text-2xl font-semibold ${color} `}
     >
       {title}
     </a>

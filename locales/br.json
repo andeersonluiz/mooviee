@@ -47,6 +47,13 @@
     "person_tag": "Pessoa",
     "not_found": "Não foram encontrados resultados para pesquisa: '"
   },
+  "serieList": {
+    "serie": "Séries",
+    "sortBy": "ORDERNAR POR :",
+    "popularity": "Popularidade",
+    "rating": "Avaliação",
+    "air-date": "Data de exibição"
+  },
   "serieInfo": {
     "cast": "Elenco",
     "recommendation": "Recomendações para você",
@@ -58,6 +65,15 @@
     "lastEpisode": "Último episódio a ser exibido",
     "viewAll": "Ver tudo"
   },
+  "movieList": {
+    "movie": "Filmes",
+    "sortBy": "ORDERNAR POR :",
+    "popularity": "Popularidade",
+    "title": "Título",
+    "revenue": "Faturamento",
+    "rating": "Avaliação",
+    "release-date": "Data de lançamento"
+  },
   "movieInfo": {
     "cast": "Elenco",
     "recommendation": "Recomendações para você",
@@ -66,6 +82,11 @@
     "status": "Situação",
     "budget": "Orçamento",
     "viewAll": "Ver tudo"
+  },
+  "tagList": {
+    "trending": "Em alta essa semana",
+    "next-week": "Episódios nessa semana",
+    "now-playing": "Nos cinemas"
   },
   "footer": {
     "description": "Movieee. Desenvolvido por Anderson Luiz. Todos os direitos reservados.",

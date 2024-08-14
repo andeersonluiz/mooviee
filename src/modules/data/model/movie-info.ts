@@ -15,7 +15,7 @@ export interface MovieInfo {
   release_date: string;
   revenue: number;
   runtime: number;
-  status: Status; //tá em ingles ate traduzindo...
+  status: Status;
   tagline: string;
   vote_average: number;
   vote_count: number;

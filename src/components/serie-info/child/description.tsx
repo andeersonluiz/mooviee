@@ -35,7 +35,9 @@ const DescriptionSerie = ({
             {serie.number_of_episodes}
           </p>
         )}
-        {serie.vote_average && (
+        {serie.vote_average == 0 ? (
+          <></>
+        ) : (
           <div className='flex flex-row gap-1'>
             <svg
               xmlns='http://www.w3.org/2000/svg'

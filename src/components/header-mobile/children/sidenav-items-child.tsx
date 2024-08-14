@@ -13,7 +13,10 @@ const SidenavItemsChild = ({
 }) => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const headerTranslation = useTranslations('header');
+  const t = useTranslations('metadata');
+
   const router = useRouter();
+
   return (
     <div className='flex h-full w-[20%] justify-start rounded-lg'>
       <Button
@@ -64,7 +67,7 @@ const SidenavItemsChild = ({
               title={headerTranslation('home')}
               onClick={() => {
                 setSelected(0);
-                router.push('/');
+                router.push(`/${t('language_split')}`);
               }}
               color={`${selected == 0 ? 'bg-neutral-500 font-semibold' : ''}`}
             />
@@ -72,7 +75,9 @@ const SidenavItemsChild = ({
               title={headerTranslation('movie')}
               onClick={() => {
                 setSelected(1);
-                router.push('/');
+                router.push(
+                  `/${t('language_split')}/movie`
+                );
               }}
               color={`${selected == 1 ? 'bg-neutral-500 font-semibold' : ''}`}
             />
@@ -80,7 +85,9 @@ const SidenavItemsChild = ({
               title={headerTranslation('serie')}
               onClick={() => {
                 setSelected(2);
-                router.push('/');
+                router.push(
+                  `/${t('language_split')}/serie`
+                );
               }}
               color={`${selected == 2 ? 'bg-neutral-500 font-semibold ' : ''}`}
             />

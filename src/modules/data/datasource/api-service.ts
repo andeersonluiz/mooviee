@@ -1,53 +1,52 @@
 'use client';
 
+import { getMinMaxDate } from '@/utils/functions';
+import { API_TMDB_KEY } from '../../../config/keys';
 import {
   ItemType,
+  MovieFilterType,
   MovieListType,
+  SerieFilterType,
   SerieListType,
   TrendingType,
 } from '../../../utils/enums';
-import { API_TMDB_KEY } from '../../../config/keys';
-import { MovieInfo } from '../model/movie-info';
-import {
-  Dates,
-  Movie,
-  MovieList,
-} from '../model/movie-list';
-import { PersonInfo } from '../model/person-info';
+import { CollectionInfo } from '../model/collection-info';
 import { CollectionList } from '../model/collection-list';
+import { MediaType } from '../model/media-type';
+import { MovieInfo } from '../model/movie-info';
+import { MovieList } from '../model/movie-list';
 import { MultiList } from '../model/multi-list';
+import { PersonInfo } from '../model/person-info';
+import { Genre, SerieInfo } from '../model/serie-info';
+import { SerieList } from '../model/serie-list';
+import { TrendingAll } from '../model/trending-all';
 import { TrendingMovies } from '../model/trending-movies';
 import { TrendingSeries } from '../model/trending-series';
-import { SerieList } from '../model/serie-list';
-import { Genre, SerieInfo } from '../model/serie-info';
-import { CollectionInfo } from '../model/collection-info';
-import { TrendingAll } from '../model/trending-all';
-import { getMinMaxDate } from '@/utils/functions';
-import { MediaType } from '../model/media-type';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export class ApiService {
   async getMovies(
     locale: string,
-    type: MovieListType = MovieListType.POPULAR
+    type: MovieListType = MovieListType.POPULAR,
+    page: number = 1
   ): Promise<MovieList | null> {
     console.log('call (getMovies) from datasource', locale);
-    await new Promise((res) => setTimeout(res, 2000));
     let url = '';
     switch (type) {
       case MovieListType.POPULAR:
-        url = `https://api.themoviedb.org/3/movie/popular?language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/movie/popular?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       case MovieListType.TOP_RATED:
-        url = `https://api.themoviedb.org/3/movie/top_rated?language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/movie/top_rated?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       case MovieListType.UPCOMING:
         const [minDate, maxDate] = getMinMaxDate();
-        url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_TMDB_KEY}&language=${locale}&sort_by=popularity.desc&primary_release_date.gte=${minDate}&primary_release_date.lte=${maxDate}&page=1`;
+        url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_TMDB_KEY}&language=${locale}&sort_by=popularity.desc&primary_release_date.gte=${minDate}&primary_release_date.lte=${maxDate}&page=${page}`;
         break;
       case MovieListType.NOW_PLAYING:
-        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_TMDB_KEY}&language=${locale}&page=1&region=${locale.split('-')[1]}`;
+        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_TMDB_KEY}&language=${locale}&page=${page}&region=${locale.split('-')[1]}`;
         break;
+
       default:
         return null;
     }
@@ -67,24 +66,67 @@ export class ApiService {
       return null;
     }
   }
+  async getMoviesAll(
+    locale: string,
+    type: MovieFilterType,
+    page: number,
+    desc: boolean
+  ): Promise<MovieList | null> {
+    let url = '';
+
+    switch (type) {
+      case MovieFilterType.POPULARITY:
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=popularity.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        break;
+      case MovieFilterType.TITLE:
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=title.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        break;
+      case MovieFilterType.REVENUE:
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=revenue.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        break;
+      case MovieFilterType.RATING:
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=vote_average.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        break;
+      case MovieFilterType.RELEASE_DATE:
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=primary_release_date.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        break;
+      default:
+        return null;
+    }
+    try {
+      const res = await fetch(url);
+      const json = await res.json();
+      const result = json as MovieList;
+      if ('results' in result) {
+        result.media_type = MediaType.Movie;
+        return result;
+      }
+      return null;
+    } catch (e: any) {
+      console.log('Error', e.stack);
+      return null;
+    }
+  }
+
   async getSeries(
     locale: string,
-    type: SerieListType = SerieListType.POPULAR
+    type: SerieListType = SerieListType.POPULAR,
+    page: number = 1
   ): Promise<SerieList | null> {
     let url = '';
     switch (type) {
       case SerieListType.POPULAR:
-        url = `https://api.themoviedb.org/3/tv/popular?language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/tv/popular?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       case SerieListType.TOP_RATED:
-        url = `https://api.themoviedb.org/3/tv/top_rated?language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/tv/top_rated?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       case SerieListType.ON_THE_AIR:
-        url = `https://api.themoviedb.org/3/tv/on_the_air?language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/tv/on_the_air?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       case SerieListType.UPCOMING:
         const [minDate, maxDate] = getMinMaxDate();
-        url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_TMDB_KEY}&language=${locale}S&sort_by=popularity.desc&first_air_date.gte=${minDate}&first_air_date.lte=${maxDate}&page=1`;
+        url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_TMDB_KEY}&language=${locale}S&sort_by=popularity.desc&first_air_date.gte=${minDate}&first_air_date.lte=${maxDate}&page=${page}`;
 
         break;
       default:
@@ -109,6 +151,43 @@ export class ApiService {
     }
   }
 
+  async getSeriesAll(
+    locale: string,
+    type: SerieFilterType,
+    page: number,
+
+    desc: boolean
+  ): Promise<SerieList | null> {
+    let url = '';
+
+    switch (type) {
+      case SerieFilterType.POPULARITY:
+        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=popularity.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        break;
+      case SerieFilterType.RATING:
+        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=vote_average.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        break;
+      case SerieFilterType.AIR_DATE:
+        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=first_air_date.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        break;
+      default:
+        return null;
+    }
+    try {
+      const res = await fetch(url);
+      const json = await res.json();
+      const result = json as SerieList;
+      if ('results' in result) {
+        result.media_type = MediaType.Tv;
+        return result;
+      }
+      return null;
+    } catch (e: any) {
+      console.log('Error', e.stack);
+      return null;
+    }
+  }
+
   async getMovieInfo(
     id: number,
     locale: string
@@ -125,10 +204,15 @@ export class ApiService {
           code_country,
           ItemType.MOVIE
         );
-
+      if (
+        json_value['certification_value'].startsWith(',')
+      ) {
+        json_value['certification_value'] =
+          json_value['certification_value'].slice(1);
+      }
       json_value['recommendations'] =
         json_value['recommendations']['results'];
-      console.log(json_value['videos']);
+
       json_value['videos'] =
         json_value['videos']['results'];
 
@@ -317,15 +401,16 @@ export class ApiService {
 
   async getTrendingAll(
     locale: string,
-    type: TrendingType
+    type: TrendingType,
+    page: number
   ): Promise<TrendingAll | null> {
     let url = '';
     switch (type) {
       case TrendingType.DAY:
-        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.DAY}?language=${locale}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.DAY}?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       case TrendingType.WEEK:
-        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.WEEK}?language=${locale}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.WEEK}?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       default:
         return null;
@@ -403,7 +488,12 @@ export class ApiService {
             found_value_certification['release_dates'].map(
               (item: any) => item['certification']
             );
-          return certification_value.toString();
+
+          const items = certification_value
+            .toString()
+            .split(',');
+          const uniqueItems = [...new Set(items)];
+          return uniqueItems.join(',');
         }
       }
       case ItemType.SERIE: {

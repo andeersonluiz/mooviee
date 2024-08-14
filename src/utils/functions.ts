@@ -1,20 +1,4 @@
-import {
-  gapTrendingContainer,
-  paddingLeftTrendingContainer,
-  widthCatalogTrending,
-} from '@/styles/style-values';
 import { Genre } from '@/modules/data/model/serie-info';
-import { headers } from 'next/headers';
-
-function roundNumber(number: number): number {
-  // Se a parte decimal do número for maior que 0.85, arredonde para cima
-  if (number % 1 < 0.85) {
-    return Math.ceil(number) - 1;
-  } else {
-    // Caso contrário, mantenha o número original
-    return number;
-  }
-}
 
 export function getMoveValue(
   width: number,
@@ -35,17 +19,11 @@ export function getMoveValue(
     restSize =
       (widthContent - (totalSum - width)) / widthContent;
   }
-  /*console.log('totalSum', totalSum);
-  console.log(width, width);
-  console.log('(totalSum - width)', totalSum - width);
-  console.log('widthContent', widthContent);
-  console.log('size', size);
-  console.log('restSize', restSize);*/
+
   if (restSize < 0.85) {
     size -= 1;
   }
   let sumValue = size * widthContent;
-  //console.log('sumValue', sumValue);
 
   return sumValue;
 }
@@ -56,7 +34,7 @@ export function getMinMaxDate() {
   const monthMin = String(date.getMonth() + 1).padStart(
     2,
     '0'
-  ); // Mês começa do 0 em JavaScript
+  );
   const yearMin = date.getFullYear();
 
   const minDate = `${yearMin}-${monthMin}-${dayMin}`;
@@ -67,7 +45,7 @@ export function getMinMaxDate() {
   const monthMax = String(date.getMonth() + 1).padStart(
     2,
     '0'
-  ); // Mês começa do 0 em JavaScript
+  );
   const yearMax = date.getFullYear();
 
   const maxDate = `${yearMax}-${monthMax}-${dayMax}`;
@@ -132,4 +110,16 @@ export function getEnumKeyByValue(
   return Object.keys(enumObj).find(
     (key) => enumObj[key] === value
   );
+}
+
+export function removeDuplicatesById(arr: any) {
+  const seen = new Set<number>();
+  return arr.filter((item: any) => {
+    if (seen.has(item.id)) {
+      return false;
+    } else {
+      seen.add(item.id);
+      return true;
+    }
+  });
 }

@@ -10,7 +10,7 @@ const ItemMobileChild = ({
   return (
     <a
       onClick={onClick}
-      className={`cursor-pointer text-xl ${color} rounded-lg bg-opacity-70 p-2 text-gray-200`}
+      className={`cursor-pointer select-none text-xl ${color} rounded-lg bg-opacity-70 p-2 text-gray-200`}
     >
       {title}
     </a>

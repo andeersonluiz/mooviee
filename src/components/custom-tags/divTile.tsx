@@ -16,11 +16,6 @@ const DivTile = ({
       onClick={() => {
         router.push(path);
       }}
-      onTouchStart={(event) => {
-        event.preventDefault();
-
-        router.push(path);
-      }}
     >
       {children}
     </div>

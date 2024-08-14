@@ -1,20 +1,23 @@
-import { SerieListType } from '@/utils/enums';
+'use client';
+import { MovieFilterType } from '@/utils/enums';
 import { MoviesAndShowsRepository } from '../repositories/movies-and-shows-repository';
 
-export default class GetSeriesUseCase {
+export default class GetMoviesAllUseCase {
   constructor(
     private moviesAndShowsRepository: MoviesAndShowsRepository
   ) {}
 
   async execute(
     locale: string,
-    type: SerieListType,
+    type: MovieFilterType,
+    desc: boolean,
     page: number = 1
   ) {
-    return await this.moviesAndShowsRepository.getSeries(
+    return await this.moviesAndShowsRepository.getMoviesAll(
       locale,
       type,
-      page
+      page,
+      desc
     );
   }
 }

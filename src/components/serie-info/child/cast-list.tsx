@@ -38,7 +38,7 @@ const CastList = ({
             </p>
 
             <div
-              className='flex cursor-pointer flex-row items-center'
+              className='flex cursor-pointer select-none flex-row items-center'
               onClick={() => null}
             >
               <p

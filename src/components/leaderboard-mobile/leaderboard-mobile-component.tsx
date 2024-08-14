@@ -100,20 +100,17 @@ const LeaderboardMobileComponent = () => {
           <div className='pt-8'>
             <HeaderMediaList
               title={leaderboardTranslation('mostPopular')}
-              viewAll={() => null}
             />
           </div>
           <ListMediaLeadboarder data={mostPopular} />
 
           <HeaderMediaList
             title={leaderboardTranslation('mostRated')}
-            viewAll={() => null}
           />
           <ListMediaLeadboarder data={mostRated} />
 
           <HeaderMediaList
             title={leaderboardTranslation('upcoming')}
-            viewAll={() => null}
           />
           <ListMediaLeadboarder
             data={nowPlaying}

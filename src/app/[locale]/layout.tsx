@@ -28,7 +28,11 @@ export default async function LocaleLayout({
   const deviceType = await getDeviceType();
 
   return (
-    <html lang={locale} className='!scroll-smooth'>
+    <html
+      lang={locale}
+      className='!scroll-smooth'
+      translate='no'
+    >
       <body
         className={`${m_plus.className} ${deviceType.isDesktop ? 'overflow-auto' : 'overflow-hidden'} relative -z-0 bg-neutral-950`}
       >

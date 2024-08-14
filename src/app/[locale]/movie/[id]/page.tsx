@@ -8,8 +8,8 @@ import FooterContent from '@/components/footer/footer-content';
 import HeaderMobileComponent from '@/components/header-mobile/header-mobile-component';
 import HeaderComponent from '@/components/header/header-component';
 import PlayIcon from '@/components/icon/play-icon';
+import DialogTrailer from '@/components/movie-info/child/dialog-trailer';
 import MovieInfoComponent from '@/components/movie-info/movie-info-component';
-import DialogTrailer from '@/components/serie-info/child/dialog-trailer';
 import { BASE_IMAGE_URL } from '@/config/settings';
 import useResize from '@/hooks/resize';
 import { MovieInfo } from '@/modules/data/model/movie-info';
@@ -20,7 +20,7 @@ import { useContext, useEffect, useState } from 'react';
 import { DialogTrigger } from 'react-aria-components';
 import placeholderBackdrop from '../../../../../assets/placeholder_backdrop.png';
 
-const MoviePage: React.FC = () => {
+const MovieInfoPage: React.FC = () => {
   const t = useTranslations('metadata');
   const context = useContext(MovieAndTvShowContext)!;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,7 +54,7 @@ const MoviePage: React.FC = () => {
         document.title = 'Movieee - ' + result?.title!;
         setIsLoading(false);
       } catch (e) {
-        router.push('/');
+        router.push(`/${t('language_split')}`);
       }
     };
 
@@ -141,6 +141,5 @@ const MoviePage: React.FC = () => {
     </div>
   );
 };
-// last_air_date in_production  next_episode_to_air last_episode_to_air
-// recommendations aggregate_credits
-export default MoviePage;
+
+export default MovieInfoPage;

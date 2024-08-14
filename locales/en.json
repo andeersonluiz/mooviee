@@ -18,7 +18,7 @@
   "header": {
     "home": "Home",
     "movie": "Movies",
-    "serie": "Series"
+    "serie": "TV Shows"
   },
   "common": {
     "search": "Search...",
@@ -29,7 +29,7 @@
     "episodesNextWeek": "EPISODE AIR IN NEXT WEEK",
     "nowPlaying": "IN THE THEATERS",
     "movie_tag": "Movie",
-    "serie_tag": "Serie"
+    "serie_tag": "TV Show"
   },
   "leaderboard": {
     "title": "Leaderboard",
@@ -37,15 +37,22 @@
     "mostRated": "MOST RATED",
     "upcoming": "UPCOMING",
     "movie_tag": "MOVIE",
-    "serie_tag": "SERIE",
+    "serie_tag": "TV SHOW",
     "genres": "Genres:",
     "upcomingDate": "Upcoming Date:"
   },
   "search": {
     "movie_tag": "Movie",
-    "serie_tag": "Serie",
+    "serie_tag": "TV Show",
     "person_tag": "Person",
     "not_found": "No items found for search: '"
+  },
+  "serieList": {
+    "serie": "TV Shows",
+    "sortBy": "SORT BY :",
+    "popularity": "Popularity",
+    "rating": "Rating",
+    "air-date": "Air Date"
   },
   "serieInfo": {
     "cast": "Cast",
@@ -58,6 +65,15 @@
     "lastEpisode": "Last episode to air",
     "viewAll": "View all"
   },
+  "movieList": {
+    "movie": "Movies",
+    "sortBy": "SORT BY :",
+    "popularity": "Popularity",
+    "title": "Title",
+    "revenue": "Revenue",
+    "rating": "Rating",
+    "release-date": "Release Date"
+  },
   "movieInfo": {
     "cast": "Cast",
     "recommendation": "Recommendations for you",
@@ -66,6 +82,11 @@
     "status": "Status",
     "budget": "Budget",
     "viewAll": "View all"
+  },
+  "tagList": {
+    "trending": "Trending week",
+    "next-week": "Episodes in next week",
+    "now-playing": "In the theaters"
   },
   "footer": {
     "description": "Movieee. Developed by Anderson Luiz. All rights reserved.",

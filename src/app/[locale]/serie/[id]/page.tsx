@@ -49,7 +49,7 @@ const SeriePage: React.FC = () => {
         document.title = 'Movieee - ' + result?.name!;
         setIsLoading(false);
       } catch (e) {
-        router.push('/');
+        router.push(`/${t('language_split')}`);
       }
     };
 

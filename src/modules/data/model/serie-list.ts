@@ -2,13 +2,13 @@ import { MediaType } from './media-type';
 
 export interface SerieList {
   page: number;
-  results: Result[];
+  results: Serie[];
   total_pages: number;
   total_results: number;
   media_type: MediaType;
 }
 
-export interface Result {
+export interface Serie {
   adult: boolean;
   id: number;
   popularity: number;

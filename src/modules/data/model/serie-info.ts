@@ -19,7 +19,7 @@ export interface SerieInfo {
   overview: string;
   popularity: number;
   poster_path: string;
-  status: Status; //tá em ingles ate traduzindo...
+  status: Status;
   tagline: string;
   vote_average: number;
   vote_count: number;

@@ -49,13 +49,6 @@ const ItemBanner = ({ media }: { media: Result }) => {
               `/${locale}/${isMovie ? 'movie' : 'serie'}/${media.id}`
             );
           }}
-          onTouchStart={(event) => {
-            event.preventDefault();
-
-            router.push(
-              `/${locale}/${isMovie ? 'movie' : 'serie'}/${media.id}`
-            );
-          }}
           className='mx-2 my-8 rounded-lg bg-red-600 px-4 py-5 text-sm font-normal text-white transition hover:bg-red-700 focus:outline-none'
         >
           {t_common('btnMoreInfo')}

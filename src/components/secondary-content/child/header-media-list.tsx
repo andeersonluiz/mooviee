@@ -6,7 +6,7 @@ const HeaderMediaList = ({
   viewAll,
 }: {
   title: string;
-  viewAll: () => void;
+  viewAll?: () => void;
 }) => {
   const t_common = useTranslations('common');
 
@@ -17,15 +17,17 @@ const HeaderMediaList = ({
       >
         {title}
       </p>
-      <div
-        className='flex cursor-pointer pr-4 transition-transform duration-75 hover:scale-105 xl:pr-[1px]'
-        onClick={viewAll}
-      >
-        <p
-          className={`text-base font-semibold text-slate-100`}
-        >{`${t_common('viewAll')}`}</p>
-        <ArrowGoIcon className='size-7 stroke-slate-100' />
-      </div>
+      {viewAll && (
+        <div
+          className='flex cursor-pointer select-none pr-4 transition-transform duration-75 hover:scale-105 xl:pr-[1px]'
+          onClick={viewAll}
+        >
+          <p
+            className={`text-base font-semibold text-slate-100`}
+          >{`${t_common('viewAll')}`}</p>
+          <ArrowGoIcon className='size-7 stroke-slate-100' />
+        </div>
+      )}
     </div>
   );
 };

@@ -5,10 +5,12 @@ import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv
 import {
   MovieListType,
   SerieListType,
+  TagType,
   TrendingType,
 } from '@/utils/enums';
 import { CircularProgress } from '@nextui-org/progress';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 import HeaderMediaList from './child/header-media-list';
 import ListMedia from './child/list-media-content';
@@ -25,6 +27,8 @@ const SecondaryContent = () => {
   const [nowPlayingData, setNowPlayingData] =
     useState<MovieList | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
   useEffect(() => {
     const fetchData = async () => {
       var dataTrending =
@@ -50,8 +54,9 @@ const SecondaryContent = () => {
         ]);
 
       setTrendingData(dataTrend);
-      setNowPlayingData(dataPlaying);
       setEpisodesNextWeekData(dataWeek);
+      setNowPlayingData(dataPlaying);
+
       setIsLoading(false);
     };
     fetchData();
@@ -72,14 +77,22 @@ const SecondaryContent = () => {
           <div className='pt-4'>
             <HeaderMediaList
               title={t_common('trendingWeek')}
-              viewAll={() => null}
+              viewAll={() =>
+                router.push(
+                  `/${t('language_split')}/${TagType.TRENDING}`
+                )
+              }
             />
           </div>
           <ListMedia data={trendingData} />
 
           <HeaderMediaList
             title={t_common('episodesNextWeek')}
-            viewAll={() => null}
+            viewAll={() =>
+              router.push(
+                `/${t('language_split')}/${TagType.NEXT_WEEK}`
+              )
+            }
           />
           <ListMedia
             data={episodesNextWeekData}
@@ -88,7 +101,11 @@ const SecondaryContent = () => {
 
           <HeaderMediaList
             title={t_common('nowPlaying')}
-            viewAll={() => null}
+            viewAll={() =>
+              router.push(
+                `/${t('language_split')}/${TagType.NOW_PLAYING}`
+              )
+            }
           />
           <ListMedia
             data={nowPlayingData}

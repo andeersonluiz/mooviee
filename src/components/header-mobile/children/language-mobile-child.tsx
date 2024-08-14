@@ -37,7 +37,7 @@ const LanguageMobileChild = () => {
                 className='items-center rounded-xl bg-neutral-900 px-4 py-2 text-left transition-all focus:bg-neutral-700 data-[focus]:bg-neutral-700'
               >
                 <p
-                  className={`flex flex-1 cursor-pointer items-center justify-between`}
+                  className={`flex flex-1 cursor-pointer select-none items-center justify-between`}
                 >
                   <span className='pr-4'>
                     {' '}
