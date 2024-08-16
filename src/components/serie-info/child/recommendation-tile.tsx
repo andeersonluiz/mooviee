@@ -3,6 +3,9 @@ import { Recommendations } from '@/modules/data/model/serie-info';
 import Image from 'next/image';
 import { useState } from 'react';
 import placeholder from '../../../../assets/placeholder.png';
+import DivTile from '@/components/custom-tags/divTile';
+import { MediaType } from '@/modules/data/model/media-type';
+import { useTranslations } from 'next-intl';
 
 const RecommendationTile = ({
   recommendation,
@@ -13,9 +16,15 @@ const RecommendationTile = ({
   const [src, setSrc] = useState(
     `${BASE_IMAGE_URL}${recommendation?.poster_path}`
   );
+  const t = useTranslations('metadata');
+  const isMovie =
+    recommendation.media_type == MediaType.Movie;
 
   return (
-    <div className='cursor-pointer p-4 hover:bg-neutral-800'>
+    <DivTile
+      path={`/${t('language_split')}/${isMovie ? 'movie' : 'serie'}/${recommendation.id}`}
+      className='cursor-pointer p-4 hover:bg-neutral-800'
+    >
       <Image
         src={src}
         alt={src}
@@ -32,7 +41,7 @@ const RecommendationTile = ({
       >
         {recommendation.name}
       </p>
-    </div>
+    </DivTile>
   );
 };
 

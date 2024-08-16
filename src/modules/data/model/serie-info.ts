@@ -1,4 +1,5 @@
 import { Status } from '@/utils/enums';
+import { MediaType } from './media-type';
 
 export interface SerieInfo {
   adult: boolean;
@@ -84,4 +85,5 @@ export interface Recommendations {
   id: number;
   name: string;
   poster_path: string;
+  media_type: MediaType;
 }

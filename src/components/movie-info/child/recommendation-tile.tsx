@@ -19,6 +19,7 @@ const RecommendationTile = ({
   const t = useTranslations('metadata');
   const isMovie =
     recommendation.media_type == MediaType.Movie;
+
   return (
     <DivTile
       path={`/${t('language_split')}/${isMovie ? 'movie' : 'serie'}/${recommendation.id}`}
