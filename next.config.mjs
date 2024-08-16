@@ -8,6 +8,9 @@ const nextConfig = {
   images: {
     domains: ['image.tmdb.org'],
   },
+  env: {
+    API_KEY: process.env.API_TMDB_KEY,
+  },
 };
 
 export default withNextIntl(nextConfig);

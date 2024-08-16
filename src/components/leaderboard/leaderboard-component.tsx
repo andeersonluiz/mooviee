@@ -130,15 +130,11 @@ const LeaderboardComponent = ({
         <TableBody>
           {listLeaderboard?.map((item) => (
             <TableRow key={item.id}>
-              <div className='flex flex-col gap-4 p-4'>
-                <LeaderboardTile
-                  media={item}
-                  position={
-                    listLeaderboard.indexOf(item) + 1
-                  }
-                  isUpcoming={itemSelected.current == 2}
-                />
-              </div>
+              <LeaderboardTile
+                media={item}
+                position={listLeaderboard.indexOf(item) + 1}
+                isUpcoming={itemSelected.current == 2}
+              />
             </TableRow>
           ))}
         </TableBody>

@@ -34,6 +34,7 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     const fetchApi = async () => {
+      console.log('ooi', process.env.API_TMDB_KEY);
       const data =
         await context!.getGenreListUseCase.execute(
           t('language')

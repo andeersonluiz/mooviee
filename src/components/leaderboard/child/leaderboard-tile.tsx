@@ -44,7 +44,7 @@ const LeaderboardTile = ({
     <td>
       <DivTile
         path={`/${t('language_split')}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
-        className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex cursor-pointer flex-row transition-opacity duration-300`}
+        className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex cursor-pointer flex-row p-4 transition-opacity duration-300`}
       >
         {numbersSplited.length == 1 ? (
           <p className='pointer-events-none content-center px-4 pr-8 text-center align-middle text-[50px] font-bold text-slate-300'>

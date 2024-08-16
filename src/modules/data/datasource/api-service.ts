@@ -1,7 +1,6 @@
 'use client';
 
 import { getMinMaxDate } from '@/utils/functions';
-import { API_TMDB_KEY } from '../../../config/keys';
 import {
   ItemType,
   MovieFilterType,
@@ -34,16 +33,16 @@ export class ApiService {
     let url = '';
     switch (type) {
       case MovieListType.POPULAR:
-        url = `https://api.themoviedb.org/3/movie/popular?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/movie/popular?language=${locale}&page=${page}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case MovieListType.TOP_RATED:
-        url = `https://api.themoviedb.org/3/movie/top_rated?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/movie/top_rated?language=${locale}&page=${page}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case MovieListType.UPCOMING:
-        url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_TMDB_KEY}&language=${locale}&sort_by=popularity.desc&primary_release_date.gte=${minDate}&primary_release_date.lte=${maxDate}&page=${page}`;
+        url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}&language=${locale}&sort_by=popularity.desc&primary_release_date.gte=${minDate}&primary_release_date.lte=${maxDate}&page=${page}`;
         break;
       case MovieListType.NOW_PLAYING:
-        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_TMDB_KEY}&language=${locale}&page=${page}&region=${locale.split('-')[1]}`;
+        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}&language=${locale}&page=${page}&region=${locale.split('-')[1]}`;
         break;
 
       default:
@@ -75,19 +74,19 @@ export class ApiService {
 
     switch (type) {
       case MovieFilterType.POPULARITY:
-        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=popularity.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=popularity.${desc ? 'desc' : 'asc'}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case MovieFilterType.TITLE:
-        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=title.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=title.${desc ? 'desc' : 'asc'}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case MovieFilterType.REVENUE:
-        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=revenue.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=revenue.${desc ? 'desc' : 'asc'}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case MovieFilterType.RATING:
-        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=vote_average.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=vote_average.${desc ? 'desc' : 'asc'}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case MovieFilterType.RELEASE_DATE:
-        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=primary_release_date.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=primary_release_date.${desc ? 'desc' : 'asc'}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       default:
         return null;
@@ -116,16 +115,16 @@ export class ApiService {
     const [minDate, maxDate] = getMinMaxDate();
     switch (type) {
       case SerieListType.POPULAR:
-        url = `https://api.themoviedb.org/3/tv/popular?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/tv/popular?language=${locale}&page=${page}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case SerieListType.TOP_RATED:
-        url = `https://api.themoviedb.org/3/tv/top_rated?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/tv/top_rated?language=${locale}&page=${page}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case SerieListType.ON_THE_AIR:
-        url = `https://api.themoviedb.org/3/tv/on_the_air?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/tv/on_the_air?language=${locale}&page=${page}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case SerieListType.UPCOMING:
-        url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_TMDB_KEY}&language=${locale}S&sort_by=popularity.desc&first_air_date.gte=${minDate}&first_air_date.lte=${maxDate}&page=${page}`;
+        url = `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}&language=${locale}S&sort_by=popularity.desc&first_air_date.gte=${minDate}&first_air_date.lte=${maxDate}&page=${page}`;
 
         break;
       default:
@@ -161,13 +160,13 @@ export class ApiService {
 
     switch (type) {
       case SerieFilterType.POPULARITY:
-        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=popularity.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=popularity.${desc ? 'desc' : 'asc'}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case SerieFilterType.RATING:
-        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=vote_average.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=vote_average.${desc ? 'desc' : 'asc'}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case SerieFilterType.AIR_DATE:
-        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=first_air_date.${desc ? 'desc' : 'asc'}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=${locale}&page=${page}&sort_by=first_air_date.${desc ? 'desc' : 'asc'}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       default:
         return null;
@@ -191,7 +190,7 @@ export class ApiService {
     id: number,
     locale: string
   ): Promise<MovieInfo | null> {
-    const url = `https://api.themoviedb.org/3/movie/${id}?append_to_response=release_dates%2Ccredits%2Crecommendations%2Cproviders%2Cvideos&language=${locale}&api_key=${API_TMDB_KEY}`;
+    const url = `https://api.themoviedb.org/3/movie/${id}?append_to_response=release_dates%2Ccredits%2Crecommendations%2Cproviders%2Cvideos&language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
 
     try {
       const res = await fetch(url);
@@ -227,7 +226,7 @@ export class ApiService {
     id: number,
     locale: string
   ): Promise<SerieInfo | null> {
-    const url = `https://api.themoviedb.org/3/tv/${id}?append_to_response=content_ratings%2Caggregate_credits%2Ckeywords%2Crecommendations&language=${locale}&api_key=${API_TMDB_KEY}`;
+    const url = `https://api.themoviedb.org/3/tv/${id}?append_to_response=content_ratings%2Caggregate_credits%2Ckeywords%2Crecommendations&language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
 
     try {
       const res = await fetch(url);
@@ -255,7 +254,7 @@ export class ApiService {
     id: number,
     locale: string
   ): Promise<PersonInfo | null> {
-    const url = `https://api.themoviedb.org/3/person/${id}?language=${locale}&api_key=${API_TMDB_KEY}`;
+    const url = `https://api.themoviedb.org/3/person/${id}?language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
     try {
       const res = await fetch(url);
       const result = await res.json();
@@ -273,7 +272,7 @@ export class ApiService {
     id: number,
     locale: string
   ): Promise<CollectionInfo | null> {
-    const url = `https://api.themoviedb.org/3/collection/${id}?language=${locale}&api_key=${API_TMDB_KEY}`;
+    const url = `https://api.themoviedb.org/3/collection/${id}?language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
     try {
       const res = await fetch(url);
       const result = await res.json();
@@ -291,7 +290,7 @@ export class ApiService {
     query: string,
     locale: string
   ): Promise<CollectionList | null> {
-    const url = `https://api.themoviedb.org/3/search/collection?query=${query}&include_adult=false&language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
+    const url = `https://api.themoviedb.org/3/search/collection?query=${query}&include_adult=false&language=${locale}&page=1&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
     try {
       const res = await fetch(url);
       const result = await res.json();
@@ -309,7 +308,7 @@ export class ApiService {
     query: string,
     locale: string
   ): Promise<MultiList | null> {
-    const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=${locale}&page=1&api_key=${API_TMDB_KEY}`;
+    const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=${locale}&page=1&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
     try {
       const res = await fetch(url);
       const result = await res.json();
@@ -347,10 +346,10 @@ export class ApiService {
     let url = '';
     switch (type) {
       case TrendingType.DAY:
-        url = `https://api.themoviedb.org/3/trending/tv/${TrendingType.DAY}?language=${locale}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/trending/tv/${TrendingType.DAY}?language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case TrendingType.WEEK:
-        url = `https://api.themoviedb.org/3/trending/tv/${TrendingType.WEEK}?language=${locale}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/trending/tv/${TrendingType.WEEK}?language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       default:
         return null;
@@ -376,10 +375,10 @@ export class ApiService {
     let url = '';
     switch (type) {
       case TrendingType.DAY:
-        url = `https://api.themoviedb.org/3/trending/movie/${TrendingType.DAY}?language=${locale}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/trending/movie/${TrendingType.DAY}?language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case TrendingType.WEEK:
-        url = `https://api.themoviedb.org/3/trending/movie/${TrendingType.WEEK}?language=${locale}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/trending/movie/${TrendingType.WEEK}?language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       default:
         return null;
@@ -406,10 +405,10 @@ export class ApiService {
     let url = '';
     switch (type) {
       case TrendingType.DAY:
-        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.DAY}?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.DAY}?language=${locale}&page=${page}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       case TrendingType.WEEK:
-        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.WEEK}?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
+        url = `https://api.themoviedb.org/3/trending/all/${TrendingType.WEEK}?language=${locale}&page=${page}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
         break;
       default:
         return null;
@@ -431,8 +430,8 @@ export class ApiService {
   async getGenreList(
     locale: string
   ): Promise<Genre[] | null> {
-    const urlMovie = `https://api.themoviedb.org/3/genre/movie/list?language=${locale}&api_key=${API_TMDB_KEY}`;
-    const urlTv = `https://api.themoviedb.org/3/genre/tv/list?language=${locale}&api_key=${API_TMDB_KEY}`;
+    const urlMovie = `https://api.themoviedb.org/3/genre/movie/list?language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
+    const urlTv = `https://api.themoviedb.org/3/genre/tv/list?language=${locale}&api_key=${process.env.NEXT_PUBLIC_API_TMDB_KEY}`;
 
     try {
       const [resMovie, resTv] = await Promise.all([
