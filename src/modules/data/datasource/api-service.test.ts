@@ -781,8 +781,6 @@ describe('api service tests', () => {
       expect(typeof movie.recommendations).not.toEqual(
         'undefined'
       );
-      console.log('ooi');
-      console.log(movie.recommendations);
       movie.recommendations.map((item) =>
         expect(typeof item).not.toEqual('undefined')
       );
