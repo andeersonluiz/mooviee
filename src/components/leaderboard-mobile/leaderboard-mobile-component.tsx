@@ -1,22 +1,17 @@
 import { Leaderboarder } from '@/modules/data/model/leaderboard';
 import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
-import { LeaderboardType } from '@/utils/enums';
 import { CircularProgress } from '@nextui-org/progress';
 import { useTranslations } from 'next-intl';
-import { use, useEffect, useRef, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import HeaderMediaList from '../secondary-content/child/header-media-list';
 import ListMediaLeadboarder from './child/list-media-leaderboard';
 
 const LeaderboardMobileComponent = () => {
-  const [listLeaderboard, setListLeaderboard] = useState<
-    Leaderboarder[] | null
-  >(null);
   const context = use(MovieAndTvShowContext);
   const t = useTranslations('metadata');
   const leaderboardTranslation =
     useTranslations('leaderboard');
-  const itemSelected = useRef<LeaderboardType>(0);
-  const tableRef = useRef<HTMLTableElement>(null);
+
   const [isLoading, setIsLoading] = useState(true);
   const [mostPopular, setMostPopular] = useState<
     Leaderboarder[] | null
@@ -57,24 +52,9 @@ const LeaderboardMobileComponent = () => {
       setMostPopular(dataMostPopular);
       setMostRated(dataMostRated);
       setNowPlaying(dataNowPlaying);
-      console.log(dataMostPopular);
-      console.log(dataMostRated);
-      console.log(dataNowPlaying);
+
       setIsLoading(false);
     };
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    var data = await context!.getLeaderboardUseCase.execute(
-      t('language'),
-      itemSelected.current
-    );
-    setIsLoading(false);
-    setListLeaderboard(data);
-  };
-
-  useEffect(() => {
     fetchData();
   }, []);
 

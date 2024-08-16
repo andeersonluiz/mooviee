@@ -20,7 +20,7 @@ const LanguageMobileChild = () => {
   return (
     <div className='w-[15%]'>
       <Menu>
-        <MenuButton className='gap-2 rounded-md bg-neutral-800 px-4 py-2 text-sm font-medium text-white shadow-inner shadow-white/10 transition [--anchor-gap:var(--spacing-10)] hover:bg-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-300 data-[open]:bg-neutral-900 data-[open]:outline-1 data-[open]:ring-1 data-[open]:ring-neutral-300'>
+        <MenuButton className='gap-2 rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white shadow-inner shadow-white/10 transition [--anchor-gap:var(--spacing-10)] hover:bg-neutral-950 focus:outline-none focus:ring-1 focus:ring-neutral-300 data-[open]:bg-neutral-950 data-[open]:outline-1 data-[open]:ring-1 data-[open]:ring-neutral-300'>
           {t('name_mobile')}
         </MenuButton>
         <MenuItems

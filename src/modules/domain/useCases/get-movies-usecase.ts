@@ -10,7 +10,7 @@ export default class GetMoviesUseCase {
   async execute(
     locale: string,
     type: MovieListType,
-    page: number = 1
+    page = 1
   ) {
     return await this.moviesAndShowsRepository.getMovies(
       locale,

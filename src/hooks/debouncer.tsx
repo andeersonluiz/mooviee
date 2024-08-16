@@ -7,7 +7,6 @@ export default function useDebouncer(
   const [debouncer, setDebouncer] = useState(value);
 
   useEffect(() => {
-    console.log('value', value);
     const handler = setTimeout(() => {
       setDebouncer(value);
     }, delay);

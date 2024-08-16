@@ -5,6 +5,7 @@ import { Recommendations } from '@/modules/data/model/movie-info';
 import Image from 'next/image';
 import { useState } from 'react';
 import placeholder from '../../../../assets/placeholder.png';
+import { useTranslations } from 'next-intl';
 
 const RecommendationTile = ({
   recommendation,
@@ -15,13 +16,12 @@ const RecommendationTile = ({
   const [src, setSrc] = useState(
     `${BASE_IMAGE_URL}${recommendation?.poster_path}`
   );
-
-  const locale = window.location.href.split(/\/(en|br)/)[1];
+  const t = useTranslations('metadata');
   const isMovie =
     recommendation.media_type == MediaType.Movie;
   return (
     <DivTile
-      path={`/${locale}/${isMovie ? 'movie' : 'serie'}/${recommendation.id}`}
+      path={`/${t('language_split')}/${isMovie ? 'movie' : 'serie'}/${recommendation.id}`}
       className='cursor-pointer p-4 hover:bg-neutral-800'
     >
       <Image

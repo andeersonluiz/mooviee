@@ -97,16 +97,7 @@ const DialogMobileChild = ({
       isMounted.current = false;
     };
   }, []);
-  const handleClick = async (props: any) => {
-    if (isMounted.current) {
-      clearTimeoutManually();
-      setIsOpen(false);
-      await new Promise((resolve) =>
-        setTimeout(resolve, 300)
-      );
-      props.close();
-    }
-  };
+
   return (
     <Modal className={``}>
       <Dialog>

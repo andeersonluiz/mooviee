@@ -20,7 +20,7 @@ const DialogTrailer = ({
   return (
     <Modal className={``} isOpen={isOpen}>
       <Dialog>
-        {(props) => {
+        {() => {
           return (
             <>
               <div

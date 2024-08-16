@@ -7,6 +7,14 @@ import { getMessages } from 'next-intl/server';
 import { M_PLUS_1 } from 'next/font/google';
 import '../../app/globals.css';
 
+export const metadata = {
+  title: 'Movieee',
+  description: 'Filmes e Séries',
+  icons: {
+    icon: '/images/favicon.ico',
+  },
+};
+
 const m_plus = M_PLUS_1({
   subsets: ['latin'],
 
@@ -21,10 +29,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
-  console.log('userAgent');
   const deviceType = await getDeviceType();
 
   return (

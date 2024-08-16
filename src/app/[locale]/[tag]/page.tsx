@@ -3,6 +3,7 @@
 import FooterContent from '@/components/footer/footer-content';
 import HeaderMobileComponent from '@/components/header-mobile/header-mobile-component';
 import HeaderComponent from '@/components/header/header-component';
+import LoadingPage from '@/components/loading/loading-page';
 import MediaTile from '@/components/secondary-content/child/media-tile';
 import useResize from '@/hooks/resize';
 import { MediaType } from '@/modules/data/model/media-type';
@@ -64,11 +65,6 @@ const TagPage: React.FC = () => {
       page.current = 2;
       isEnd.current = false;
       try {
-        console.log(
-          (Object.values(TagType) as string[]).indexOf(
-            tag.toString()
-          )
-        );
         const index = (
           Object.values(TagType) as string[]
         ).indexOf(tag.toString());
@@ -131,7 +127,6 @@ const TagPage: React.FC = () => {
         }
 
         await new Promise((res) => setTimeout(res, 300));
-        console.log(resultSecondPage);
         const result = [
           ...resultFirstPage?.results!,
           ...resultSecondPage?.results!,
@@ -205,6 +200,10 @@ const TagPage: React.FC = () => {
     }
   }, [loadMore]);
 
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <div className='flex min-h-screen flex-col'>
       {userAgentInfo.isMobile ? (
@@ -213,7 +212,7 @@ const TagPage: React.FC = () => {
         <HeaderComponent selectedIndex={-1} />
       )}
       <main
-        className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex flex-1 flex-col transition-opacity duration-300`}
+        className={`flex flex-1 flex-col transition-opacity duration-300`}
       >
         {medias != null ? (
           <>
@@ -258,6 +257,4 @@ const TagPage: React.FC = () => {
     </div>
   );
 };
-// last_air_date in_production  next_episode_to_air last_episode_to_air
-// recommendations aggregate_credits
 export default TagPage;

@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import FooterContent from '@/components/footer/footer-content';
 import HeaderMobileComponent from '@/components/header-mobile/header-mobile-component';
 import HeaderComponent from '@/components/header/header-component';
+import LoadingPage from '@/components/loading/loading-page';
 import SerieInfoComponent from '@/components/serie-info/serie-info-component';
 import { BASE_IMAGE_URL } from '@/config/settings';
 import useResize from '@/hooks/resize';
@@ -19,9 +20,8 @@ import placeholderBackdrop from '../../../../../assets/placeholder_backdrop.png'
 
 const SeriePage: React.FC = () => {
   const t = useTranslations('metadata');
-  const context = useContext(MovieAndTvShowContext)!;
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const context = useContext(MovieAndTvShowContext)!;
   const [serie, setSerie] = useState<SerieInfo | null>(
     null
   );
@@ -40,11 +40,9 @@ const SeriePage: React.FC = () => {
             Number(id),
             t('language')
           );
-        console.log(result);
         setSrc(`${BASE_IMAGE_URL}${result!.backdrop_path}`);
         result!.aggregate_credits.cast =
           result?.aggregate_credits.cast.splice(0, 20)!;
-        console.log('aa', result);
         setSerie(result);
         document.title = 'Movieee - ' + result?.name!;
         setIsLoading(false);
@@ -56,12 +54,14 @@ const SeriePage: React.FC = () => {
     fetchData();
   }, []);
 
-  console.log(typeof serie?.first_air_date);
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className='flex min-h-screen flex-col'>
       <div
-        className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex flex-1 flex-col overflow-x-hidden transition-opacity duration-300`}
+        className={`flex flex-1 flex-col overflow-x-hidden transition-opacity duration-300`}
       >
         {serie != null ? (
           <>

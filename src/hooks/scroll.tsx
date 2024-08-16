@@ -20,7 +20,6 @@ export default function useScroll(
       container!.children[0].scrollWidth,
       gap
     );
-    console.log(container!.children[0].scrollWidth);
     const value = container!.scrollLeft + moveValue;
 
     container!.scrollTo({

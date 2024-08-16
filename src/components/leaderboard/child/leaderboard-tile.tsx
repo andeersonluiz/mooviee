@@ -9,7 +9,6 @@ import {
 } from '@/utils/functions';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 
 const LeaderboardTile = ({
@@ -30,7 +29,6 @@ const LeaderboardTile = ({
   const genres = context.listGenres;
   const numbersSplited = position.toString().split('');
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
@@ -41,12 +39,11 @@ const LeaderboardTile = ({
       setIsLoading(true);
     };
   }, [media]);
-  const locale = window.location.href.split(/\/(en|br)/)[1];
 
   return (
     <td>
       <DivTile
-        path={`/${locale}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
+        path={`/${t('language_split')}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
         className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex cursor-pointer flex-row transition-opacity duration-300`}
       >
         {numbersSplited.length == 1 ? (

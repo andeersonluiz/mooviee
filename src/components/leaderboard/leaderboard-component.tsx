@@ -63,7 +63,7 @@ const LeaderboardComponent = ({
               <p className='justify-center p-6 text-center text-2xl font-bold text-slate-200'>
                 {leaderboardTranslation('title')}
               </p>
-              <div className='flex flex-row gap-6 px-4 pb-2'>
+              <div className='flex flex-row gap-6 px-4 pb-4'>
                 <ButtonChild
                   title={leaderboardTranslation(
                     'mostPopular'
@@ -115,7 +115,7 @@ const LeaderboardComponent = ({
         <TableBody>
           <TableRow>
             <td>
-              <div className='flex h-[757.5px] flex-1 justify-center text-center'>
+              <div className='flex h-[759px] flex-1 justify-center text-center'>
                 <CircularProgress
                   size='lg'
                   color='warning'
@@ -127,10 +127,10 @@ const LeaderboardComponent = ({
           </TableRow>
         </TableBody>
       ) : (
-        <TableBody className='flex flex-col gap-4 p-4'>
-          {listLeaderboard?.map((item) => {
-            return (
-              <TableRow key={item.id}>
+        <TableBody>
+          {listLeaderboard?.map((item) => (
+            <TableRow key={item.id}>
+              <div className='flex flex-col gap-4 p-4'>
                 <LeaderboardTile
                   media={item}
                   position={
@@ -138,9 +138,9 @@ const LeaderboardComponent = ({
                   }
                   isUpcoming={itemSelected.current == 2}
                 />
-              </TableRow>
-            );
-          })}
+              </div>
+            </TableRow>
+          ))}
         </TableBody>
       )}
     </Table>

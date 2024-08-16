@@ -17,13 +17,17 @@ const DescriptionMovie = ({
             {movie.certification_value}
           </div>
         )}
-        {movie.runtime != 0 && (
+        {movie.runtime == 0 ? (
+          <></>
+        ) : (
           <p className='text-sm text-slate-200'>
             {convertRunTime(movie.runtime)}
           </p>
         )}
 
-        {movie.vote_average && (
+        {movie.vote_average == 0 ? (
+          <></>
+        ) : (
           <div className='flex flex-row gap-1'>
             <svg
               xmlns='http://www.w3.org/2000/svg'

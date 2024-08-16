@@ -65,7 +65,7 @@ const MainContent = () => {
       {trendingSelected != null && trendingList != null ? (
         <>
           <div className='shadow-2xl shadow-neutral-800'>
-            <div className='absolute inset-0 -z-10 bg-black bg-opacity-50'></div>
+            <div className='absolute inset-0 -z-10 bg-black bg-opacity-80'></div>
             {!isLoading.current && (
               <BackgroundImage media={trendingSelected} />
             )}

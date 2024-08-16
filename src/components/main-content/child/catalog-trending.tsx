@@ -24,9 +24,6 @@ const CatalogTrending = ({
     <>
       <div
         className={`flex ${widthCatalogTrendingTailwind} ${mediaSelected.id == media.id ? 'scale-110' : ''} flex-shrink-0 cursor-pointer flex-col items-center justify-center transition-transform ${loaded ? 'hover:scale-110' : ''}`}
-        onFocus={() => {
-          console.log(media.title);
-        }}
         onClick={onClick}
       >
         <Image

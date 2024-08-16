@@ -19,8 +19,9 @@ const HeaderMobileSearchComponent = ({
         setSelected={setSelected}
       />
       <LogoMobileChild />
-      <SearchMobileChild onClick={() => null} />
-
+      <div className='relative flex w-[15%] justify-center focus:outline-none'>
+        <SearchMobileChild onClick={onClick} />
+      </div>
       <LanguageMobileChild />
     </header>
   );

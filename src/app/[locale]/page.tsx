@@ -13,6 +13,7 @@ import HeaderMobileComponent from '@/components/header-mobile/header-mobile-comp
 import HeaderComponent from '@/components/header/header-component';
 import LeaderboardMobileComponent from '@/components/leaderboard-mobile/leaderboard-mobile-component';
 import LeaderboardComponent from '@/components/leaderboard/leaderboard-component';
+import LoadingPage from '@/components/loading/loading-page';
 import MainContent from '@/components/main-content/main-content';
 import SecondaryContent from '@/components/secondary-content/secondary-content';
 import useResize from '@/hooks/resize';
@@ -21,12 +22,13 @@ import { useUserAgentData } from '@/modules/presentation/provider/user-agent-pro
 import { heightHomePageTailwind } from '@/styles/style-values';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const MainPage: React.FC = (props: any) => {
+const MainPage: React.FC = () => {
   const t = useTranslations('metadata');
   const context = use(MovieAndTvShowContext)!;
   const [listGenres, setListGenres] = useState<
     Genre[] | null
   >(null);
+  const [isLoading, setIsLoading] = useState(true);
   const userAgentInfo = useUserAgentData();
   useResize();
 
@@ -37,16 +39,20 @@ const MainPage: React.FC = (props: any) => {
           t('language')
         );
       document.title = `Movieee`;
-
+      setIsLoading(false);
       setListGenres(data);
     };
 
     fetchApi();
   }, []);
 
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <GenreContext.Provider value={{ listGenres }}>
-      <Suspense fallback={<p>Carregando...</p>}>
+      <Suspense>
         <main>
           <div
             className={`relative ${heightHomePageTailwind} `}

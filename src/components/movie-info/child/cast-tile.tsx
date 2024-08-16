@@ -1,4 +1,3 @@
-import DivTile from '@/components/custom-tags/divTile';
 import { BASE_IMAGE_URL } from '@/config/settings';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -10,13 +9,8 @@ const CastTile = ({ cast }: { cast: any }) => {
     `${BASE_IMAGE_URL}${cast?.profile_path}`
   );
 
-  const locale = window.location.href.split(/\/(en|br)/)[1];
-
   return (
-    <DivTile
-      path={`/${locale}/cast/${cast.id}`}
-      className='cursor-pointer p-4 hover:bg-neutral-800'
-    >
+    <div className='p-4 hover:bg-neutral-800'>
       <Image
         src={src}
         alt={src}
@@ -33,7 +27,7 @@ const CastTile = ({ cast }: { cast: any }) => {
       >
         {cast.original_name}
       </p>
-    </DivTile>
+    </div>
   );
 };
 

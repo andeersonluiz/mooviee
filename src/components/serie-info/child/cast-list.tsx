@@ -7,11 +7,13 @@ import { useUserAgentData } from '@/modules/presentation/provider/user-agent-pro
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 import CastTile from './cast-tile';
-
+//32209
 const CastList = ({
   credits,
+  viewAll,
 }: {
   credits: AggregateCredits;
+  viewAll: () => void;
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tSerieInfo = useTranslations('serieInfo');
@@ -37,15 +39,17 @@ const CastList = ({
               {tSerieInfo('cast')}
             </p>
 
-            <div
-              className='flex cursor-pointer select-none flex-row items-center'
-              onClick={() => null}
-            >
-              <p
-                className={`text-lg text-slate-100`}
-              >{`${tSerieInfo('viewAll')}`}</p>
-              <ArrowGoIcon className='size-7 stroke-slate-100' />
-            </div>
+            {
+              <div
+                className='flex cursor-pointer select-none flex-row items-center'
+                onClick={viewAll}
+              >
+                <p
+                  className={`text-lg text-slate-100`}
+                >{`${tSerieInfo('viewAll')}`}</p>
+                <ArrowGoIcon className='size-7 stroke-slate-100' />
+              </div>
+            }
           </div>
           <div className='relative'>
             <div
@@ -63,7 +67,7 @@ const CastList = ({
             <div
               onMouseEnter={scrollHook.showArrow}
               onClick={scrollHook.handleScrollBack}
-              className={`${!isVisibleBack ? 'hidden' : ''} absolute top-[42%] flex h-[120px] w-[50px] -translate-y-1/2 cursor-pointer justify-center bg-transparent px-2 hover:bg-black hover:bg-opacity-55`}
+              className={`${!isVisibleBack ? 'hidden' : ''} absolute left-4 top-[42%] flex h-[120px] w-[50px] -translate-y-1/2 cursor-pointer justify-center bg-transparent px-2 hover:bg-black hover:bg-opacity-55`}
             >
               <ArrowBackIcon className='size-7 h-[120px] align-middle' />
             </div>

@@ -8,10 +8,15 @@ import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 import CastTile from './cast-tile';
 
-const CastList = ({ credits }: { credits: Credits }) => {
+const CastList = ({
+  credits,
+  viewAll,
+}: {
+  credits: Credits;
+  viewAll: () => void;
+}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tSerieInfo = useTranslations('serieInfo');
-
   const [isVisibleNext, setIsVisibleNext] = useState(false);
   const [isVisibleBack, setIsVisibleBack] = useState(false);
   const scrollHook = useScroll(
@@ -35,7 +40,7 @@ const CastList = ({ credits }: { credits: Credits }) => {
 
             <div
               className='flex cursor-pointer select-none flex-row items-center'
-              onClick={() => null}
+              onClick={viewAll}
             >
               <p
                 className={`text-lg text-slate-100`}
@@ -59,7 +64,7 @@ const CastList = ({ credits }: { credits: Credits }) => {
             <div
               onMouseEnter={scrollHook.showArrow}
               onClick={scrollHook.handleScrollBack}
-              className={`${!isVisibleBack ? 'hidden' : ''} absolute top-[42%] flex h-[120px] w-[50px] -translate-y-1/2 cursor-pointer justify-center bg-transparent px-2 hover:bg-black hover:bg-opacity-55`}
+              className={`${!isVisibleBack ? 'hidden' : ''} absolute left-4 top-[42%] flex h-[120px] w-[50px] -translate-y-1/2 cursor-pointer justify-center bg-transparent px-2 hover:bg-black hover:bg-opacity-55`}
             >
               <ArrowBackIcon className='size-7 h-[120px] align-middle' />
             </div>

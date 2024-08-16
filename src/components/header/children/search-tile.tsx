@@ -21,11 +21,11 @@ const SearchTile = ({ media }: { media: Result }) => {
   useEffect(() => {
     setIsLoading(false);
   }, []);
-  const locale = window.location.href.split(/\/(en|br)/)[1];
+  const t = useTranslations('metadata');
 
   return (
     <DivTile
-      path={`/${locale}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
+      path={`/${t('language_split')}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
       className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex w-full cursor-pointer px-4 py-2 transition-opacity duration-300 hover:bg-gray-900`}
     >
       <Image

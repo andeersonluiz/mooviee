@@ -1,4 +1,5 @@
 import { languageIndexOptions } from '@/config/settings';
+import { setCookieValue } from '@/utils/ssr_functions';
 import {
   Menu,
   MenuButton,
@@ -19,7 +20,7 @@ const LanguageChild = () => {
   };
   return (
     <Menu>
-      <MenuButton className='w-36 gap-2 rounded-md bg-neutral-800 px-4 py-2 pl-5 font-medium text-white shadow-inner shadow-white/10 transition [--anchor-gap:var(--spacing-10)] hover:bg-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-300 data-[open]:bg-neutral-900 data-[open]:outline-1 data-[open]:ring-1 data-[open]:ring-neutral-300'>
+      <MenuButton className='w-36 gap-2 rounded-md bg-neutral-900 px-4 py-2 pl-5 font-medium text-white shadow-inner shadow-white/10 transition [--anchor-gap:var(--spacing-10)] hover:bg-neutral-950 focus:outline-none focus:ring-1 focus:ring-neutral-300 data-[open]:bg-neutral-950 data-[open]:outline-1 data-[open]:ring-1 data-[open]:ring-neutral-300'>
         {t('name')}
       </MenuButton>
       <MenuItems
@@ -30,16 +31,19 @@ const LanguageChild = () => {
         {languageIndexOptions.map((item) => (
           <MenuItem key={item} data-autofocus>
             <div
-              onClick={() =>
-                changeLocale(t(`data_lang.${item}.1`))
-              }
+              onClick={() => {
+                setCookieValue(
+                  'lang',
+                  t(`data_lang.${item}.1`)
+                );
+                changeLocale(t(`data_lang.${item}.1`));
+              }}
               className='items-center rounded-xl bg-neutral-900 px-4 py-2 text-left transition-all focus:bg-neutral-700 data-[focus]:bg-neutral-700'
             >
               <p
                 className={`flex flex-1 cursor-pointer select-none items-center justify-between`}
               >
                 <span className='pr-4'>
-                  {' '}
                   {t(`data_lang.${item}.0`)}
                 </span>
                 <svg

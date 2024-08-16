@@ -28,9 +28,9 @@ export class ApiService {
   async getMovies(
     locale: string,
     type: MovieListType = MovieListType.POPULAR,
-    page: number = 1
+    page = 1
   ): Promise<MovieList | null> {
-    console.log('call (getMovies) from datasource', locale);
+    const [minDate, maxDate] = getMinMaxDate();
     let url = '';
     switch (type) {
       case MovieListType.POPULAR:
@@ -40,7 +40,6 @@ export class ApiService {
         url = `https://api.themoviedb.org/3/movie/top_rated?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       case MovieListType.UPCOMING:
-        const [minDate, maxDate] = getMinMaxDate();
         url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_TMDB_KEY}&language=${locale}&sort_by=popularity.desc&primary_release_date.gte=${minDate}&primary_release_date.lte=${maxDate}&page=${page}`;
         break;
       case MovieListType.NOW_PLAYING:
@@ -111,9 +110,10 @@ export class ApiService {
   async getSeries(
     locale: string,
     type: SerieListType = SerieListType.POPULAR,
-    page: number = 1
+    page = 1
   ): Promise<SerieList | null> {
     let url = '';
+    const [minDate, maxDate] = getMinMaxDate();
     switch (type) {
       case SerieListType.POPULAR:
         url = `https://api.themoviedb.org/3/tv/popular?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
@@ -125,7 +125,6 @@ export class ApiService {
         url = `https://api.themoviedb.org/3/tv/on_the_air?language=${locale}&page=${page}&api_key=${API_TMDB_KEY}`;
         break;
       case SerieListType.UPCOMING:
-        const [minDate, maxDate] = getMinMaxDate();
         url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_TMDB_KEY}&language=${locale}S&sort_by=popularity.desc&first_air_date.gte=${minDate}&first_air_date.lte=${maxDate}&page=${page}`;
 
         break;

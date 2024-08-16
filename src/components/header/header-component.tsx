@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import {
   Button,
@@ -16,8 +18,6 @@ const HeaderComponent = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(selectedIndex);
-  console.log(selectedIndex);
-  console.log(selected);
   return (
     <header className='mx-8 pt-3 lg:mx-10 xl:mx-32 2xl:mx-48'>
       <div className={`flex items-center justify-center`}>

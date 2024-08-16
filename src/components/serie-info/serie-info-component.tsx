@@ -1,9 +1,11 @@
 import { SerieInfo } from '@/modules/data/model/serie-info';
 import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
+import { useRouter } from 'next/navigation';
 import CastList from './child/cast-list';
 import DescriptionSerie from './child/description';
 import InfosSerie from './child/infos';
 import RecommendationList from './child/recommendations-list';
+import { useTranslations } from 'next-intl';
 
 const SerieInfoComponent = ({
   serie,
@@ -11,6 +13,8 @@ const SerieInfoComponent = ({
   serie: SerieInfo;
 }) => {
   const userAgentInfo = useUserAgentData();
+  const router = useRouter();
+  const t = useTranslations('metadata');
 
   return (
     <main>
@@ -28,7 +32,14 @@ const SerieInfoComponent = ({
           <InfosSerie serie={serie!} />
         </div>
       </div>
-      <CastList credits={serie!.aggregate_credits} />
+      <CastList
+        credits={serie!.aggregate_credits}
+        viewAll={() =>
+          router.push(
+            `/${t('language_split')}/serie/${serie.id}/cast`
+          )
+        }
+      />
       <RecommendationList
         recommendations={serie!.recommendations}
       />

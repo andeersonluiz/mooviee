@@ -8,6 +8,7 @@ import FooterContent from '@/components/footer/footer-content';
 import HeaderMobileComponent from '@/components/header-mobile/header-mobile-component';
 import HeaderComponent from '@/components/header/header-component';
 import PlayIcon from '@/components/icon/play-icon';
+import LoadingPage from '@/components/loading/loading-page';
 import DialogTrailer from '@/components/movie-info/child/dialog-trailer';
 import MovieInfoComponent from '@/components/movie-info/movie-info-component';
 import { BASE_IMAGE_URL } from '@/config/settings';
@@ -43,13 +44,11 @@ const MovieInfoPage: React.FC = () => {
             Number(id),
             t('language')
           );
-        console.log(result);
         setSrc(`${BASE_IMAGE_URL}${result!.backdrop_path}`);
         result!.credits.cast = result?.credits.cast.splice(
           0,
           20
         )!;
-        console.log('aa', result);
         setMovie(result);
         document.title = 'Movieee - ' + result?.title!;
         setIsLoading(false);
@@ -61,10 +60,14 @@ const MovieInfoPage: React.FC = () => {
     fetchData();
   }, []);
 
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <div className='flex min-h-screen flex-col'>
       <div
-        className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex flex-1 flex-col overflow-x-hidden transition-opacity duration-300`}
+        className={`flex w-full flex-1 flex-col transition-opacity duration-300`}
       >
         {movie != null ? (
           <>
@@ -104,7 +107,7 @@ const MovieInfoPage: React.FC = () => {
                     <PlayIcon className='size-6' />
 
                     <p className='text-lg text-white'>
-                      Trailer{' '}
+                      Trailer
                     </p>
                   </div>
                   <div

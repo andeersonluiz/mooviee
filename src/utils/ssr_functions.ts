@@ -1,6 +1,6 @@
 'use server';
 
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 export const getDeviceType = async () => {
   const userAgent = headers().get('user-agent');
@@ -25,3 +25,21 @@ export const getDeviceType = async () => {
     };
   }
 };
+
+export async function setCookieValue(
+  key: string,
+  value: string
+) {
+  cookies().set(key, value, { secure: true });
+}
+
+export async function getCookieValue(key: string) {
+  const cookieStore = cookies();
+  const hasCookie = cookieStore.has(key);
+  if (hasCookie) {
+    return cookieStore.get(key)?.value;
+  } else {
+    cookies().set(key, 'en', { secure: true });
+    return 'en';
+  }
+}

@@ -12,6 +12,7 @@ import {
   widthCatalogTrendingTailwindMobile,
 } from '@/styles/style-values';
 import { convertDateToLocal } from '@/utils/functions';
+import { Skeleton } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -33,44 +34,70 @@ const MediaTile = ({
   const date = isMovie
     ? new Date(media.release_date)
     : new Date(media.first_air_date);
-  const locale = window.location.href.split(/\/(en|br)/)[1];
+
   const [src, setSrc] = useState(
     `${BASE_IMAGE_URL}${media.poster_path}`
   );
+
   return (
     <DivTile
-      path={`/${locale}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
+      path={`/${t('language_split')}/${isMovie ? 'movie' : 'serie'}/${media.id}`}
       className={`flex flex-col rounded-md p-3 ${loaded ? 'hover:bg-neutral-800' : ''} cursor-pointer transition-all duration-300`}
     >
       <div
         className={`${userAgentInfo.isMobile ? widthCatalogTrendingTailwindMobile : widthCatalogTrendingTailwind} flex flex-shrink-0 flex-col items-center justify-start`}
       >
-        <Image
-          width={
-            userAgentInfo.isMobile
-              ? widthCatalogTrendingMobile
-              : widthCatalogTrending
-          }
-          height={
-            userAgentInfo.isMobile
-              ? heightCatalogTrendingMobile
-              : heightCatalogTrending
-          }
-          src={src}
-          onError={() => setSrc(placeholder.src)}
-          alt={src == '' ? 'Error image' : src}
-          className={`${loaded ? 'opacity-100' : 'opacity-0'} ${
-            userAgentInfo.isMobile
-              ? heightCatalogTrendingTailwindMobile
-              : heightCatalogTrendingTailwind
-          } flex transition-opacity duration-300`}
-          onLoad={async () => {
-            setLoaded(true);
-          }}
-        />
+        <div className={`grid`}>
+          <Image
+            width={
+              userAgentInfo.isMobile
+                ? widthCatalogTrendingMobile
+                : widthCatalogTrending
+            }
+            height={
+              userAgentInfo.isMobile
+                ? heightCatalogTrendingMobile
+                : heightCatalogTrending
+            }
+            src={src}
+            onError={() => setSrc(placeholder.src)}
+            alt={src == '' ? 'Error image' : src}
+            style={{
+              gridArea: '1 / 1',
+            }}
+            className={`${loaded ? 'opacity-100' : 'opacity-0'} ${
+              userAgentInfo.isMobile
+                ? heightCatalogTrendingTailwindMobile
+                : heightCatalogTrendingTailwind
+            } transition-opacity duration-300`}
+            onLoad={async () => {
+              setLoaded(true);
+            }}
+          />
+          {!loaded && (
+            <Skeleton
+              style={{
+                gridArea: '1 / 1',
+              }}
+              sx={{ bgcolor: 'grey.900' }}
+              variant='rectangular'
+              className={`${loaded ? 'opacity-100' : 'opacity-0'} z-10 transition-opacity duration-300`}
+              width={
+                userAgentInfo.isMobile
+                  ? widthCatalogTrendingMobile
+                  : widthCatalogTrending
+              }
+              height={
+                userAgentInfo.isMobile
+                  ? heightCatalogTrendingMobile
+                  : heightCatalogTrending
+              }
+            />
+          )}
+        </div>
         <div className='bg-red- mt-2 flex flex-1 items-start justify-center'>
           <p
-            className={`${loaded ? 'opacity-100' : 'opacity-0'} ${userAgentInfo.isMobile ? widthCatalogTrendingTailwindMobile : widthCatalogTrendingTailwind} bg-red- my-2 !line-clamp-2 flex overflow-hidden text-ellipsis p-1 text-start text-xs font-bold text-white transition-opacity duration-300`}
+            className={`${userAgentInfo.isMobile ? widthCatalogTrendingTailwindMobile : widthCatalogTrendingTailwind} bg-red- my-2 !line-clamp-2 flex overflow-hidden text-ellipsis p-1 text-start text-xs font-bold text-white transition-opacity duration-300`}
           >
             {isMovie ? media.title : media.name}
           </p>
@@ -131,3 +158,4 @@ const MediaTile = ({
 };
 
 export default MediaTile;
+/**/

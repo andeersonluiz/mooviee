@@ -1,3 +1,4 @@
+import { Cast } from '@/modules/data/model/movie-info';
 import { Genre } from '@/modules/data/model/serie-info';
 
 export function getMoveValue(
@@ -23,13 +24,13 @@ export function getMoveValue(
   if (restSize < 0.85) {
     size -= 1;
   }
-  let sumValue = size * widthContent;
+  const sumValue = size * widthContent;
 
   return sumValue;
 }
 
 export function getMinMaxDate() {
-  var date = new Date();
+  const date = new Date();
   const dayMin = String(date.getDate()).padStart(2, '0');
   const monthMin = String(date.getMonth() + 1).padStart(
     2,
@@ -122,4 +123,18 @@ export function removeDuplicatesById(arr: any) {
       return true;
     }
   });
+}
+
+export function generateCrewTags(arr: Cast[]) {
+  const listTags: string[] = [];
+  arr.forEach((item) => {
+    if (
+      item.department != null &&
+      !listTags.includes(item.department)
+    ) {
+      listTags.push(item.department);
+    }
+  });
+  listTags.sort();
+  return listTags;
 }

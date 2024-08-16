@@ -31,17 +31,17 @@ const SecondaryContent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      var dataTrending =
+      const dataTrending =
         await context?.getTrendingAllUseCase.execute(
           t('language'),
           TrendingType.WEEK
         );
-      var dataNowPlaying =
+      const dataNowPlaying =
         await context?.getMoviesUseCase.execute(
           t('language'),
           MovieListType.NOW_PLAYING
         );
-      var dataNextWeek =
+      const dataNextWeek =
         await context?.getSeriesUseCase.execute(
           t('language'),
           SerieListType.ON_THE_AIR

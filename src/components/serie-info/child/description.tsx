@@ -8,7 +8,6 @@ const DescriptionSerie = ({
   serie: SerieInfo;
 }) => {
   const tSerieInfo = useTranslations('serieInfo');
-  console.log(serie.episode_run_time);
   return (
     <div className=''>
       <p className='px-8 pb-4 pt-8 text-3xl font-bold text-white'>{`${serie.name}${serie.first_air_date != '' ? ` (${new Date(serie.first_air_date).getFullYear()})` : ''} `}</p>

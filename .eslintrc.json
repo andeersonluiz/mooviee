@@ -15,8 +15,12 @@
     "sourceType": "module"
   },
   "rules": {
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-inferrable-types": 1
+    "@typescript-eslint/no-unused-vars": 1,
+    "@typescript-eslint/no-inferrable-types": 1,
+    "@typescript-eslint/no-non-null-asserted-optional-chain": 0,
+    "no-unsafe-optional-chaining": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "@typescript-eslint/no-explicit-any": 0
   },
-  "plugins": ["@typescript-eslint", "jest", "prettier"]
+  "plugins": ["@typescript-eslint", "jest"]
 }

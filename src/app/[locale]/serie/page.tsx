@@ -5,6 +5,7 @@ import HeaderMobileComponent from '@/components/header-mobile/header-mobile-comp
 import HeaderComponent from '@/components/header/header-component';
 import ArrowDownIcon from '@/components/icon/arrow-down-icon';
 import ArrowUpIcon from '@/components/icon/arrow-up-icon';
+import LoadingPage from '@/components/loading/loading-page';
 import MediaTile from '@/components/secondary-content/child/media-tile';
 import useResize from '@/hooks/resize';
 import { Serie } from '@/modules/data/model/serie-list';
@@ -33,8 +34,7 @@ const SeriePage: React.FC = () => {
   const [isLoadingFilter, setIsLoadingFilter] =
     useState(true);
   const [loadMore, setLoadMore] = useState(false);
-  const [isLoadingMoreData, setIsLoadingMoreData] =
-    useState(false);
+
   const [selected, setSelected] = useState(0);
   const [desc, setDesc] = useState(true);
   const router = useRouter();
@@ -52,9 +52,7 @@ const SeriePage: React.FC = () => {
     setIsLoadingFilter(true);
     page.current = 2;
     isEnd.current = false;
-    console.log(
-      `search page number:${page}, filter: ${filter.current}, desc:${desc} `
-    );
+
     try {
       const [resultFirstPage, resultSecondPage] =
         await Promise.all([
@@ -116,8 +114,6 @@ const SeriePage: React.FC = () => {
 
   useEffect(() => {
     if (loadMore && !isEnd.current) {
-      console.log('loading data....');
-      setIsLoadingMoreData(true);
       const loadMoreData = async () => {
         page.current = page.current + 1;
 
@@ -139,12 +135,16 @@ const SeriePage: React.FC = () => {
             ...result?.results!,
           ])
         );
-        setIsLoadingMoreData(false);
         setLoadMore(false);
       };
       loadMoreData();
     }
   }, [loadMore]);
+
+  if (isLoading) {
+    return <LoadingPage selectedIndex={2} />;
+  }
+
   return (
     <div className='flex min-h-screen flex-col'>
       {userAgentInfo.isMobile ? (
@@ -153,7 +153,7 @@ const SeriePage: React.FC = () => {
         <HeaderComponent selectedIndex={2} />
       )}
       <main
-        className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex flex-1 flex-col transition-opacity duration-300`}
+        className={`flex flex-1 flex-col transition-opacity duration-300`}
       >
         {series != null ? (
           <>

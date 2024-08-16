@@ -12,6 +12,7 @@ const useResize = () => {
 
     const handleResize = async () => {
       const deviceType = await getDeviceType();
+
       if (
         JSON.stringify(deviceType) !=
         JSON.stringify(userAgentInfo)

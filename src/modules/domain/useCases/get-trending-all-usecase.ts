@@ -9,7 +9,7 @@ export default class GetTrendingAllUseCase {
   async execute(
     locale: string,
     type: TrendingType,
-    page: number = 1
+    page = 1
   ) {
     return this.movieAndTvShowRepository.getTrendingAll(
       locale,

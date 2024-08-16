@@ -8,7 +8,6 @@ import { useTranslations } from 'next-intl';
 import {
   useContext,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -49,16 +48,6 @@ const DialogChild = ({
   const isMounted = useRef(false);
   const heightHeaderRef = useRef<any>();
   const heightInputRef = useRef<any>();
-  const [dimensions, setDimensions] = useState('');
-
-  useLayoutEffect(() => {
-    if (heightHeaderRef.current && heightInputRef.current) {
-      const value =
-        heightHeaderRef.current.offsetHeight +
-        heightHeaderRef.current.offsetHeight;
-      setDimensions('h-[calc(100%-' + value + 'px)]');
-    }
-  }, []);
 
   useEffect(() => {
     if (debouncerValue) {
@@ -112,16 +101,6 @@ const DialogChild = ({
     };
   }, []);
 
-  const handleClick = async (props: any) => {
-    if (isMounted.current) {
-      clearTimeoutManually();
-      setIsOpen(false);
-      await new Promise((resolve) =>
-        setTimeout(resolve, 300)
-      );
-      props.close();
-    }
-  };
   return (
     <Modal className={``}>
       <Dialog>

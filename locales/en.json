@@ -88,10 +88,37 @@
     "next-week": "Episodes in next week",
     "now-playing": "In the theaters"
   },
+  "castList": {
+    "cast": "Cast",
+    "crew": "Crew",
+    "noCrewInfo": "No has crew for this media",
+    "noCastInfo": "No has cast for this media",
+    "character": "Character: ",
+    "department": "Department: ",
+    "episodes": "Total episodes: ",
+    "Acting": "Acting",
+    "Actors": "Actors",
+    "Art": "Art",
+    "Camera": "Camera",
+    "Costume & Make-Up": "Costume & Make-Up",
+    "Creator": "Creator",
+    "Crew": "Crew",
+    "Directing": "Directing",
+    "Editing": "Editing",
+    "Lighting": "Lighting",
+    "Production": "Production",
+    "Sound": "Sound",
+    "Visual Effects": "Visual Effects",
+    "Writing": "Writing"
+  },
   "footer": {
     "description": "Movieee. Developed by Anderson Luiz. All rights reserved.",
     "contact": "Contact: ",
     "followMe": "Follow-me: "
+  },
+  "notFoundPage": {
+    "title": "Page Not Found",
+    "notFound": "Requested page not found."
   },
   "status": {
     "ReturningSeries": "Returning Series",

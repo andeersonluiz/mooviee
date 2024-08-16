@@ -20,7 +20,7 @@ const InfosMovie = ({ movie }: { movie: MovieInfo }) => {
             {movie.genres!.map((item) => (
               <div
                 key={item.name}
-                className='h-fit w-fit cursor-pointer rounded-lg border-1 border-slate-200 p-[6px] text-sm text-slate-200 hover:border-gray-400 hover:bg-gray-600'
+                className='h-fit w-fit cursor-default rounded-lg border-1 border-slate-200 p-[6px] text-sm text-slate-200'
               >
                 {item.name}
               </div>

@@ -11,7 +11,7 @@ export default class GetSeriesAllUseCase {
     locale: string,
     type: SerieFilterType,
     desc: boolean,
-    page: number = 1
+    page = 1
   ) {
     return await this.moviesAndShowsRepository.getSeriesAll(
       locale,

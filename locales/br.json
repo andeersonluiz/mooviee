@@ -88,10 +88,37 @@
     "next-week": "Episódios nessa semana",
     "now-playing": "Nos cinemas"
   },
+  "castList": {
+    "cast": "Elenco",
+    "crew": "Equipe técnica",
+    "noCrewInfo": "Não há equipe técnica para esta mídia",
+    "noCastInfo": "Não há elenco para esta mídia",
+    "character": "Personagem: ",
+    "department": "Departamento: ",
+    "episodes": "Total de episódios: ",
+    "Acting": "Atuação",
+    "Actors": "Atores",
+    "Art": "Arte",
+    "Camera": "Câmera",
+    "Costume & Make-Up": "Figurino e maquiagem",
+    "Creator": "Criação",
+    "Crew": "Equipe técnica",
+    "Directing": "Diretor(a)",
+    "Editing": "Edição",
+    "Lighting": "Iluminação",
+    "Production": "Produção",
+    "Sound": "Sonoplastia",
+    "Visual Effects": "Efeitos Visuais",
+    "Writing": "Roteirização"
+  },
   "footer": {
     "description": "Movieee. Desenvolvido por Anderson Luiz. Todos os direitos reservados.",
     "contact": "Contato: ",
     "followMe": "Siga-me: "
+  },
+  "notFoundPage": {
+    "title": "Página não encontrada",
+    "notFound": "Página solicitada não encontrada."
   },
   "status": {
     "ReturningSeries": "Retornando",

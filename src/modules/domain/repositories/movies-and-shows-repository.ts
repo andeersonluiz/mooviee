@@ -1,4 +1,5 @@
 'use client';
+
 import { CollectionInfo } from '@/modules/data/model/collection-info';
 import { CollectionList } from '@/modules/data/model/collection-list';
 import { Leaderboarder } from '@/modules/data/model/leaderboard';
@@ -48,7 +49,6 @@ export interface MoviesAndShowsRepository {
     locale: string,
     type: SerieFilterType,
     page: number,
-
     desc: boolean
   ): Promise<SerieList | null>;
 

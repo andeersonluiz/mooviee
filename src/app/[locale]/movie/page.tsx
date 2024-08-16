@@ -5,6 +5,7 @@ import HeaderMobileComponent from '@/components/header-mobile/header-mobile-comp
 import HeaderComponent from '@/components/header/header-component';
 import ArrowDownIcon from '@/components/icon/arrow-down-icon';
 import ArrowUpIcon from '@/components/icon/arrow-up-icon';
+import LoadingPage from '@/components/loading/loading-page';
 import MediaTile from '@/components/secondary-content/child/media-tile';
 import useResize from '@/hooks/resize';
 import { Movie } from '@/modules/data/model/movie-list';
@@ -33,8 +34,7 @@ const MoviePage: React.FC = () => {
   const [isLoadingFilter, setIsLoadingFilter] =
     useState(true);
   const [loadMore, setLoadMore] = useState(false);
-  const [isLoadingMoreData, setIsLoadingMoreData] =
-    useState(false);
+
   const [selected, setSelected] = useState(0);
   const [desc, setDesc] = useState(true);
   const router = useRouter();
@@ -52,9 +52,7 @@ const MoviePage: React.FC = () => {
     setIsLoadingFilter(true);
     page.current = 2;
     isEnd.current = false;
-    console.log(
-      `search page number:${page}, filter: ${filter.current}, desc:${desc} `
-    );
+
     try {
       const [resultFirstPage, resultSecondPage] =
         await Promise.all([
@@ -72,7 +70,6 @@ const MoviePage: React.FC = () => {
           ),
         ]);
       await new Promise((res) => setTimeout(res, 300));
-      console.log(resultSecondPage);
       const result = [
         ...resultFirstPage?.results!,
         ...resultSecondPage?.results!,
@@ -117,8 +114,6 @@ const MoviePage: React.FC = () => {
 
   useEffect(() => {
     if (loadMore && !isEnd.current) {
-      console.log('loading data....');
-      setIsLoadingMoreData(true);
       const loadMoreData = async () => {
         page.current = page.current + 1;
 
@@ -140,12 +135,16 @@ const MoviePage: React.FC = () => {
             ...result?.results!,
           ])
         );
-        setIsLoadingMoreData(false);
         setLoadMore(false);
       };
       loadMoreData();
     }
   }, [loadMore]);
+
+  if (isLoading) {
+    return <LoadingPage selectedIndex={1} />;
+  }
+
   return (
     <div className='flex min-h-screen flex-col'>
       {userAgentInfo.isMobile ? (
@@ -153,6 +152,7 @@ const MoviePage: React.FC = () => {
       ) : (
         <HeaderComponent selectedIndex={1} />
       )}
+
       <main
         className={`${isLoading ? 'opacity-0' : 'opacity-100'} flex flex-1 flex-col transition-opacity duration-300`}
       >

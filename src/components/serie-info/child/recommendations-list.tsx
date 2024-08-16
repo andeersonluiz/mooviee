@@ -49,7 +49,7 @@ const RecommendationList = ({
             <div
               onMouseEnter={scrollHook.showArrow}
               onClick={scrollHook.handleScrollBack}
-              className={`${!isVisibleBack ? 'hidden' : ''} absolute top-[42%] flex h-[120px] w-[50px] -translate-y-1/2 cursor-pointer justify-center bg-transparent px-2 hover:bg-black hover:bg-opacity-55`}
+              className={`${!isVisibleBack ? 'hidden' : ''} absolute left-4 top-[42%] flex h-[120px] w-[50px] -translate-y-1/2 cursor-pointer justify-center bg-transparent px-2 hover:bg-black hover:bg-opacity-55`}
             >
               <ArrowBackIcon className='size-7 h-[120px] align-middle' />
             </div>

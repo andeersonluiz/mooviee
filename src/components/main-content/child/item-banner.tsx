@@ -13,10 +13,11 @@ const ItemBanner = ({ media }: { media: Result }) => {
   const contextGenre = use(GenreContext)!;
   const genres = contextGenre.listGenres;
   const t_common = useTranslations('common');
+  const t = useTranslations('metadata');
   const [isLoaded, setIsLoaded] = useState(false);
   const userAgentInfo = useUserAgentData();
   const router = useRouter();
-  const locale = window.location.href.split(/\/(en|br)/)[1];
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoaded(true);
@@ -46,7 +47,7 @@ const ItemBanner = ({ media }: { media: Result }) => {
         <button
           onClick={() => {
             router.push(
-              `/${locale}/${isMovie ? 'movie' : 'serie'}/${media.id}`
+              `/${t('language_split')}/${isMovie ? 'movie' : 'serie'}/${media.id}`
             );
           }}
           className='mx-2 my-8 rounded-lg bg-red-600 px-4 py-5 text-sm font-normal text-white transition hover:bg-red-700 focus:outline-none'
