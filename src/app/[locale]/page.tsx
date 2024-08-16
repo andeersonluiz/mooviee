@@ -38,7 +38,7 @@ const MainPage: React.FC = () => {
         await context!.getGenreListUseCase.execute(
           t('language')
         );
-      document.title = `Movieee`;
+      // document.title = `Movieee`;
       setIsLoading(false);
       setListGenres(data);
     };

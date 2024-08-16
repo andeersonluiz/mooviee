@@ -34,9 +34,9 @@ export default function NotFoundPage() {
             ) : (
               <HeaderComponent selectedIndex={-1} />
             )}
-            <p className='flex flex-1 items-center justify-center px-8 text-center text-2xl text-white'>
+            <h1 className='flex flex-1 items-center justify-center px-8 text-center text-2xl text-white'>
               {tNotFound('notFound')}
-            </p>
+            </h1>
           </>
         )}
         {!deviceType && (

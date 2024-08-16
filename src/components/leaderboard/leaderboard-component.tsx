@@ -1,6 +1,5 @@
 import { Leaderboarder } from '@/modules/data/model/leaderboard';
 import { MovieAndTvShowContext } from '@/modules/presentation/provider/movies-tv-show-provider';
-import { useUserAgentData } from '@/modules/presentation/provider/user-agent-provider';
 import { LeaderboardType } from '@/utils/enums';
 import {
   Table,
@@ -29,7 +28,6 @@ const LeaderboardComponent = ({
     useTranslations('leaderboard');
   const itemSelected = useRef<LeaderboardType>(0);
   const [isLoading, setIsLoading] = useState(true);
-  const useAgentData = useUserAgentData();
   const fetchData = async () => {
     const data =
       await context!.getLeaderboardUseCase.execute(

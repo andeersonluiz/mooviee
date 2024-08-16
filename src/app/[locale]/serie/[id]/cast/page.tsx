@@ -86,17 +86,17 @@ const CastListPage: React.FC = () => {
         <main
           className={`flex flex-1 flex-col transition-opacity duration-500`}
         >
-          <p className='p-8 text-center text-4xl font-bold text-white'>
+          <h1 className='p-8 text-center text-4xl font-bold text-white'>
             {tCastList('cast')}:{` ${serie?.name}`}
-          </p>
+          </h1>
 
           <div
             className={`${userAgentData.isDesktop ? 'flex-row' : 'flex-col'} flex h-full`}
           >
             <div className='flex flex-1 flex-col'>
-              <p className='px-12 py-4 text-start text-2xl font-bold text-white'>
+              <h2 className='px-12 py-4 text-start text-2xl font-bold text-white'>
                 {tCastList('cast')}
-              </p>
+              </h2>
 
               <div className='flex flex-wrap py-2'>
                 {serie?.aggregate_credits.cast.length ==
@@ -117,9 +117,9 @@ const CastListPage: React.FC = () => {
             </div>
 
             <div className='flex flex-1 flex-col'>
-              <p className='px-12 py-4 text-start text-2xl font-bold text-white'>
+              <h2 className='px-12 py-4 text-start text-2xl font-bold text-white'>
                 {tCastList('crew')}
-              </p>
+              </h2>
               {listCrewTags.length == 0 ? (
                 <p className='px-12 py-2 text-lg text-white'>
                   {tCastList('noCrewInfo')}

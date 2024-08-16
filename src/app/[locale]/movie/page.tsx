@@ -159,9 +159,9 @@ const MoviePage: React.FC = () => {
         {movies != null ? (
           <>
             <div className={`flex h-full w-full flex-col`}>
-              <div className='px-8 pb-6 pt-8 text-center text-5xl font-bold text-white'>
+              <h2 className='px-8 pb-6 pt-8 text-center text-5xl font-bold text-white'>
                 {tMovieList('movie')}
-              </div>
+              </h2>
               <div className='px-8 pb-3 text-center text-sm font-light text-white'>
                 {tMovieList('sortBy')}
               </div>

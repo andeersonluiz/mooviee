@@ -158,12 +158,12 @@ const SeriePage: React.FC = () => {
         {series != null ? (
           <>
             <div className={`flex h-full w-full flex-col`}>
-              <div className='px-8 pb-6 pt-8 text-center text-5xl font-bold text-white'>
+              <h1 className='px-8 pb-6 pt-8 text-center text-5xl font-bold text-white'>
                 {tSerieList('serie')}
-              </div>
-              <div className='px-8 pb-3 text-center text-sm font-light text-white'>
+              </h1>
+              <h2 className='px-8 pb-3 text-center text-sm font-light text-white'>
                 {tSerieList('sortBy')}
-              </div>
+              </h2>
               <div
                 className={`${userAgentInfo.isDesktop ? 'px-8' : 'px-3'} flex flex-wrap justify-center gap-4`}
               >

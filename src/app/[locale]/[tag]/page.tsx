@@ -217,9 +217,9 @@ const TagPage: React.FC = () => {
         {medias != null ? (
           <>
             <div className={`flex h-full w-full flex-col`}>
-              <div className='px-8 pb-6 pt-8 text-center text-5xl font-bold text-white'>
+              <h1 className='px-8 pb-6 pt-8 text-center text-5xl font-bold text-white'>
                 {tTagList(tag)}
-              </div>
+              </h1>
             </div>
             <div
               ref={listRef}

@@ -10,7 +10,7 @@ const DescriptionMovie = ({
   const tMovieInfo = useTranslations('movieInfo');
   return (
     <div className=''>
-      <p className='px-8 pb-4 pt-8 text-3xl font-bold text-white'>{`${movie.title}${movie.release_date != '' ? ` (${new Date(movie.release_date).getFullYear()})` : ''} `}</p>
+      <h1 className='px-8 pb-4 pt-8 text-3xl font-bold text-white'>{`${movie.title}${movie.release_date != '' ? ` (${new Date(movie.release_date).getFullYear()})` : ''} `}</h1>
       <div className='flex flex-wrap items-center gap-4 px-8'>
         {movie.certification_value && (
           <div className='w-fit rounded-lg border-1 border-slate-200 p-1 text-center text-sm text-slate-200'>
@@ -49,11 +49,11 @@ const DescriptionMovie = ({
         )}
       </div>
       <div className='p-8'>
-        <p className='text-slate-200'>
+        <h2 className='text-slate-200'>
           {movie.overview == ''
             ? tMovieInfo('noOverview')
             : movie.overview}
-        </p>
+        </h2>
       </div>
     </div>
   );
