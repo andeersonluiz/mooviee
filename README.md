@@ -38,6 +38,6 @@ Caso tenha alguma dúvida ou deseje entrar em contato, você pode me encontrar e
 
 - [LinkedIn] https://www.linkedin.com/in/anderson-luiz-05b485208
 - [Email] andeersonrocha1998@gmail.com
-- [Url do site] https://mooviee.vercel.app/
+- [Url do site] <a href="https://moovieee.vercel.app/">moovieee.vercel.app</a>
 
 
